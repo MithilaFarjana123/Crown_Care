@@ -127,9 +127,6 @@ class Frag_genarate_complain : Fragment() {
         date()
 
 
-
-
-
         return rootView
     }
 
@@ -222,8 +219,6 @@ class Frag_genarate_complain : Fragment() {
         clickimg = rootView.findViewById<ImageView>(R.id.imgAddDoc)
         imgAddGalary=rootView.findViewById<ImageView>(R.id.imgAddGalary)
         imgDocument =rootView.findViewById<ImageView>(R.id.imgDocument)
-
-
     }
 
 
