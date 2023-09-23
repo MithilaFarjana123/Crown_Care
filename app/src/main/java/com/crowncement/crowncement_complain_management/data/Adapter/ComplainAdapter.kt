@@ -1,0 +1,139 @@
+package com.crowncement.crowncement_complain_management.data.Adapter
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import com.crowncement.crowncement_complain_management.Fragment.Frag_details
+import com.crowncement.crowncement_complain_management.R
+import com.crowncement.crowncement_complain_management.common.Utility
+
+import com.crowncement.crowncement_complain_management.data.Model.Complain
+import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
+import kotlinx.android.synthetic.main.complain_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
+
+
+
+class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.Adapter<ComplainAdapter.MyViewHolder>() {
+    lateinit var mContext: Context
+    private lateinit var onClickListener: OnAdapterItemClickListener
+
+    interface OnAdapterItemClickListener {
+
+        fun OnClick(v: View?, position: Int)
+
+    }
+
+    fun setOnItemClickListener(listener: OnAdapterItemClickListener) {
+        onClickListener = listener
+    }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+
+        val inflater: LayoutInflater = LayoutInflater.from(parent.context)
+        val View = inflater.inflate(R.layout.com_item, parent, false)
+
+        return MyViewHolder(View)
+    }
+
+    @SuppressLint("ResourceAsColor")
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        mContext = holder.itemView.context
+        var visitorposition = complainList[position]
+        //holder.h_solver.text=complainList[position].
+
+        var selectedDate =complainList[position].trnDate
+
+        holder.h_date.text=Utility.changeDateFormat(
+            selectedDate,
+            "yyyy-MM-dd",
+            "MMM dd,yyyy"
+        )
+
+        val st = complainList[position].trnStatus
+        if(st.equals("Open")){
+            holder.h_status.text=st
+            holder.h_status.setTextColor(Color.parseColor("#1d8348"))
+        }else if (st.equals("Done")){
+            holder.h_status.text=st
+            holder.h_status.setTextColor(Color.parseColor("#c0392b"))
+
+        }else{
+            holder.h_status.text=st
+            holder.h_status.setTextColor(R.color.red)
+        }
+      //  holder.h_status.text=complainList[position].trnStatus
+        holder.h_title.text = complainList[position].reqTitle
+
+        val p = complainList[position].follwAct.size-1
+        holder.h_solver.text=complainList[position].follwAct[p].repToName
+
+
+
+/*
+        holder.details.setOnClickListener(object :View.OnClickListener{
+
+            override fun onClick(p0: View?) {
+                val activity = p0?.context as AppCompatActivity
+                val demofragment = Frag_details()
+                activity.supportFragmentManager.beginTransaction().replace(R.id.history_fragment,demofragment)
+                    .addToBackStack(null).commit()
+            }
+
+        })
+
+ */
+
+
+        holder.itemView.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View?) {
+                val activity = view?.context as AppCompatActivity
+                val demofragment = Frag_details()
+
+                // Create a Bundle to hold the position value
+                val bundle = Bundle()
+                bundle.putInt("position", holder.adapterPosition) // Assuming adapterPosition holds the position
+
+                // Attach the Bundle to the fragment
+                demofragment.arguments = bundle
+
+                // Replace the current fragment with the destination fragment
+                activity.supportFragmentManager.beginTransaction()
+                    .replace(R.id.history_fragment, demofragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        })
+
+
+    }
+
+    override fun getItemCount(): Int {
+        return complainList.size
+    }
+
+
+    class MyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
+        val h_status = itemView.findViewById<TextView>(R.id.h_status)
+        val h_date =itemView.findViewById<TextView>(R.id.h_date)
+        val h_title=itemView.findViewById<TextView>(R.id.h_title)
+        val h_solver = itemView.findViewById<TextView>(R.id.h_solver)
+     //   val details = itemView.findViewById<TextView>(R.id.h_details)
+
+
+    }
+
+}
+
+
+
+

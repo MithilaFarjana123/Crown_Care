@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="50dp"
+    android:background="#f8f9f9"
+    android:id="@+id/history_fragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.Frag_history">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--    1st    -->
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_weight="0.3"
+                android:layout_width="0dp"
+                android:layout_height="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:drawableLeft="@drawable/baseline_arrow_back_ios_new_24"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="0.5"
+                android:layout_width="0dp"
+                android:layout_height="30dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:text="Complain History"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="0.3"
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:layout_height="30dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/human"
+                    android:translationZ="10dp"
+                    app:civ_circle_background_color="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+        <!--    2nd    -->
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3">
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Open"
+                        android:focusable="true"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:drawableLeft="@drawable/baseline_fiber_manual_record_24_green"
+                        android:gravity="center"/>
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2">
+
+                    <!--                    <ToggleButton-->
+                    <!--                        android:id="@+id/chkState"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="50dp"-->
+                    <!--                        android:text="Ongoing"-->
+                    <!--                        android:background="@drawable/toggle_selector"-->
+                    <!--                        android:textOff=""-->
+                    <!--                        android:textOn="" />-->
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="0.3">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Done"
+                        android:textSize="18sp"
+                        android:focusable="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:drawableLeft="@drawable/baseline_fiber_manual_record_24"
+                        android:gravity="center"/>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
+
+
+
+
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <!--    3rd    -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/history_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:scrollbars="none"
+                tools:listitem="@layout/com_item" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>
+

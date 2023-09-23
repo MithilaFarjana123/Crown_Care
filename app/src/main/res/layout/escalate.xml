@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_weight="0.7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Please notice the Issue"
+                    android:padding="3dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    />
+
+                <ImageView
+                    android:id="@+id/EscActionCancel"
+                    android:layout_weight="0.3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/baseline_clear_24"/>
+
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Md.Abdur Rahman is waiting for your decision "
+                android:textSize="13sp"
+                android:padding="3dp"
+                android:layout_marginLeft="20dp"
+
+                />
+
+
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="30dp"
+                >
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:src="@drawable/communication"/>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:text="  Mention your Reason "
+                            android:layout_marginLeft="20dp"
+                            android:textColor="@color/black"/>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/black"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"/>
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_margin="20dp"
+                            tools:ignore="MissingConstraints">
+
+                            <EditText
+                                android:id="@+id/EscReason"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="10dip"
+                                android:hint="write down your reason "
+                                android:inputType="textMultiLine"
+                                android:gravity="top|left"
+                                android:background="@drawable/rounded_edittext"
+                                />
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnEscActSub"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Submit"
+                            app:cornerRadius="0dp"
+                            app:strokeColor="@color/black" />
+
+                    </LinearLayout>
+
+
+                </ScrollView>
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/layoutNum"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:layout_marginRight="10dp"-->
+<!--                    app:boxStrokeErrorColor="@color/orange"-->
+<!--                    app:endIconMode="clear_text"-->
+<!--                    app:errorIconTint="@color/orange"-->
+<!--                    app:errorTextColor="@color/orange"-->
+<!--                    app:startIconDrawable="@drawable/baseline_border_color_24">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/escalate"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@color/transparent"-->
+<!--                        android:hint="Write down the reason"-->
+<!--                        android:singleLine="false" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+
+
+
+            </LinearLayout>
+
+
+
+            </ScrollView>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

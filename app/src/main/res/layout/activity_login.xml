@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.Act_Login">
+
+
+    <View
+        android:layout_weight="0.1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+    <ImageView
+        android:layout_weight="0.3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/customer_service"/>
+
+<!--    <LinearLayout-->
+<!--        android:layout_weight="0.1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <TextView-->
+<!--            android:layout_weight="0.5"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:text="Welcome To Crown care"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:textSize="20sp"/>-->
+
+<!--        <TextView-->
+<!--            android:layout_weight="0.5"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:text="Please login with your following details"-->
+<!--            android:textStyle="bold"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:textSize="14sp"/>-->
+
+<!--    </LinearLayout>-->
+
+
+
+    <View
+        android:layout_weight="0.1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+
+<LinearLayout
+    android:layout_weight="0.6"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutEmpId"
+        style="@style/BaseEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="11"
+        app:endIconMode="clear_text"
+        app:endIconTint="#2874a6"
+        app:startIconDrawable="@drawable/baseline_account_circle_24"
+        app:startIconTint="#2874a6">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtEMPID"
+            android:digits="E-0123456789"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="EMPID"
+            android:inputType="number"
+            android:maxLength="11"
+            android:singleLine="true"
+            />
+        <!--        android:textColorHint="@color/white"-->
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/laypass"
+        style="@style/BaseEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:endIconMode="password_toggle"
+        app:endIconTint="#2874a6"
+        app:passwordToggleTint="#2874a6"
+        app:startIconDrawable="@drawable/baseline_password_24"
+        app:startIconTint="#2874a6">
+
+        <!--        app:passwordToggleEnabled="false"-->
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtPass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+        <!--        android:textColorHint="@color/white"-->
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/cbRemember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:buttonTint="#2874a6"
+        android:text="Remember Password"
+        android:textColor="#4E4C4C" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="70dp"
+            android:backgroundTint="#2874a6"
+            android:padding="10dp"
+            android:text="login"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="21dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:text="Forget Password? Click Here To Reset Password"
+            android:textAllCaps="false" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+</LinearLayout>

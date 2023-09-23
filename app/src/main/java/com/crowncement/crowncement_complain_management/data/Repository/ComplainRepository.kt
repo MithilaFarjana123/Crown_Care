@@ -1,0 +1,210 @@
+package com.crowncement.crowncement_complain_management.data.Repository
+
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import com.crowncement.crowncement_complain_management.common.Resource
+import com.crowncement.crowncement_complain_management.common.API.GetDataService
+import com.crowncement.crowncement_complain_management.common.API.RetrofitClientInstance
+import com.crowncement.crowncement_complain_management.data.Model.*
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
+
+
+object ComplainRepository {
+
+
+    //TODO getDepartment
+    fun getSavedDepartment(): MutableLiveData<Resource<DepartmentResponce>> {
+
+        val appInfo: MutableLiveData<Resource<DepartmentResponce>> =
+            MutableLiveData<Resource<DepartmentResponce>>()
+
+
+        try {
+            val service: GetDataService = RetrofitClientInstance.retrofitInstance.create(
+                GetDataService::class.java
+            )
+            service.savedDepartment()
+                ?.toObservable()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(
+                    { response ->
+                        appInfo.postValue(Resource.success(response))
+
+                    },
+                    { error ->
+                        appInfo.postValue(Resource.error(error.message.toString(), null))
+
+                    },
+                )
+
+        } catch (e: Exception) {
+            Log.e("ComplainRepository", "ERROR : " + e.message)
+        }
+        return appInfo
+    }
+
+//Todo get incident/inquiry category
+    fun getSavedInCategory(doc_cat:String,dept:String): MutableLiveData<Resource<CategoryResponce>> {
+
+
+    val doc_cat = RequestBody.create("application/json".toMediaTypeOrNull(), doc_cat)
+    val dept = RequestBody.create("application/json".toMediaTypeOrNull(), dept)
+        val appInfo: MutableLiveData<Resource<CategoryResponce>> =
+            MutableLiveData<Resource<CategoryResponce>>()
+
+
+        try {
+            val service: GetDataService = RetrofitClientInstance.retrofitInstance.create(
+                GetDataService::class.java
+            )
+        service.getInCategory(doc_cat,dept)
+            ?.toObservable()
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe(
+                { response ->
+                    appInfo.postValue(Resource.success(response))
+
+                },
+                { error ->
+                    appInfo.postValue(Resource.error(error.message.toString(), null))
+
+                },
+            )
+
+    } catch (e: Exception) {
+        Log.e("ComplainRepository", "ERROR : " + e.message)
+    }
+    return appInfo
+}
+
+    //Todo title
+
+    fun getSavedTitle(doc_cat:String,dept:String, trn_parent:String): MutableLiveData<Resource<TitleResponce>> {
+
+
+        val doc_cat = RequestBody.create("application/json".toMediaTypeOrNull(), doc_cat)
+        val dept = RequestBody.create("application/json".toMediaTypeOrNull(), dept)
+        val  trn_parent = RequestBody.create("application/json".toMediaTypeOrNull(), trn_parent)
+        val appInfo: MutableLiveData<Resource<TitleResponce>> =
+            MutableLiveData<Resource<TitleResponce>>()
+
+
+        try {
+            val service: GetDataService = RetrofitClientInstance.retrofitInstance.create(
+                GetDataService::class.java
+            )
+            service.getTitle(doc_cat,dept,trn_parent)
+                ?.toObservable()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(
+                    { response ->
+                        appInfo.postValue(Resource.success(response))
+
+                    },
+                    { error ->
+                        appInfo.postValue(Resource.error(error.message.toString(), null))
+
+                    },
+                )
+
+        } catch (e: Exception) {
+            Log.e("ComplainRepository", "ERROR : " + e.message)
+        }
+        return appInfo
+    }
+
+
+    //Todo imageupload
+    fun getImageUpload(
+        party_code: String,
+        party_type: String,
+        doc_type: String,
+        doc_ext: String,
+        all_images: File
+    ): MutableLiveData<Resource<ImageResponce>> {
+        val party_code = RequestBody.create("application/json".toMediaTypeOrNull(), party_code)
+        val party_type = RequestBody.create("application/json".toMediaTypeOrNull(), party_type)
+        val doc_type = RequestBody.create("application/json".toMediaTypeOrNull(), doc_type)
+        val doc_ext = RequestBody.create("application/json".toMediaTypeOrNull(), doc_ext)
+        //   val all_images = RequestBody.create("application/json".toMediaTypeOrNull(), all_images)
+        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), all_images)
+
+        val userImage: MultipartBody.Part =
+            MultipartBody.Part.createFormData("all_images", all_images.name, requestFile)
+
+        val appInfo: MutableLiveData<Resource<ImageResponce>> =
+            MutableLiveData<Resource<ImageResponce>>()
+
+        try {
+            val service: GetDataService = RetrofitClientInstance.retrofitInstance.create(
+                GetDataService::class.java
+            )
+            service.visitorImageUpload(party_code, party_type,doc_type,doc_ext,userImage)
+                ?.toObservable()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(
+                    { response ->
+                        appInfo.postValue(Resource.success(response))
+                    },
+                    { error -> //
+                        appInfo.postValue(Resource.error(error.message.toString(), null))
+
+                    },
+                )
+
+        } catch (e: Exception) {
+            Log.e("Complain Repository", "ERROR : " + e.message)
+        }
+        return appInfo
+    }
+
+
+    //Todo get Saved complain
+    fun getSavedComplain(
+        user_id: String,
+        curr_yr: String,
+        curr_mon: String
+    ): MutableLiveData<Resource<GetComplainResponse>> {
+        val user_id = RequestBody.create("application/json".toMediaTypeOrNull(), user_id)
+        val curr_yr = RequestBody.create("application/json".toMediaTypeOrNull(), curr_yr)
+        val curr_mon = RequestBody.create("application/json".toMediaTypeOrNull(), curr_mon)
+
+        val appInfo: MutableLiveData<Resource<GetComplainResponse>> =
+            MutableLiveData<Resource<GetComplainResponse>>()
+
+        try {
+            val service: GetDataService = RetrofitClientInstance.retrofitInstance.create(
+                GetDataService::class.java
+            )
+            service.GetComplainedInfo(user_id, curr_yr,curr_mon)
+                ?.toObservable()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(
+                    { response ->
+                        appInfo.postValue(Resource.success(response))
+                    },
+                    { error -> //
+                        appInfo.postValue(Resource.error(error.message.toString(), null))
+
+                    },
+                )
+
+        } catch (e: Exception) {
+            Log.e("Complain Repository", "ERROR : " + e.message)
+        }
+        return appInfo
+    }
+
+
+}
+

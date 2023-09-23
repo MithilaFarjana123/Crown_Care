@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Crowncement_Complain_management</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Dashboard">Dashboard</string>
+    <string name="Complain">Generate Complain</string>
+    <string name="History">History</string>
+    <string name="Notification">Notification</string>
+    <string name="crown_care">Crown care </string>
+    <string name="developed_by">Developed By</string>
+    <string name="crown_cement">Crown Cement IT</string>
+
+</resources>

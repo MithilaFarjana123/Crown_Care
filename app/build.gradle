@@ -1,0 +1,115 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+//    id 'android-extensions'
+  //  id 'com.google.gms.google-services'
+   // id 'com.google.firebase.crashlytics'
+
+   // id 'android.extensions'
+
+
+}
+
+android {
+    namespace 'com.crowncement.crowncement_complain_management'
+    compileSdk 33
+    defaultConfig {
+        applicationId "com.crowncement.crowncement_complain_management"
+        minSdk 22
+        targetSdk 33
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+    }
+
+    buildFeatures{
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+
+
+
+}
+
+dependencies {
+    var nav_version = "2.7.0"
+
+   // implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:20.1.2'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.3.0'
+    //circle image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Kotlin
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
+
+
+    //serialized name
+    implementation 'com.google.code.gson:gson:2.8.7'
+
+    //multipart
+
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
+
+
+    //RXJava
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
+    //ViewModel
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+    //Lotti Animation
+    implementation 'com.airbnb.android:lottie:4.2.0'
+    //Toast
+    implementation 'com.github.Spikeysanju:MotionToast:1.4'
+
+    //Firebase analytics
+    implementation 'com.google.firebase:firebase-analytics:21.1.0'
+
+    //Firebase messaging services
+    implementation 'com.google.firebase:firebase-messaging:23.0.7'
+
+    //Firebase Database
+    implementation 'com.google.firebase:firebase-database:20.1.0'
+    //crashlytics
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.2'
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
+
+}

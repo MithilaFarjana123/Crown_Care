@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_host_fragment"
+    app:startDestination="@id/frag_dashboard">
+
+
+    <fragment
+        android:id="@+id/frag_dashboard"
+        android:name="com.crowncement.crowncement_complain_management.Fragment.Frag_dashboard"
+        android:label="frag_dashboard"
+        tools:layout="@layout/frag_dashboard" >
+        <action
+            android:id="@+id/action_frag_dashboard_to_frag_genarate_complain"
+            app:destination="@id/frag_genarate_complain" />
+        <action
+            android:id="@+id/action_frag_dashboard_to_frag_history"
+            app:destination="@id/frag_history" />
+        <action
+            android:id="@+id/action_frag_dashboard_to_frag_notification"
+            app:destination="@id/frag_notification" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_genarate_complain"
+        android:name="com.crowncement.crowncement_complain_management.Fragment.Frag_genarate_complain"
+        android:label="frag_genarate_complain"
+        tools:layout="@layout/frag_genarate_complain" />
+    <fragment
+        android:id="@+id/frag_history"
+        android:name="com.crowncement.crowncement_complain_management.Fragment.Frag_history"
+        android:label="frag_history"
+        tools:layout="@layout/frag_history" />
+    <fragment
+        android:id="@+id/frag_notification"
+        android:name="com.crowncement.crowncement_complain_management.Fragment.Frag_notification"
+        android:label="frag_notification"
+        tools:layout="@layout/frag_notification" >
+        <action
+            android:id="@+id/action_frag_notification_to_frag_notificationDetails"
+            app:destination="@id/frag_notificationDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_notificationDetails"
+        android:name="com.crowncement.crowncement_complain_management.Frag_notificationDetails"
+        android:label="frag_notification_details"
+        tools:layout="@layout/frag_notification_details" />
+
+
+</navigation>
