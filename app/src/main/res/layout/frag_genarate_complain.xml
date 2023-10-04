@@ -303,7 +303,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
-                        android:hint="Complainers Number"
+                        android:hint="Person's Name"
                         android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -327,7 +327,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
-                        android:hint="Complainers Number"
+                        android:hint="Person's Number"
                         android:maxLength="11"
                         android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -355,7 +355,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
-                        android:hint="Email address"
+                        android:hint="Person's Email address"
                         android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 

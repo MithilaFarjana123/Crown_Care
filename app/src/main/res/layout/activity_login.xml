@@ -103,7 +103,7 @@
         app:startIconDrawable="@drawable/baseline_password_24"
         app:startIconTint="#2874a6">
 
-        <!--        app:passwordToggleEnabled="false"-->
+
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtPass"

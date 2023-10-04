@@ -78,11 +78,14 @@ class Frag_notificationDetails : Fragment() {
           //  val rGroup = v.findViewById<RadioGroup>(R.id.radioGroup)
 
             // Set a listener for the radio group to handle radio button selections
+            /*
             radioGroup.setOnCheckedChangeListener { _, checkedId ->
                 val radioButton = v.findViewById<RadioButton>(checkedId)
                 val selectedOption = radioButton.text.toString()
                 // Do something with the selected option
             }
+
+             */
             EscActionCancel.setOnClickListener { dialog.hide() }
             btnEscActSub.setOnClickListener { dialog.hide() }
         }

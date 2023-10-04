@@ -81,8 +81,10 @@ interface GetDataService {
         @Part("comp_mob") comp_mob: RequestBody,
         @Part("comp_email") comp_email: RequestBody,
         @Part("req_prior") req_prior: RequestBody,
-        @Part("comp_name" ) comp_name: RequestBody
-    ) : Flowable<SaveResponce>?
+        @Part("comp_name" ) comp_name: RequestBody,
+        @Part("exp_solve_date" ) exp_solve_date: RequestBody
+
+        ) : Flowable<SaveResponce>?
 
 
     //Todo Save complain with Img
@@ -101,7 +103,9 @@ interface GetDataService {
         @Part("req_prior") req_prior: RequestBody,
         @Part("doc_ext") doc_ext: RequestBody,
         @Part all_images: MultipartBody.Part,
-        @Part("doc_ext") comp_name: RequestBody
+        @Part("doc_ext") comp_name: RequestBody,
+        @Part("exp_solve_date") exp_solve_date: RequestBody
+
 
     ) : Flowable<SaveResponce>?
 
@@ -114,6 +118,14 @@ interface GetDataService {
         @Part("curr_yr") cur_date: RequestBody,
         @Part("curr_mon") rep_type: RequestBody
     ): Flowable<GetComplainResponse>?
+
+
+    //Todo GetActivity4App
+    @Multipart
+    @POST("GetActivity4App")
+    fun GetActivity4Solver(
+        @Part("user_id") user_id: RequestBody
+    ) : Flowable<GetActivity4AppResponse>?
 
 }
 

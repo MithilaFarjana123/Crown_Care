@@ -150,6 +150,7 @@ class Act_Login : AppCompatActivity() {
         return Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
     }
 
+
     private fun setupViewModel() {
         viewModel =
             ViewModelProviders.of(this, LoginViewModelFactory()).get(LoginViewModel::class.java)
@@ -173,6 +174,7 @@ class Act_Login : AppCompatActivity() {
                         }
                     }
                 }
+
                 Status.LOADING -> {
 
                 }

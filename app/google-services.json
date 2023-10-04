@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "638987720893",
+    "project_id": "crown-care",
+    "storage_bucket": "crown-care.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638987720893:android:bfd1f7e58cf68cd19f7fd4",
+        "android_client_info": {
+          "package_name": "com.crowncement.crowncement_complain_management"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChxKKwXW5kadJvOWo9aE4AwP1GwUYofu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

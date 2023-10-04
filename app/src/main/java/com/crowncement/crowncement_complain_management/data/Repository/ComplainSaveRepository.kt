@@ -27,7 +27,8 @@ object ComplainSaveRepository {
         comp_mob: String,
         comp_email: String,
         req_prior: String,
-        comp_name:String
+        comp_name:String,
+        exp_solve_date:String
 
 
     ): MutableLiveData<Resource<SaveResponce>> {
@@ -42,6 +43,9 @@ object ComplainSaveRepository {
         val comp_email = RequestBody.create("application/json".toMediaTypeOrNull(), comp_email)
         val req_prior = RequestBody.create("application/json".toMediaTypeOrNull(), req_prior)
         val comp_name = RequestBody.create("application/json".toMediaTypeOrNull(), comp_name)
+        val exp_solve_date = RequestBody.create("application/json".toMediaTypeOrNull(), exp_solve_date)
+
+
         // val regis_info = profile_info.toRequestBody("application/json".toMediaTypeOrNull())
         val appInfo: MutableLiveData<Resource<SaveResponce>> =
             MutableLiveData<Resource<SaveResponce>>()
@@ -51,7 +55,8 @@ object ComplainSaveRepository {
                 GetDataService::class.java
             )
             service.saveNewComPlain(user_id,dept_code,req_cat,req_type,
-                req_title,req_det,occ_date,comp_mob,comp_email,req_prior,comp_name)
+                req_title,req_det,occ_date,comp_mob,comp_email,
+                req_prior,comp_name,exp_solve_date)
                 ?.toObservable()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
@@ -87,7 +92,8 @@ object ComplainSaveRepository {
         req_prior: String,
         doc_ext: String,
         all_images: File,
-        comp_name:String
+        comp_name:String,
+        exp_solve_date:String
 
 
     ): MutableLiveData<Resource<SaveResponce>> {
@@ -104,6 +110,9 @@ object ComplainSaveRepository {
         val doc_ext = RequestBody.create("application/json".toMediaTypeOrNull(), doc_ext)
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), all_images)
         val comp_name=RequestBody.create("application/json".toMediaTypeOrNull(), comp_name)
+        val exp_solve_date=RequestBody.create("application/json".toMediaTypeOrNull(), exp_solve_date)
+
+
         val complainImage: MultipartBody.Part =
             MultipartBody.Part.createFormData("all_images", all_images.name, requestFile)
 
@@ -116,7 +125,8 @@ object ComplainSaveRepository {
                 GetDataService::class.java
             )
             service.saveNewComPlainImg(user_id,dept_code,req_cat,req_type,
-                req_title,req_det,occ_date,comp_mob,comp_email,req_prior,doc_ext,complainImage,comp_name)
+                req_title,req_det,occ_date,comp_mob,comp_email,req_prior,
+                doc_ext,complainImage,comp_name,exp_solve_date)
                 ?.toObservable()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())

@@ -243,51 +243,7 @@ class Frag_genarate_complain : Fragment() {
     }
 
 
-/*
-    public fun clickimage(){
-        clickimg.setOnClickListener{
-            requestPermissions()
-            checkPermissions()
 
-            openCamera()
-        }
-    }
-
- */
-
-/*
-    private fun openCamera() {
-
-        fileType = "CAMERA"
-
-        val fileName = "IMG"
-        val storageDirectory: File = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
-
-        var imageFile: File? = null
-        try {
-
-            imageFile = File.createTempFile(fileName, ".jpg", storageDirectory)
-            currentPhotoPath = imageFile!!.absolutePath
-            val imageUri = FileProvider.getUriForFile(
-                requireContext(),
-                "com.crowncement.crowncement_complain_management.fileprovider",
-                imageFile
-            )
-
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-
-            startActivityForResult(intent, 0)
-
-        } catch (e: IOException) {
-            //e.printStackTrace()
-            Log.e("ERROR", "openCamera: ${e.message}")
-        }
-
-
-    }
-
- */
 
 
     ///doc camera
@@ -697,7 +653,7 @@ class Frag_genarate_complain : Fragment() {
             val comp_email=txtEmail.text.toString()
             val req_prior=txtpriority.text.toString()
             val comp_name= rootView.txtcompname.text.toString()
-            val expdate = rootView.txtExpdate.toString()
+            var exp_solve_date = rootView.txtExpdate.toString()
 
            // saveUIValidation()
 
@@ -720,16 +676,29 @@ class Frag_genarate_complain : Fragment() {
                     occ_date= dt.toString()
                 }
 
+                if(exp_solve_date.equals("")){
+                    exp_solve_date = "2999-12-31"
+                }else{
+
+                    val dt = Utility.changeDateFormat(
+                        txtComdate.text.toString(),
+                        "dd-MMM-yyyy",
+                        "yyyy-MM-dd"
+
+                    )
+                    exp_solve_date= dt.toString()
+                }
+
 
                 if(cardFile.size > 0){
                     saveNewComplainImg(user_id, dept_code, req_cat, req_type,
                         req_title, req_det, occ_date, comp_mob, comp_email, req_prior,"png"
-                                ,finalFile,comp_name,dialog)
+                                ,finalFile,comp_name,exp_solve_date,dialog)
                 }else{
                     saveNewComplain(
                         user_id, dept_code, req_cat, req_type,
                         req_title, req_det, occ_date, comp_mob, comp_email, req_prior,comp_name,
-                        dialog
+                        exp_solve_date,dialog
                     )
 
                 }
@@ -1028,7 +997,8 @@ class Frag_genarate_complain : Fragment() {
 
     private fun saveNewComplain(user_id:String,dept_code:String, req_cat:String,req_type:String,
                                 req_title:String,req_det:String, occ_date:String,comp_mob:String,
-                                comp_email:String,req_prior:String,comp_name:String, dialog: Dialog) {
+                                comp_email:String,req_prior:String,comp_name:String,
+                                exp_solve_date:String,dialog: Dialog) {
         dialog.dismiss()
         loadingAnim = Utility.baseLoadingAnimation(
             requireActivity(),
@@ -1038,7 +1008,7 @@ class Frag_genarate_complain : Fragment() {
         loadingAnim.show()
 
         logsaveNewComModel.getNewComplainData(user_id,dept_code,req_cat,req_type,
-            req_title,req_det,occ_date,comp_mob,comp_email,req_prior,comp_name
+            req_title,req_det,occ_date,comp_mob,comp_email,req_prior,comp_name,exp_solve_date
 
         )?.observe(requireActivity()) {
             when (it.status) {
@@ -1099,6 +1069,7 @@ class Frag_genarate_complain : Fragment() {
                                    doc_ext: String,
                                    all_images: File,
                                    comp_name:String,
+                                   exp_solve_date:String,
                                    dialog: Dialog) {
         dialog.dismiss()
         loadingAnim = Utility.baseLoadingAnimation(
@@ -1109,7 +1080,8 @@ class Frag_genarate_complain : Fragment() {
         loadingAnim.show()
 
         logsaveNewComModel.getNewComplainImgData(user_id,dept_code,req_cat,req_type,
-            req_title,req_det,occ_date,comp_mob,comp_email,req_prior,doc_ext,all_images,comp_name
+            req_title,req_det,occ_date,comp_mob,comp_email,req_prior,doc_ext,
+            all_images,comp_name,exp_solve_date
 
         )?.observe(requireActivity()) {
             when (it.status) {

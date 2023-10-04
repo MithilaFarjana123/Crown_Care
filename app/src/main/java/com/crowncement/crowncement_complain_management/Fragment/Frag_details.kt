@@ -46,7 +46,7 @@ class Frag_details : Fragment() {
 
         getComplainList("E00-005445",currentYear,currentMonth)
 
-
+/*
 
     //todo action taken
         val recyclerView: RecyclerView = rootView.findViewById(R.id.RVsolution)
@@ -67,6 +67,8 @@ class Frag_details : Fragment() {
 
         // Setting the Adapter with the recyclerview
         recyclerView.adapter = adapter
+
+ */
 
 
 

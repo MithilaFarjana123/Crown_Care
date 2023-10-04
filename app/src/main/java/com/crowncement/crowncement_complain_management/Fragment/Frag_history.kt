@@ -51,29 +51,6 @@ class Frag_history : Fragment() {
         val currentMonth = currentDateTime.monthValue.toString()
 
         getComplainList("E00-005445",currentYear,currentMonth)
-        val abc = 10
-
-/*
-        val recyclerView:RecyclerView= rootView.findViewById(R.id.history_recyclerView)
-        // this creates a vertical layout Manager
-        recyclerView.layoutManager = LinearLayoutManager(context)
-
-        // ArrayList of class ItemsViewModel
-        val data = ArrayList<Complain>()
-
-        // This loop will create 20 Views containing
-        // the image with the count of view
-        for (i in 1..20) {
-            data.add(Complain("Item " + i))
-        }
-
-        // This will pass the ArrayList to our Adapter
-        val adapter = ComplainAdapter(data)
-
-        // Setting the Adapter with the recyclerview
-        recyclerView.adapter = adapter
-
- */
 
 
         return rootView

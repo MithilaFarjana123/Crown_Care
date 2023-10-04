@@ -41,6 +41,7 @@ import com.crowncement.crowncement_complain_management.ui.viewmodel.SplashViewMo
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.SplashViewModelFactory
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.act_splash_screen.*
 import kotlinx.android.synthetic.main.layout_no_internet.*
@@ -74,7 +75,7 @@ class Act_Splash_Screen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_splash_screen)
-
+      //  getFCMToke()
         registerReceiver(
             ConnectivityReceiver(),
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
@@ -88,6 +89,9 @@ class Act_Splash_Screen : AppCompatActivity() {
         } catch (e: Exception) {
          //   appPermission()
         }
+        //FirebaseApp.initializeApp(this)
+
+       // getFCMToke()
        // animation()
 
 //privious
@@ -100,7 +104,10 @@ class Act_Splash_Screen : AppCompatActivity() {
 //
 //        }
 
+
     }
+
+
 
 
 
@@ -202,11 +209,11 @@ class Act_Splash_Screen : AppCompatActivity() {
         }
 
     private fun regularTask() {
-     //   setContentView(R.layout.act_splash_screen)
+        setContentView(R.layout.act_splash_screen)
 
 
                 // TODO  GET-----> FCM TOKEN FOR PUSH NOTIFICATION
-             //   getFCMToke()
+                getFCMToke()
                 SplashViewModelFactory()
                 setupViewModel()
 

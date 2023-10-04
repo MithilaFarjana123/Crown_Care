@@ -27,11 +27,12 @@ class ComplainSaveViewModel : ViewModel(){
         comp_mob:String,
         comp_email:String,
         req_prior:String,
-        comp_name:String
+        comp_name:String,
+        exp_solve_date:String
     ): MutableLiveData<Resource<SaveResponce>>? {
 
         NewSaveComplainMutableLiveData = ComplainSaveRepository.getComplainSave(user_id,dept_code,
-            req_cat,req_type,req_title,req_det,occ_date,comp_mob,comp_email,req_prior,comp_name
+            req_cat,req_type,req_title,req_det,occ_date,comp_mob,comp_email,req_prior,comp_name,exp_solve_date
                     )
 
         return NewSaveComplainMutableLiveData
@@ -53,11 +54,13 @@ class ComplainSaveViewModel : ViewModel(){
         req_prior:String,
         doc_ext: String,
         all_images: File,
-        comp_name: String
+        comp_name: String,
+        exp_solve_date:String
     ): MutableLiveData<Resource<SaveResponce>>? {
 
         NewSaveComplainImgMutableLiveData = ComplainSaveRepository.getComplainSaveIMG(user_id,dept_code,
-            req_cat,req_type,req_title,req_det,occ_date,comp_mob,comp_email,req_prior,doc_ext,all_images,comp_name
+            req_cat,req_type,req_title,req_det,occ_date,comp_mob,comp_email,req_prior,doc_ext,
+            all_images,comp_name,exp_solve_date
         )
 
         return NewSaveComplainImgMutableLiveData

@@ -7,3 +7,5 @@ data class SaveResponce(
     @SerializedName("message"        ) var message       : String? = null,
     @SerializedName("notific_status" ) var notificStatus : String? = null
 )
+
+

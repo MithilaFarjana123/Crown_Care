@@ -236,4 +236,12 @@ object Utility {
     }
 
 
+    fun removePreference(context: Context, key: String?) {
+        val preferences = context.getSharedPreferences(context.packageName, Activity.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.remove(key)
+        editor.commit()
+    }
+
+
 }

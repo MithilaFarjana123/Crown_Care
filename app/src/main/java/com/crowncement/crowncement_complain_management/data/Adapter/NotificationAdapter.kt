@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.crowncement.crowncement_complain_management.Fragment.Frag_notificationDetails
 import com.crowncement.crowncement_complain_management.R
 import com.crowncement.crowncement_complain_management.data.Model.Complain
+import com.crowncement.crowncement_complain_management.data.Model.RequestDetails
 import kotlinx.android.synthetic.main.notification_design.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 
-class NotificationAdapter (val notificationList : ArrayList<Complain>) : RecyclerView.Adapter<NotificationAdapter.MyViewHolder>() {
+class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : RecyclerView.Adapter<NotificationAdapter.MyViewHolder>() {
 
 
     lateinit var mContext: Context

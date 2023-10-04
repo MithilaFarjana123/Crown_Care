@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit
 object RetrofitClientInstance {
     lateinit var retrofit: Retrofit
 
+  //  lateinit var retrofit_login: Retrofit
+
     val retrofitInstance: Retrofit
         get() {
             if (!this::retrofit.isInitialized) {
@@ -43,6 +45,39 @@ object RetrofitClientInstance {
             return retrofit
         }
 
+
+
+//    val retrofitInstance_login: Retrofit
+//        get() {
+//            if (!this::retrofit_login.isInitialized) {
+//                val loggingInterceptor = HttpLoggingInterceptor()
+//                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+//                val okHttpClient = OkHttpClient.Builder()
+//                    .readTimeout(60, TimeUnit.SECONDS)
+//                    .connectTimeout(60, TimeUnit.SECONDS)
+//                    .addInterceptor(loggingInterceptor)
+//                    .build()
+//
+////                val headersInterceptor = Interceptor { chain ->
+////                    val requestBuilder = chain.request().newBuilder()
+////                   // requestBuilder.header("Authorization", "Bearer $token")
+////                    chain.proceed(requestBuilder.build())
+////                }
+////                val okHttpClient = OkHttpClient()
+////                    .newBuilder()
+////                    .followRedirects(true)
+////                    .addInterceptor(headersInterceptor)
+////                    .build()
+//
+//                retrofit_login = Retrofit.Builder()
+//                    .baseUrl(Base_URL_Login)
+//                    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .client(okHttpClient)
+//                    .build()
+//            }
+//            return retrofit_login
+//        }
 
 
     val upload_location_retrofitInstance: Retrofit
