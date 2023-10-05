@@ -100,6 +100,9 @@ class Frag_notificationDetails : Fragment() {
         escalate= rootView!!.findViewById<TextView>(R.id.escalate)
     }
 
+
+
+
     fun onRadioButtonClicked(view: View) {
         if (view is RadioButton) {
             // Is the button now checked?

@@ -8,4 +8,8 @@ data class UserInfo(
     @SerializedName("message" ) var message : String? = null,
     @SerializedName("data"    ) var data    : Data?   = Data()
 
+
+
+
+
 )

@@ -9,8 +9,12 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.crowncement.crowncement_complain_management.R
+import com.crowncement.crowncement_complain_management.common.API.Endpoint
 import com.crowncement.crowncement_complain_management.common.Status
+import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Adapter.ComplainAdapter
 import com.crowncement.crowncement_complain_management.data.Adapter.ComplainSolve_Adapter
 import com.crowncement.crowncement_complain_management.data.Adapter.NotificationAdapter
@@ -21,7 +25,9 @@ import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainSolv
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainSolverViewModelFactory
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainViewModelFactory
 import kotlinx.android.synthetic.main.frag_history.*
+import kotlinx.android.synthetic.main.frag_history.view.*
 import kotlinx.android.synthetic.main.frag_notification.*
+import kotlinx.android.synthetic.main.frag_notification.view.*
 
 
 class Frag_notification : Fragment() {
@@ -41,52 +47,45 @@ class Frag_notification : Fragment() {
 
         ComplainSolverViewModelFactory()
         setupViewModel()
+        setImg()
 
+        var id = Utility.getValueByKey(requireActivity(),"username")
 
-
-
-
-        /*
-        val recyclerNView: RecyclerView = view.findViewById(R.id.notification_recyclerView)
-        // this creates a vertical layout Manager
-        recyclerNView.layoutManager = LinearLayoutManager(context)
-
-        // ArrayList of class ItemsViewModel
-        val data = ArrayList<Complain>()
-
-        // This loop will create 20 Views containing
-        // the image with the count of view
-        for (i in 1..20) {
-            data.add(Complain("Item " + i))
+        if (id != null) {
+            getComplainSolverDataList(id)
         }
 
-        // This will pass the ArrayList to our Adapter
-        val adapter = NotificationAdapter(data)
-
-        // Setting the Adapter with the recyclerview
-        recyclerNView.adapter = adapter
-        adapter.setOnItemClickListener(object :
-            NotificationAdapter.OnAdapterItemClickListener {
-
-            override fun CancleItem(v: View?, position: Int) {
-               // val adapter = NotificationAdapter(data)
-
-                // Setting the Adapter with the recyclerview
-               // recyclerNView.adapter = adapter
-               // getCheckoutdone(data[position])
-            }
-
-        })
-
-         */
-
-        getComplainSolverDataList("E11-001795")
+      //  getComplainSolverDataList("E11-001795")
 
 
         return rootView
 
 
     }
+
+    fun setImg(){
+        var img = Utility.getValueByKey(requireActivity(), "user_img").toString()
+
+        if (img.isNotEmpty()) {
+            Glide
+                .with(requireActivity())
+                .load(Endpoint.IMAGE_BASE_URL + img)
+                // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/" + img)
+                .error(R.drawable.human)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                // .placeholder(R.drawable.baseline_no_img)
+                //  .transform(RoundedCorners(30,30.0))
+                .into(rootView.n_userImg)
+
+        } else {
+            rootView.n_userImg.setBackgroundResource(R.drawable.human)
+        }
+    }
+
+
+
 
     private fun setupViewModel() {
         logViewModel =

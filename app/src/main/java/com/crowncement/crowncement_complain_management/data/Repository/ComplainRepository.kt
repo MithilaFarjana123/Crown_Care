@@ -170,13 +170,13 @@ object ComplainRepository {
 
     //Todo get Saved complain
     fun getSavedComplain(
-        user_id: String,
-        curr_yr: String,
-        curr_mon: String
+        user_id: String
+      //  curr_yr: String,
+       // curr_mon: String
     ): MutableLiveData<Resource<GetComplainResponse>> {
         val user_id = RequestBody.create("application/json".toMediaTypeOrNull(), user_id)
-        val curr_yr = RequestBody.create("application/json".toMediaTypeOrNull(), curr_yr)
-        val curr_mon = RequestBody.create("application/json".toMediaTypeOrNull(), curr_mon)
+      //  val curr_yr = RequestBody.create("application/json".toMediaTypeOrNull(), curr_yr)
+      //  val curr_mon = RequestBody.create("application/json".toMediaTypeOrNull(), curr_mon)
 
         val appInfo: MutableLiveData<Resource<GetComplainResponse>> =
             MutableLiveData<Resource<GetComplainResponse>>()
@@ -185,7 +185,7 @@ object ComplainRepository {
             val service: GetDataService = RetrofitClientInstance.retrofitInstance.create(
                 GetDataService::class.java
             )
-            service.GetComplainedInfo(user_id, curr_yr,curr_mon)
+            service.GetComplainedInfo(user_id)
                 ?.toObservable()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())

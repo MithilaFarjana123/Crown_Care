@@ -71,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3">
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +82,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
-                    android:layout_margin="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="5dp">
 
@@ -93,6 +97,7 @@
 
 
                         <TextView
+                            android:id="@+id/txt_userName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -104,7 +109,7 @@
 
 
                         <TextView
-                            android:id="@+id/txtShopOwner"
+                            android:id="@+id/txt_desg_emp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -112,7 +117,7 @@
                             android:textSize="14sp" />
 
                         <TextView
-                            android:id="@+id/txtShopAddress"
+                            android:id="@+id/txt_userDep"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -121,6 +126,7 @@
 
 
                         <TextView
+                            android:id="@+id/txt_ofcAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="15dp"
@@ -133,8 +139,9 @@
                 </androidx.cardview.widget.CardView>
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userImg"
                     android:layout_width="100dp"
-                    android:layout_height="60dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/human"
                     android:translationZ="10dp"
@@ -149,7 +156,6 @@
             android:orientation="vertical"
             android:layout_height="0dp"
             android:layout_weight="0.7">
-
             <include layout="@layout/dashboard_child" />
 
 
@@ -157,7 +163,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp">
-                <include layout="@layout/dashboardchild_underway"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/dashbord_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:scrollbars="none"
+                    android:orientation="horizontal"
+                    tools:listitem="@layout/dashboardchild_underway" />
+
+<!--                <include layout="@layout/dashboardchild_underway"/>-->
 
             </LinearLayout>
 

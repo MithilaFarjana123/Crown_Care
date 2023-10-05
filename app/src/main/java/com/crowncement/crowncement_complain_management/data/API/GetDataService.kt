@@ -114,9 +114,9 @@ interface GetDataService {
     @Multipart
     @POST("GetUserActivity")
     fun GetComplainedInfo(
-        @Part("user_id") user_id: RequestBody,
-        @Part("curr_yr") cur_date: RequestBody,
-        @Part("curr_mon") rep_type: RequestBody
+        @Part("user_id") user_id: RequestBody
+      //  @Part("curr_yr") cur_date: RequestBody,
+       // @Part("curr_mon") rep_type: RequestBody
     ): Flowable<GetComplainResponse>?
 
 

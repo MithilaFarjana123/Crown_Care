@@ -68,12 +68,12 @@ class ComplainViewModel: ViewModel() {
 
     //Todo get Saved complain
     fun getSavedcomplain(
-        user_id: String,
-        curr_yr: String,
-        curr_mon: String
+        user_id: String
+      //  curr_yr: String,
+       // curr_mon: String
     ): MutableLiveData<Resource<GetComplainResponse>>? {
 
-        getsavedComplainMutableLiveData = ComplainRepository.getSavedComplain(user_id, curr_yr,curr_mon)
+        getsavedComplainMutableLiveData = ComplainRepository.getSavedComplain(user_id)
 
         return getsavedComplainMutableLiveData
     }

@@ -11,7 +11,10 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.crowncement.crowncement_complain_management.R
+import com.crowncement.crowncement_complain_management.common.API.Endpoint
 import com.crowncement.crowncement_complain_management.common.Status
 import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Adapter.ComplainSolve_Adapter
@@ -22,6 +25,7 @@ import com.crowncement.crowncement_complain_management.data.Model.GetComplainRes
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainViewModelFactory
 import kotlinx.android.synthetic.main.frag_details.view.*
+import kotlinx.android.synthetic.main.frag_notification.view.*
 import java.time.LocalDateTime
 
 
@@ -40,11 +44,13 @@ class Frag_details : Fragment() {
         rootView = inflater.inflate(R.layout.frag_details, container, false)
         dataReceived = arguments?.getInt("position")!!
         setupViewModel()
+        setImg()
+
         val currentDateTime = LocalDateTime.now()
         val currentYear = currentDateTime.year.toString()
         val currentMonth = currentDateTime.monthValue.toString()
 
-        getComplainList("E00-005445",currentYear,currentMonth)
+        getComplainList("E00-005445")
 
 /*
 
@@ -75,6 +81,26 @@ class Frag_details : Fragment() {
         return rootView
     }
 
+    fun setImg(){
+        var img = Utility.getValueByKey(requireActivity(), "user_img").toString()
+
+        if (img.isNotEmpty()) {
+            Glide
+                .with(requireActivity())
+                .load(Endpoint.IMAGE_BASE_URL + img)
+                // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/" + img)
+                .error(R.drawable.human)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                // .placeholder(R.drawable.baseline_no_img)
+                //  .transform(RoundedCorners(30,30.0))
+                .into(rootView.d_userImg)
+
+        } else {
+            rootView.d_userImg.setBackgroundResource(R.drawable.human)
+        }
+    }
 
 
     private fun setupViewModel() {
@@ -89,12 +115,12 @@ class Frag_details : Fragment() {
 
 
     private fun getComplainList(
-        user_id: String,
-        curr_yr: String,
-        curr_mon: String
+        user_id: String
+     //   curr_yr: String,
+      //  curr_mon: String
 
     ) {
-        logViewModel.getSavedcomplain(user_id, curr_yr,curr_mon)
+        logViewModel.getSavedcomplain(user_id)
             ?.observe(requireActivity()) {
                 when (it.status) {
                     Status.SUCCESS -> {

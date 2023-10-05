@@ -168,6 +168,20 @@ class Act_Login : AppCompatActivity() {
                         if (res.message.equals("Success Message")) {
                             val userData: Data? = res.data
                             saveUserInfo(userData, this)
+                            var user_name= res.data?.userName.toString()
+                            Utility.storeKeyValue(this,"user_name",user_name)
+                            var user_desig= res.data?.userDesig.toString()
+                            Utility.storeKeyValue(this,"user_desig",user_desig)
+                            var user_location= res.data?.userLocation.toString()
+                            Utility.storeKeyValue(this,"user_location",user_location)
+                            var user_dept= res.data?.userDept.toString()
+                            Utility.storeKeyValue(this,"user_dept",user_dept)
+
+                            var img = res.data?.userProfileImagePath.toString()
+                            Utility.storeKeyValue(this,"user_img",img)
+
+
+
                             Utility.sendActivity(this, "MainActivity")
                         } else {
                             Utility.commonToast(this, "Login failed", res.message.toString(), 2)
