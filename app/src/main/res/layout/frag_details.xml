@@ -16,6 +16,7 @@
 
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.1">
@@ -50,6 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Details"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
                         android:textColor="@color/black"/>
@@ -83,6 +85,14 @@
             android:layout_weight="0.9"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,22 +106,98 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
+
+                    <TextView
+                        android:id="@+id/item_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Delivery Time Schedule"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
+
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.2">
+                            android:layout_weight="0.6">
+
+                            <TextView
+                                android:id="@+id/d_oc_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Date "
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:id="@+id/details_more"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3">
 
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="Occurance Date  "
-                                android:textStyle="bold" />
+                                android:layout_height="match_parent"
+                                android:text="more >> "
+                                android:textStyle="bold"
+                                android:textColor="#5dade2"
+                                android:gravity="right"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+
+
+
+
+
+                    <LinearLayout
+                        android:id="@+id/hide_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#CCCCCC"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Expected resolve Date  "
+                                />
 
                         </LinearLayout>
 
@@ -124,7 +210,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:padding="5dp"
                                 android:text=" : "
                                 android:textStyle="bold" />
 
@@ -139,15 +224,21 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:padding="5dp"
                                 android:text="Jun 15,2023"
-                                android:textStyle="bold" />
+                                android:textColor="@color/black"
+                           />
 
                         </LinearLayout>
 
 
                     </LinearLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#CCCCCC"/>
 
 
                     <LinearLayout
@@ -158,14 +249,13 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.2">
+                            android:layout_weight="0.3">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:padding="5dp"
                                 android:text="Number "
-                                android:textStyle="bold" />
+                                 />
 
                         </LinearLayout>
 
@@ -178,7 +268,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:padding="5dp"
                                 android:text=" : "
                                 android:textStyle="bold" />
 
@@ -190,18 +279,25 @@
                             android:layout_weight="0.3">
 
                             <TextView
-                                android:id="@+id/di_num"
+                                android:id="@+id/d_oc_num"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:padding="5dp"
+                                android:textColor="@color/black"
                                 android:text="01757000000"
-                                android:textStyle="bold" />
+                                 />
 
                         </LinearLayout>
 
 
                     </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#CCCCCC"/>
 
 
 
@@ -213,14 +309,13 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.2">
+                            android:layout_weight="0.3">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:padding="5dp"
                                 android:text="Type "
-                                android:textStyle="bold" />
+                               />
 
                         </LinearLayout>
 
@@ -233,7 +328,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:padding="5dp"
                                 android:text=" : "
                                 android:textStyle="bold" />
 
@@ -245,17 +339,25 @@
                             android:layout_weight="0.3">
 
                             <TextView
+                                android:id="@+id/d_oc_type"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:padding="5dp"
+                                android:textColor="@color/black"
                                 android:text="Incident"
-                                android:textStyle="bold" />
+                                 />
 
                         </LinearLayout>
 
 
                     </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#CCCCCC"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -265,14 +367,13 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.2">
+                            android:layout_weight="0.3">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:padding="5dp"
                                 android:text="Category "
-                                android:textStyle="bold" />
+                                 />
 
                         </LinearLayout>
 
@@ -285,7 +386,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:padding="5dp"
                                 android:text=" : "
                                 android:textStyle="bold" />
 
@@ -297,17 +397,25 @@
                             android:layout_weight="0.3">
 
                             <TextView
+                                android:id="@+id/d_oc_category"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:padding="5dp"
+                                android:textColor="@color/black"
                                 android:text="Product Delivery"
-                                android:textStyle="bold" />
+                                 />
 
                         </LinearLayout>
 
 
                     </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#CCCCCC"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -317,14 +425,13 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.2">
+                            android:layout_weight="0.3">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="Title "
-                                android:textStyle="bold" />
+                                android:text="Details "
+                               />
 
                         </LinearLayout>
 
@@ -337,7 +444,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:padding="5dp"
                                 android:text=" : "
                                 android:textStyle="bold" />
 
@@ -352,55 +458,21 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:padding="5dp"
+                                android:textColor="@color/black"
                                 android:text="Delivery Time Schedule"
-                                android:textStyle="bold" />
+                                 />
 
                         </LinearLayout>
-
 
                     </LinearLayout>
 
 
-
-
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="We do not get enough speace when we go there for having our lunch .Please make a schedule for the employee "
-                    android:textStyle="bold" />
-
-            </androidx.cardview.widget.CardView>
-
-
-<!--            <ScrollView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#CCCCCC"/>
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -410,10 +482,60 @@
                             android:textStyle="bold"/>
 
 
-                    </androidx.cardview.widget.CardView>
 
+
+                    </LinearLayout>
+
+
+
+
+
+
+
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/hide2_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/details_goback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" less >>  "
+                android:textColor="#5dade2"
+                android:textStyle="bold"
+                android:gravity="right"
+                android:layout_margin="10dp"
+                />
+
+
+        </LinearLayout>
+
+
+
+            <!--            <ScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+
+
+        </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/action_taken"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -425,6 +547,7 @@
 
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/action_RecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp">
@@ -447,5 +570,7 @@
 
 
     </LinearLayout>
+
+
 
 </FrameLayout>

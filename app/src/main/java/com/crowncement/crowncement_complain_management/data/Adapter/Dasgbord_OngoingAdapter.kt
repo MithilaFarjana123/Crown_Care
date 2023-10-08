@@ -1,11 +1,16 @@
 package com.crowncement.crowncement_complain_management.data.Adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.crowncement.crowncement_complain_management.Fragment.Frag_details
 import com.crowncement.crowncement_complain_management.R
+import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Model.Complain
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
 
@@ -33,11 +38,50 @@ class Dasgbord_OngoingAdapter(val complainList : List<GetComplainData>) : Recycl
 
     override fun onBindViewHolder(holder: Dasgbord_OngoingAdapter.MyViewHolder, position: Int) {
         mContext = holder.itemView.context
+
+
+        var selectedDate =complainList[position].trnDate
+
+        holder.do_comSubDate.text= Utility.changeDateFormat(
+            selectedDate,
+            "yyyy-MM-dd",
+            "MMM dd,yyyy"
+        )
+
+        holder.do_comTitle.text = complainList[position].reqTitle
+        val p = complainList[position].follwAct.size-1
+        holder.do_comHandleby.text=complainList[position].follwAct[p].repToName
+
+        holder.itemView.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View?) {
+                val activity = view?.context as AppCompatActivity
+                val demofragment = Frag_details()
+
+                // Create a Bundle to hold the position value
+                val bundle = Bundle()
+                bundle.putInt("position", holder.adapterPosition) // Assuming adapterPosition holds the position
+
+                // Attach the Bundle to the fragment
+                demofragment.arguments = bundle
+
+                // Replace the current fragment with the destination fragment
+                activity.supportFragmentManager.beginTransaction()
+                    .replace(R.id.dashbord_fragment, demofragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        })
+
+
     }
 
 
 
     class MyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
+
+        val do_comSubDate = itemView.findViewById<TextView>(R.id.do_comSubDate)
+        val do_comTitle = itemView.findViewById<TextView>(R.id.do_comTitle)
+        val do_comHandleby = itemView.findViewById<TextView>(R.id.do_comHandleby)
 
     }
 

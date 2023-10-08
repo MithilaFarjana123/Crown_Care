@@ -40,7 +40,7 @@
                 android:layout_centerInParent="true"
                 android:elevation="5dp"
                 app:lottie_autoPlay="true"
-                app:lottie_rawRes="@raw/splash_screen"
+                app:lottie_rawRes="@raw/complain"
                 tools:ignore="MissingConstraints" />
 
         </LinearLayout>

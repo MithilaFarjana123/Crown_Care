@@ -32,6 +32,7 @@ import kotlinx.android.synthetic.main.frag_history.*
 import kotlinx.android.synthetic.main.frag_history.view.*
 import java.time.LocalDateTime
 import java.time.Year
+import java.util.ArrayList
 
 
 class Frag_history : Fragment() {
@@ -39,6 +40,10 @@ class Frag_history : Fragment() {
 
     lateinit var rootView: View
     lateinit var logViewModel: ComplainViewModel
+
+    lateinit var listForOpen : ArrayList<GetComplainData>
+    lateinit var listForDone:ArrayList<GetComplainData>
+
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -150,13 +155,53 @@ class Frag_history : Fragment() {
 
 
     private fun prepareLogRV(items: java.util.ArrayList<GetComplainData>) {
-        val comlogAdapter = ComplainAdapter(items)
+        listForOpen = ArrayList()
+        listForDone= ArrayList()
+        for (values in items){
+            //  if(values.visitCard.toString().isNotEmpty()&& values.visitOutTime.equals(blank)){
+
+            if(values.trnStatus.equals("Open")){
+                listForOpen.add(values)
+            }else if (values.trnStatus.equals("Done")){
+                listForDone.add(values)
+            }
+        }
+
+
+
+
+
+        val comlogAdapter = ComplainAdapter(listForOpen)
         val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
 
         history_recyclerView.layoutManager = rLayoutmanager
         val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         history_recyclerView.layoutManager = manager
         history_recyclerView.adapter = comlogAdapter
+
+        rootView.h_open.setOnClickListener {
+            val comlogAdapter = ComplainAdapter(listForOpen)
+            val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+
+            history_recyclerView.layoutManager = rLayoutmanager
+            val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            history_recyclerView.layoutManager = manager
+            history_recyclerView.adapter = comlogAdapter
+        }
+
+        rootView.h_Done.setOnClickListener {
+            val comlogAdapter = ComplainAdapter(listForDone)
+            val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+
+            history_recyclerView.layoutManager = rLayoutmanager
+            val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            history_recyclerView.layoutManager = manager
+            history_recyclerView.adapter = comlogAdapter
+        }
+
+
+
+
         /*
             rootView.rvAttendance.addItemDecoration(
                 DividerItemDecoration(

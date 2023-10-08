@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -51,6 +52,10 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
         var visitorposition = complainList[position]
         //holder.h_solver.text=complainList[position].
 
+
+        val p = complainList[position].follwAct.size-1
+        holder.h_solver.text=complainList[position].follwAct[p].repToName
+
         var selectedDate =complainList[position].trnDate
 
         holder.h_date.text=Utility.changeDateFormat(
@@ -58,6 +63,26 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
             "yyyy-MM-dd",
             "MMM dd,yyyy"
         )
+
+
+        var expected_resolv_date = complainList[position].expectedResolvDate
+        holder.h_exp_date.text=Utility.changeDateFormat(
+            expected_resolv_date,
+            "yyyy-MM-dd",
+            "MMM dd,yyyy"
+        )
+
+        var estemated_date_bySolver = complainList[position].follwAct[p].feedbackDate
+        if(estemated_date_bySolver!="2999-12-31"&&estemated_date_bySolver!=""){
+            holder.h_exres_date.text =Utility.changeDateFormat(
+                estemated_date_bySolver,
+                "yyyy-MM-dd",
+                "MMM dd,yyyy"
+            )
+        }else{
+            holder.layEstResolved_by.setVisibility(View.GONE)
+        }
+
 
         val st = complainList[position].trnStatus
         if(st.equals("Open")){
@@ -74,8 +99,9 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
       //  holder.h_status.text=complainList[position].trnStatus
         holder.h_title.text = complainList[position].reqTitle
 
-        val p = complainList[position].follwAct.size-1
-        holder.h_solver.text=complainList[position].follwAct[p].repToName
+        holder.item_heading.text = complainList[position].reqCat + " Info "
+
+
 
 
 
@@ -127,8 +153,11 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
         val h_date =itemView.findViewById<TextView>(R.id.h_date)
         val h_title=itemView.findViewById<TextView>(R.id.h_title)
         val h_solver = itemView.findViewById<TextView>(R.id.h_solver)
-     //   val details = itemView.findViewById<TextView>(R.id.h_details)
+        val h_exp_date = itemView.findViewById<TextView>(R.id.h_exp_date)
+        val h_exres_date = itemView.findViewById<TextView>(R.id.h_exres_date)
+        val item_heading = itemView.findViewById<TextView>(R.id.item_heading)
 
+        val layEstResolved_by = itemView.findViewById<LinearLayout>(R.id.layEstResolved_by)
 
     }
 

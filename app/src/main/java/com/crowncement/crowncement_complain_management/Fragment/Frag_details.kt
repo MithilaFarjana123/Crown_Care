@@ -45,14 +45,19 @@ class Frag_details : Fragment() {
         dataReceived = arguments?.getInt("position")!!
         setupViewModel()
         setImg()
+        hide()
+        show()
 
         val currentDateTime = LocalDateTime.now()
         val currentYear = currentDateTime.year.toString()
         val currentMonth = currentDateTime.monthValue.toString()
 
+
         getComplainList("E00-005445")
 
-/*
+
+
+
 
     //todo action taken
         val recyclerView: RecyclerView = rootView.findViewById(R.id.RVsolution)
@@ -74,11 +79,34 @@ class Frag_details : Fragment() {
         // Setting the Adapter with the recyclerview
         recyclerView.adapter = adapter
 
- */
+
 
 
 
         return rootView
+    }
+
+
+    fun hide(){
+        rootView.hide_details.setVisibility(View.GONE)
+        rootView.hide2_details.setVisibility(View.GONE)
+       // rootView.action_taken.setVisibility(View.GONE)
+     //   rootView.action_RecyclerView.setVisibility(View.GONE)
+        rootView.details_goback.setOnClickListener {
+            rootView.hide_details.setVisibility(View.GONE)
+            rootView.hide2_details.setVisibility(View.GONE)
+            rootView.details_more.setVisibility(View.VISIBLE)
+
+        }
+    }
+
+    fun show(){
+        rootView.details_more.setOnClickListener {
+            rootView.details_more.setVisibility(View.GONE)
+            rootView.hide_details.setVisibility(View.VISIBLE)
+            rootView.hide2_details.setVisibility(View.VISIBLE)
+        }
+
     }
 
     fun setImg(){
@@ -162,11 +190,16 @@ class Frag_details : Fragment() {
 
     private fun successLogList1(res: GetComplainData) {
 
-        rootView.di_num.text= Utility.changeDateFormat(
-            res.trnDate,
+        rootView.item_title.text = res.reqCat.toString()+" Title : "+res.reqTitle.toString()
+
+        rootView.d_oc_date.text= Utility.changeDateFormat(
+            res.reqDate,
             "yyyy-MM-dd",
             "MMM dd,yyyy"
         )
+
+        rootView.d_oc_num.text = res.compMob.toString()
+
 
 
 

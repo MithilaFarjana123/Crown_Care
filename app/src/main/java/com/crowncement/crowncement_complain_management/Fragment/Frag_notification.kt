@@ -50,12 +50,12 @@ class Frag_notification : Fragment() {
         setImg()
 
         var id = Utility.getValueByKey(requireActivity(),"username")
+//
+//        if (id != null) {
+//            getComplainSolverDataList(id)
+//        }
 
-        if (id != null) {
-            getComplainSolverDataList(id)
-        }
-
-      //  getComplainSolverDataList("E11-001795")
+        getComplainSolverDataList("E11-001795")
 
 
         return rootView

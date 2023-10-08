@@ -94,20 +94,27 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1"/>
+
 
                 <LinearLayout
+                    android:id="@+id/h_open"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:orientation="horizontal"
                     android:layout_weight="0.3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"/>
 
 
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.8"
                         android:layout_height="match_parent"
                         android:text="Open"
                         android:focusable="true"
@@ -117,35 +124,51 @@
                         android:drawableLeft="@drawable/baseline_fiber_manual_record_24_green"
                         android:gravity="center"/>
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"/>
 
 
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2">
-
-                    <!--                    <ToggleButton-->
-                    <!--                        android:id="@+id/chkState"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="50dp"-->
-                    <!--                        android:text="Ongoing"-->
-                    <!--                        android:background="@drawable/toggle_selector"-->
-                    <!--                        android:textOff=""-->
-                    <!--                        android:textOn="" />-->
 
                 </LinearLayout>
 
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.2">-->
+
+<!--                    &lt;!&ndash;                    <ToggleButton&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        android:id="@+id/chkState"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        android:layout_height="50dp"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        android:text="Ongoing"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        android:background="@drawable/toggle_selector"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        android:textOff=""&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        android:textOn="" />&ndash;&gt;-->
+
+<!--                </LinearLayout>-->
+
 
                 <LinearLayout
+                    android:id="@+id/h_Done"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
+                    android:orientation="horizontal"
                     android:layout_weight="0.3">
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"/>
+
+
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_weight="0.8"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="Done"
                         android:textSize="18sp"
@@ -155,14 +178,15 @@
                         android:drawableLeft="@drawable/baseline_fiber_manual_record_24"
                         android:gravity="center"/>
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"/>
 
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1"/>
+
 
 
 

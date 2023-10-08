@@ -68,16 +68,15 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                >
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
 
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="11sp"
-                    android:text="Title "/>
+                    android:layout_height="match_parent"
+                    android:text="Title "
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
@@ -126,14 +125,14 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
+                android:layout_weight="0.5"
                 >
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="11sp"
+                    android:textSize="13sp"
                     android:text="Status "/>
 
             </LinearLayout>
@@ -183,14 +182,14 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
+                android:layout_weight="0.5"
                 >
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="11sp"
+                    android:textSize="13sp"
                     android:text="Submited Date "/>
 
             </LinearLayout>
@@ -239,14 +238,14 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
+                android:layout_weight="0.5"
                 >
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="11sp"
+                    android:textSize="13sp"
                     android:text="Expected Solve Date "/>
 
             </LinearLayout>
@@ -297,14 +296,14 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
+                android:layout_weight="0.5"
                 >
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="11sp"
+                    android:textSize="13sp"
                     android:text="Estimated Solve Date "/>
 
             </LinearLayout>
@@ -351,14 +350,14 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
+                android:layout_weight="0.5"
                 >
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="11sp"
+                    android:textSize="13sp"
                     android:text="Submitted To"/>
 
             </LinearLayout>
@@ -381,7 +380,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.6"
                 >
 
                 <TextView
@@ -396,7 +395,7 @@
 
 
             <ImageView
-                android:layout_weight="0.2"
+                android:layout_weight="0.1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/unseen"

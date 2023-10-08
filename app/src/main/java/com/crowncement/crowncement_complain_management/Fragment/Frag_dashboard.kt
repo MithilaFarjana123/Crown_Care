@@ -119,10 +119,6 @@ class Frag_dashboard : Fragment() {
 
 
 
-
-
-
-
     private fun logoutBottomSheet() {
         val v: View = layoutInflater.inflate(R.layout.confirm_logout, null)
         val dialog = BottomSheetDialog(requireContext())
