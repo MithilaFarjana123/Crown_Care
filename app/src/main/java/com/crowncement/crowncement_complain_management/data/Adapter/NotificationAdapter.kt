@@ -26,6 +26,7 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
 
     interface OnAdapterItemClickListener {
         fun CancleItem(v: View?, position: Int)
+        fun OnClick(v: View?, position: Int)
 
       //  fun move(v: View?, position: Int)
     }
@@ -40,6 +41,7 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
         val view = inflater.inflate(R.layout.notification_design, parent, false)
 
         return MyViewHolder(view,onClickListener)
+
     }
 
 
@@ -86,10 +88,13 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
         init {
             itemView.setOnClickListener {
                 listener.CancleItem(itemView, adapterPosition)
+                listener.OnClick(itemView, adapterPosition)
                // itemView.setVisibility(View.GONE)
 
             }
         }
+
+
 
 
 

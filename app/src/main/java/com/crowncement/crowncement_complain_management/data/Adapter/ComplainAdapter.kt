@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import com.crowncement.crowncement_complain_management.common.Utility
 
 import com.crowncement.crowncement_complain_management.data.Model.Complain
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
+import kotlinx.android.synthetic.main.com_item.view.*
 import kotlinx.android.synthetic.main.complain_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,23 +27,28 @@ import java.util.*
 
 class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.Adapter<ComplainAdapter.MyViewHolder>() {
     lateinit var mContext: Context
-    private lateinit var onClickListener: OnAdapterItemClickListener
+  //  private lateinit var onClickListener: OnAdapterItemClickListener
 
+    /*
     interface OnAdapterItemClickListener {
 
         fun OnClick(v: View?, position: Int)
 
     }
 
-    fun setOnItemClickListener(listener: OnAdapterItemClickListener) {
+    fun setOnItemClickListener(listener: ComplainAdapter.OnAdapterItemClickListener) {
         onClickListener = listener
     }
+
+     */
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val View = inflater.inflate(R.layout.com_item, parent, false)
+
+       // return MyViewHolder(View,onClickListener)
 
         return MyViewHolder(View)
     }
@@ -55,6 +62,13 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
 
         val p = complainList[position].follwAct.size-1
         holder.h_solver.text=complainList[position].follwAct[p].repToName
+
+        var seen_Status = complainList[position].follwAct[p].seenStatus
+        if(seen_Status.equals("Yes")){
+
+            holder.seen_status.setImageResource(R.drawable.seen)
+
+        }
 
         var selectedDate =complainList[position].trnDate
 
@@ -105,6 +119,7 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
 
 
 
+
 /*
         holder.details.setOnClickListener(object :View.OnClickListener{
 
@@ -149,15 +164,31 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
 
 
     class MyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
-        val h_status = itemView.findViewById<TextView>(R.id.h_status)
+
+     //   class MyViewHolder (itemView: View,listener: ComplainAdapter.OnAdapterItemClickListener) : RecyclerView.ViewHolder(itemView){
+
+
+            val h_status = itemView.findViewById<TextView>(R.id.h_status)
         val h_date =itemView.findViewById<TextView>(R.id.h_date)
         val h_title=itemView.findViewById<TextView>(R.id.h_title)
         val h_solver = itemView.findViewById<TextView>(R.id.h_solver)
         val h_exp_date = itemView.findViewById<TextView>(R.id.h_exp_date)
         val h_exres_date = itemView.findViewById<TextView>(R.id.h_exres_date)
         val item_heading = itemView.findViewById<TextView>(R.id.item_heading)
+        val seen_status = itemView.findViewById<ImageView>(R.id.seen_status)
 
         val layEstResolved_by = itemView.findViewById<LinearLayout>(R.id.layEstResolved_by)
+
+/*
+        init {
+            itemView.setOnClickListener {
+                listener.OnClick(itemView, adapterPosition)
+
+
+            }
+        }
+
+ */
 
     }
 

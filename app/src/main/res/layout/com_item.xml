@@ -395,9 +395,11 @@
 
 
             <ImageView
+                android:id="@+id/seen_status"
                 android:layout_weight="0.1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:src="@drawable/unseen"
                 />
 

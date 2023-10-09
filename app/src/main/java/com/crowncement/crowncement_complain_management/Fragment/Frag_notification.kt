@@ -21,9 +21,12 @@ import com.crowncement.crowncement_complain_management.data.Adapter.Notification
 import com.crowncement.crowncement_complain_management.data.Model.GetActivity4AppResponse
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
 import com.crowncement.crowncement_complain_management.data.Model.RequestDetails
+import com.crowncement.crowncement_complain_management.data.Model.UpdateSeenStatResponce
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainSolverViewModel
+import com.crowncement.crowncement_complain_management.ui.viewmodel.UpdateSeenStatViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainSolverViewModelFactory
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainViewModelFactory
+import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.UpdateSeenStatViewModelFactory
 import kotlinx.android.synthetic.main.frag_history.*
 import kotlinx.android.synthetic.main.frag_history.view.*
 import kotlinx.android.synthetic.main.frag_notification.*
@@ -35,7 +38,8 @@ class Frag_notification : Fragment() {
 
     lateinit var rootView: View
     lateinit var logViewModel: ComplainSolverViewModel
-
+    lateinit var logUpdateSeenViewModel: UpdateSeenStatViewModel
+    lateinit var id : String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +53,7 @@ class Frag_notification : Fragment() {
         setupViewModel()
         setImg()
 
-        var id = Utility.getValueByKey(requireActivity(),"username")
+         id = Utility.getValueByKey(requireActivity(),"username").toString()
 //
 //        if (id != null) {
 //            getComplainSolverDataList(id)
@@ -93,6 +97,13 @@ class Frag_notification : Fragment() {
                 .get(
                     ComplainSolverViewModel::class.java
                 )
+
+        logUpdateSeenViewModel = ViewModelProviders.of(requireActivity(), UpdateSeenStatViewModelFactory())
+            .get(
+                UpdateSeenStatViewModel::class.java
+            )
+
+
 
     }
 
@@ -163,26 +174,56 @@ class Frag_notification : Fragment() {
                 // getCheckoutdone(data[position])
             }
 
+            override fun OnClick(v: View?, position: Int) {
+              //  UpdateSeenStatData(id,items[position].reqNo.toString())
+                UpdateSeenStatData("E11-001795",items[position].reqNo.toString())
+
+            }
+
         })
-        /*
-            rootView.rvAttendance.addItemDecoration(
-                DividerItemDecoration(
-                    this,
-                    DividerItemDecoration.VERTICAL
-                )
-            )
 
-     */
+    }
 
-        /*
-            itemAdapter.setOnItemClickListener(object :
-                AttendanceReportAdapter.OnAdapterItemClickListener {
-                override fun OnSelectSubMenu(v: View?, position: Int) {
 
+    //Todo UpdateSeenStat
+    private fun UpdateSeenStatData(
+        user_id: String,
+        rq_trn_no: String
+
+    ) {
+        logUpdateSeenViewModel.getUpdateSeenStatData(user_id,rq_trn_no)
+            ?.observe(requireActivity()) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+
+                        it.responseData?.let { res ->
+                            successLog2List(res)
+
+                        }
+
+                    }
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+
+                        // rootView.shimmer_att_container.visibility = View.GONE
+                        // rootView.shimmer_att_container.stopShimmer()
+
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
                 }
-            })
+            }
+    }
 
-     */
+
+    private fun successLog2List(res: UpdateSeenStatResponce) {
+
+        if (res.code == "200") {
+
+
+        }
     }
 
 

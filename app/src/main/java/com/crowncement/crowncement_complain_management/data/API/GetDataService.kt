@@ -127,5 +127,15 @@ interface GetDataService {
         @Part("user_id") user_id: RequestBody
     ) : Flowable<GetActivity4AppResponse>?
 
+
+    //TOdO UpdateSeenStat
+    @Multipart
+    @POST("UpdateSeenStat")
+    fun UpdateSeenStat(
+        @Part("user_id") user_id: RequestBody,
+        @Part("rq_trn_no") rq_trn_no: RequestBody
+
+        ) : Flowable<UpdateSeenStatResponce>?
+
 }
 

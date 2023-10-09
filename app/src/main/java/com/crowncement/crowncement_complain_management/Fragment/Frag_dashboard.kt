@@ -37,6 +37,8 @@ class Frag_dashboard : Fragment() {
 
     lateinit var rootView: View
     lateinit var logViewModel: ComplainViewModel
+    lateinit var listForOpen : ArrayList<GetComplainData>
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -198,7 +200,18 @@ class Frag_dashboard : Fragment() {
 
 
     private fun prepareLogRV(items: java.util.ArrayList<GetComplainData>) {
-        val comlogAdapter = Dasgbord_OngoingAdapter(items)
+        listForOpen = ArrayList()
+        for (values in items){
+            //  if(values.visitCard.toString().isNotEmpty()&& values.visitOutTime.equals(blank)){
+
+            if(values.trnStatus.equals("Open")){
+                listForOpen.add(values)
+            }
+        }
+
+
+
+        val comlogAdapter = Dasgbord_OngoingAdapter(listForOpen)
         val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
 
         dashbord_recyclerView.layoutManager = rLayoutmanager

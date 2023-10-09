@@ -24,6 +24,7 @@ import com.crowncement.crowncement_complain_management.data.Model.GetComplainDat
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainResponse
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainViewModelFactory
+import kotlinx.android.synthetic.main.frag_dashboard.view.*
 import kotlinx.android.synthetic.main.frag_details.view.*
 import kotlinx.android.synthetic.main.frag_notification.view.*
 import java.time.LocalDateTime
@@ -192,17 +193,36 @@ class Frag_details : Fragment() {
 
         rootView.item_title.text = res.reqCat.toString()+" Title : "+res.reqTitle.toString()
 
-        rootView.d_oc_date.text= Utility.changeDateFormat(
+        rootView.d_oc_date.text= "Occurence Date : "+Utility.changeDateFormat(
             res.reqDate,
             "yyyy-MM-dd",
             "MMM dd,yyyy"
         )
 
         rootView.d_oc_num.text = res.compMob.toString()
+        rootView.d_oc_email.text=res.compEmail.toString()
+        rootView.d_oc_type.text=res.reqType.toString()
+        rootView.d_oc_details.text=res.reqDet.toString()
 
+        var documentImg = res.reqImg.toString()
+        if (documentImg.isNotEmpty()){
+            Glide
+                .with(requireActivity())
+                .load(Endpoint.IMAGE_BASE_URL + documentImg)
+                // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/" + img)
+                .error(R.drawable.document)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                // .placeholder(R.drawable.baseline_no_img)
+                //  .transform(RoundedCorners(30,30.0))
+                .into(rootView.d_oc_img)
 
-
+        }else{
+            rootView.d_oc_img.setVisibility(View.GONE)
+        }
 
     }
+
 
 }

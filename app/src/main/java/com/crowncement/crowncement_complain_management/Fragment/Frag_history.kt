@@ -22,9 +22,12 @@ import com.crowncement.crowncement_complain_management.data.Adapter.ComplainAdap
 import com.crowncement.crowncement_complain_management.data.Model.Complain
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainResponse
+import com.crowncement.crowncement_complain_management.data.Model.UpdateSeenStatResponce
 import com.crowncement.crowncement_complain_management.databinding.ActivityMainBinding
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainViewModel
+import com.crowncement.crowncement_complain_management.ui.viewmodel.UpdateSeenStatViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainViewModelFactory
+import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.UpdateSeenStatViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.frag_dashboard.view.*
@@ -40,6 +43,8 @@ class Frag_history : Fragment() {
 
     lateinit var rootView: View
     lateinit var logViewModel: ComplainViewModel
+    lateinit var logUpdateSeenViewModel: UpdateSeenStatViewModel
+
 
     lateinit var listForOpen : ArrayList<GetComplainData>
     lateinit var listForDone:ArrayList<GetComplainData>
@@ -101,6 +106,11 @@ class Frag_history : Fragment() {
                 .get(
                     ComplainViewModel::class.java
                 )
+
+        logUpdateSeenViewModel = ViewModelProviders.of(requireActivity(), UpdateSeenStatViewModelFactory())
+            .get(
+                UpdateSeenStatViewModel::class.java
+            )
 
     }
 
@@ -178,6 +188,26 @@ class Frag_history : Fragment() {
         val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         history_recyclerView.layoutManager = manager
         history_recyclerView.adapter = comlogAdapter
+/*
+        comlogAdapter.setOnItemClickListener(object :
+            ComplainAdapter.OnAdapterItemClickListener {
+
+            override fun OnClick(v: View?, position: Int) {
+                //  getCheckoutdone(listForDone[position].visitLogId.toString())
+                comlogAdapter.setOnItemClickListener(object :
+                    ComplainAdapter.OnAdapterItemClickListener {
+
+                    override fun OnClick(v: View?, position: Int) {
+                        //  getCheckoutdone(listForDone[position].visitLogId.toString())
+                        UpdateSeenStatData(listForOpen.get(position).reqEmp.toString(),
+                            listForOpen.get(position).reqNo.toString()
+                        )
+                    }
+                })
+            }
+        })
+
+ */
 
         rootView.h_open.setOnClickListener {
             val comlogAdapter = ComplainAdapter(listForOpen)
@@ -187,6 +217,20 @@ class Frag_history : Fragment() {
             val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             history_recyclerView.layoutManager = manager
             history_recyclerView.adapter = comlogAdapter
+/*
+            comlogAdapter.setOnItemClickListener(object :
+                ComplainAdapter.OnAdapterItemClickListener {
+
+                override fun OnClick(v: View?, position: Int) {
+                    //  getCheckoutdone(listForDone[position].visitLogId.toString())
+                    UpdateSeenStatData(listForOpen.get(position).reqEmp.toString(),
+                    listForOpen.get(position).reqNo.toString()
+                        )
+                }
+            })
+
+ */
+
         }
 
         rootView.h_Done.setOnClickListener {
@@ -197,35 +241,81 @@ class Frag_history : Fragment() {
             val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             history_recyclerView.layoutManager = manager
             history_recyclerView.adapter = comlogAdapter
+
+            /*
+            comlogAdapter.setOnItemClickListener(object :
+                ComplainAdapter.OnAdapterItemClickListener {
+
+                override fun OnClick(v: View?, position: Int) {
+                    //  getCheckoutdone(listForDone[position].visitLogId.toString())
+                    UpdateSeenStatData(listForDone.get(position).reqEmp.toString(),
+                        listForDone.get(position).reqNo.toString()
+                    )
+                }
+            })
+
+             */
+
         }
 
 
 
 
-        /*
-            rootView.rvAttendance.addItemDecoration(
-                DividerItemDecoration(
-                    this,
-                    DividerItemDecoration.VERTICAL
-                )
-            )
 
-     */
+    }
 
-        /*
-            itemAdapter.setOnItemClickListener(object :
-                AttendanceReportAdapter.OnAdapterItemClickListener {
-                override fun OnSelectSubMenu(v: View?, position: Int) {
 
+    //Todo UpdateSeenStat
+    private fun UpdateSeenStatData(
+        user_id: String,
+        rq_trn_no: String
+
+    ) {
+        logUpdateSeenViewModel.getUpdateSeenStatData(user_id,rq_trn_no)
+            ?.observe(requireActivity()) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+
+                        it.responseData?.let { res ->
+                            successLog2List(res)
+
+                        }
+
+                    }
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+
+                        // rootView.shimmer_att_container.visibility = View.GONE
+                        // rootView.shimmer_att_container.stopShimmer()
+
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
                 }
-            })
+            }
+    }
 
-     */
+
+    private fun successLog2List(res: UpdateSeenStatResponce) {
+
+        if (res.code == "200") {
+
+
+            }
+        }
+
+
     }
 
 
 
 
-}
+
+
+
+
+
 
 
