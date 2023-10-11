@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class GetComplainData(
 
+
     @SerializedName("req_no"               ) var reqNo              : String?             = null,
     @SerializedName("trn_date"             ) var trnDate            : String?             = null,
     @SerializedName("req_emp"              ) var reqEmp             : String?             = null,

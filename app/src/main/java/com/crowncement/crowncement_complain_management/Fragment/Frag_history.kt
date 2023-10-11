@@ -141,7 +141,7 @@ class Frag_history : Fragment() {
                         // rootView.shimmer_att_container.visibility = View.GONE
                         // rootView.shimmer_att_container.stopShimmer()
 
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
+                        Toast.makeText(requireActivity(), it.message, Toast.LENGTH_LONG)
                             .show()
                     }
                 }

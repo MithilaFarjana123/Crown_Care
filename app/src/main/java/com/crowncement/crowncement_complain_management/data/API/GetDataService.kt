@@ -137,5 +137,19 @@ interface GetDataService {
 
         ) : Flowable<UpdateSeenStatResponce>?
 
+    //Todo UpdateAction
+    @Multipart
+    @POST("UpdateAction")
+    fun UpdateAction(
+        @Part("user_id") user_id: RequestBody,
+        @Part("rq_trn_no") rq_trn_no: RequestBody,
+        @Part("rq_trn_row") rq_trn_row: RequestBody,
+        @Part("feedback_date") feedback_date: RequestBody,
+        @Part("feedback_det") feedback_det: RequestBody,
+        @Part("solution_det") solution_det: RequestBody,
+        @Part("action_type") action_type: RequestBody,
+
+        ) : Flowable<UpdateActionResponce>?
+
 }
 

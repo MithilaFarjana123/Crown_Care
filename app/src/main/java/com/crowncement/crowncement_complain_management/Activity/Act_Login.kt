@@ -28,12 +28,13 @@ class Act_Login : AppCompatActivity() {
     private lateinit var viewModel: LoginViewModel
     private lateinit var loadingAnim: Dialog
 
-    private val REQUEST_BACKGROUND_LOCATION = 66
+   // private val REQUEST_BACKGROUND_LOCATION = 66
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        requestBackgroundLocationPermission()
+        //requestBackgroundLocationPermission()
+        regularTask()
     }
 
 
@@ -115,7 +116,7 @@ class Act_Login : AppCompatActivity() {
         })
     }
 
-
+/*
     private fun requestBackgroundLocationPermission() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
             ActivityCompat.requestPermissions(
@@ -127,6 +128,8 @@ class Act_Login : AppCompatActivity() {
             regularTask()
         }
     }
+
+ */
 
 
 
@@ -219,8 +222,7 @@ class Act_Login : AppCompatActivity() {
     }
 
 
-
-
+/*
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -243,6 +245,12 @@ class Act_Login : AppCompatActivity() {
         }
 
     }
+
+ */
+
+
+
+
 
 
 }

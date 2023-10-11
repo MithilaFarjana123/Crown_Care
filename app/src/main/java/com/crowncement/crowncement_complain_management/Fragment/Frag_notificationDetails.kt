@@ -27,6 +27,7 @@ class Frag_notificationDetails : Fragment() {
     lateinit var rootView: View
     lateinit var takeAction : TextView
     lateinit var escalate:TextView
+    var dataReceived=0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +38,7 @@ class Frag_notificationDetails : Fragment() {
 
         rootView = inflater.inflate(R.layout.frag_notification_details, container, false)
         initiate()
+        dataReceived = arguments?.getInt("position")!!
 
 
         takeAction.setOnClickListener {l ->
@@ -74,6 +76,7 @@ class Frag_notificationDetails : Fragment() {
             dialog.setCancelable(true)
             dialog.show()
             onRadioButtonClicked(v)
+
 
           //  val rGroup = v.findViewById<RadioGroup>(R.id.radioGroup)
 

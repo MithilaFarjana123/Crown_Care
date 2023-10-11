@@ -33,7 +33,6 @@ import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Model.DepartmentData
 import com.crowncement.crowncement_complain_management.data.Model.InCategory
 import com.crowncement.crowncement_complain_management.data.Model.Title
-import com.crowncement.crowncement_complain_management.data.Repository.ComplainSaveRepository
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainSaveViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainSaveViewModelfactory
@@ -41,7 +40,6 @@ import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.Compl
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.frag_genarate_complain.*
 import kotlinx.android.synthetic.main.frag_genarate_complain.view.*
 
@@ -635,7 +633,9 @@ class Frag_genarate_complain : Fragment() {
 
         //save
         rootView.btnAddNew.setOnClickListener {
-            val user_id="E00-005445"
+          //  val user_id="E00-005445"
+            var user_id = Utility.getValueByKey(requireActivity(),"username")
+
             val dept_code=txtDep.text.toString()
             val req_cat=txtcat.text.toString()
             val req_type=txtComCat.text.toString()
@@ -652,8 +652,10 @@ class Frag_genarate_complain : Fragment() {
             val comp_mob=txtnum.text.toString()
             val comp_email=txtEmail.text.toString()
             val req_prior=txtpriority.text.toString()
-            val comp_name= rootView.txtcompname.text.toString()
+            val comp_name: String = rootView.txtcompname.text.toString()
             var exp_solve_date = rootView.txtExpdate.toString()
+
+
 
            // saveUIValidation()
 
@@ -691,13 +693,14 @@ class Frag_genarate_complain : Fragment() {
 
 
                 if(cardFile.size > 0){
-                    saveNewComplainImg(user_id, dept_code, req_cat, req_type,
+                    saveNewComplainImg(
+                        user_id.toString(), dept_code, req_cat, req_type,
                         req_title, req_det, occ_date, comp_mob, comp_email, req_prior,"png"
                                 ,finalFile,comp_name,exp_solve_date,dialog)
                 }else{
                     saveNewComplain(
-                        user_id, dept_code, req_cat, req_type,
-                        req_title, req_det, occ_date, comp_mob, comp_email, req_prior,comp_name,
+                        user_id.toString(), dept_code, req_cat, req_type,
+                        req_title, req_det, occ_date, comp_mob, comp_email, req_prior, comp_name,
                         exp_solve_date,dialog
                     )
 
@@ -1056,21 +1059,22 @@ class Frag_genarate_complain : Fragment() {
 
 
     //Todo Save new complain with Img
-    private fun saveNewComplainImg(user_id:String,
-                                   dept_code:String,
-                                   req_cat:String,
-                                   req_type:String,
-                                   req_title:String,
-                                   req_det:String,
-                                   occ_date:String,
-                                   comp_mob:String,
-                                   comp_email:String,
-                                   req_prior:String,
-                                   doc_ext: String,
-                                   all_images: File,
-                                   comp_name:String,
-                                   exp_solve_date:String,
-                                   dialog: Dialog) {
+    private fun saveNewComplainImg(
+        user_id:String,
+        dept_code:String,
+        req_cat:String,
+        req_type:String,
+        req_title:String,
+        req_det:String,
+        occ_date:String,
+        comp_mob:String,
+        comp_email:String,
+        req_prior:String,
+        doc_ext: String,
+        all_images: File,
+        comp_name: String,
+        exp_solve_date:String,
+        dialog: Dialog) {
         dialog.dismiss()
         loadingAnim = Utility.baseLoadingAnimation(
             requireActivity(),

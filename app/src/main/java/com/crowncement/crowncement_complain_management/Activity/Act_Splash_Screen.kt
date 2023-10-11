@@ -87,22 +87,22 @@ class Act_Splash_Screen : AppCompatActivity() {
                 appPermission()
 
         } catch (e: Exception) {
-         //   appPermission()
+            appPermission()
         }
         //FirebaseApp.initializeApp(this)
 
-       // getFCMToke()
+        getFCMToke()
        // animation()
 
 //privious
-//        SplashViewModelFactory()
-//        if (checkPermissions()) {
-//            animation()
-//        }else{
-//            requestPermissions()
-//            animation()
-//
-//        }
+        SplashViewModelFactory()
+        if (checkPermissions()) {
+            animation()
+        }else{
+            requestPermissions()
+            animation()
+
+        }
 
 
     }
@@ -213,8 +213,8 @@ class Act_Splash_Screen : AppCompatActivity() {
 
 
                 // TODO  GET-----> FCM TOKEN FOR PUSH NOTIFICATION
-                getFCMToke()
-                SplashViewModelFactory()
+             //   getFCMToke()
+               // SplashViewModelFactory()
                 setupViewModel()
 
 
