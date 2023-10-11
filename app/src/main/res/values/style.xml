@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="BaseEditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="colorPrimary">#2874a6</item>
-        <item name="colorPrimaryVariant">#2874a6</item>
-        <item name="colorControlHighlight">#2874a6</item>
-        <item name="colorAccent">#2874a6</item>
-        <item name="hintTextColor">#2874a6</item>
-        <item name="boxStrokeColor">#2874a6</item>
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/green</item>
+        <item name="colorControlHighlight">@color/green</item>
+        <item name="colorAccent">@color/green</item>
+        <item name="hintTextColor">@color/green</item>
+        <item name="boxStrokeColor">@color/green</item>
         <item name="errorIconTint">@color/orange</item>
         <item name="android:textColorPrimary">#ABA6A6</item>
         <item name="android:backgroundTint">#FFFFFF</item>

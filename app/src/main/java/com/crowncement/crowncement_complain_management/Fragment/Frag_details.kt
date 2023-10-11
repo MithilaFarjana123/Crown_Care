@@ -93,7 +93,7 @@ class Frag_details : Fragment() {
         rootView.hide2_details.setVisibility(View.GONE)
        // rootView.action_taken.setVisibility(View.GONE)
      //   rootView.action_RecyclerView.setVisibility(View.GONE)
-        rootView.details_goback.setOnClickListener {
+            rootView.details_goback.setOnClickListener {
             rootView.hide_details.setVisibility(View.GONE)
             rootView.hide2_details.setVisibility(View.GONE)
             rootView.details_more.setVisibility(View.VISIBLE)
