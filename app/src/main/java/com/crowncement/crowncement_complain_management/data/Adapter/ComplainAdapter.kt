@@ -27,20 +27,20 @@ import java.util.*
 
 class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.Adapter<ComplainAdapter.MyViewHolder>() {
     lateinit var mContext: Context
-  //  private lateinit var onClickListener: OnAdapterItemClickListener
+    private lateinit var onClickListener: OnAdapterItemClickListener
 
-    /*
+
     interface OnAdapterItemClickListener {
 
         fun OnClick(v: View?, position: Int)
 
     }
 
-    fun setOnItemClickListener(listener: ComplainAdapter.OnAdapterItemClickListener) {
+    fun setOnItemClickListener(listener: OnAdapterItemClickListener) {
         onClickListener = listener
     }
 
-     */
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -48,9 +48,9 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val View = inflater.inflate(R.layout.com_item, parent, false)
 
-       // return MyViewHolder(View,onClickListener)
+        return MyViewHolder(View,onClickListener)
 
-        return MyViewHolder(View)
+      //  return MyViewHolder(View)
     }
 
     @SuppressLint("ResourceAsColor")
@@ -134,7 +134,7 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
 
  */
 
-
+/*
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
                 val activity = view?.context as AppCompatActivity
@@ -155,6 +155,8 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
             }
         })
 
+ */
+
 
     }
 
@@ -163,12 +165,11 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
     }
 
 
-    class MyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
+ //   class MyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
 
-     //   class MyViewHolder (itemView: View,listener: ComplainAdapter.OnAdapterItemClickListener) : RecyclerView.ViewHolder(itemView){
+    class MyViewHolder (itemView: View,listener: OnAdapterItemClickListener) : RecyclerView.ViewHolder(itemView){
 
-
-            val h_status = itemView.findViewById<TextView>(R.id.h_status)
+        val h_status = itemView.findViewById<TextView>(R.id.h_status)
         val h_date =itemView.findViewById<TextView>(R.id.h_date)
         val h_title=itemView.findViewById<TextView>(R.id.h_title)
         val h_solver = itemView.findViewById<TextView>(R.id.h_solver)
@@ -179,7 +180,7 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
 
         val layEstResolved_by = itemView.findViewById<LinearLayout>(R.id.layEstResolved_by)
 
-/*
+
         init {
             itemView.setOnClickListener {
                 listener.OnClick(itemView, adapterPosition)
@@ -188,7 +189,7 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
             }
         }
 
- */
+
 
     }
 

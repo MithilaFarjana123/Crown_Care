@@ -1,11 +1,23 @@
 package com.crowncement.crowncement_complain_management.Fragment
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.provider.OpenableColumns
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +27,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.crowncement.crowncement_complain_management.R
 import com.crowncement.crowncement_complain_management.common.API.Endpoint
+import com.crowncement.crowncement_complain_management.common.FileUtility
+import com.crowncement.crowncement_complain_management.common.ImagePathUtils
 import com.crowncement.crowncement_complain_management.common.Status
 import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Adapter.ComplainSolve_Adapter
@@ -27,6 +41,7 @@ import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.Compl
 import kotlinx.android.synthetic.main.frag_dashboard.view.*
 import kotlinx.android.synthetic.main.frag_details.view.*
 import kotlinx.android.synthetic.main.frag_notification.view.*
+import java.io.File
 import java.time.LocalDateTime
 
 
@@ -35,6 +50,23 @@ class Frag_details : Fragment() {
     lateinit var rootView: View
     lateinit var logViewModel: ComplainViewModel
     var dataReceived=0
+
+    lateinit var finalFile: File
+    var currentPhotoPath = ""
+    var currentPhotoIDPath = ""
+    var fileType = ""
+    lateinit var attachFile: File
+    lateinit var pdfFile: File
+
+    var extension = ""
+
+    lateinit var setActionImage :ImageView
+
+    private val permissionCode = 101
+    val REQUEST_CODE = 200
+
+    lateinit var cardFile: java.util.ArrayList<File>
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +75,7 @@ class Frag_details : Fragment() {
         // Inflate the layout for this fragment
 
         rootView = inflater.inflate(R.layout.frag_details, container, false)
-        dataReceived = arguments?.getInt("position")!!
+        dataReceived = arguments?.getInt("h_position")!!
         setupViewModel()
         setImg()
         hide()
@@ -194,7 +226,11 @@ class Frag_details : Fragment() {
         rootView.item_title.text = res.reqCat.toString()+" Title : "+res.reqTitle.toString()
 
         rootView.d_oc_date.text= "Occurence Date : "+Utility.changeDateFormat(
-            res.reqDate,
+            res.trnDate,
+            "yyyy-MM-dd",
+            "MMM dd,yyyy"
+        )
+        rootView.d_oc_expResolvDate.text=Utility.changeDateFormat(res.expectedResolvDate,
             "yyyy-MM-dd",
             "MMM dd,yyyy"
         )
@@ -223,6 +259,13 @@ class Frag_details : Fragment() {
         }
 
     }
+
+
+
+
+
+
+
 
 
 }

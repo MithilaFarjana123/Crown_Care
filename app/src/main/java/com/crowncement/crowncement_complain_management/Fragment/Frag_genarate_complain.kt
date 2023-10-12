@@ -112,6 +112,7 @@ class Frag_genarate_complain : Fragment() {
             Dialog(requireActivity()),
             "P l e a s e    w a i t"
         )
+        loadingAnim.show()
 
         ComplainViewModelFactory()
         ComplainSaveViewModelfactory()
@@ -537,7 +538,7 @@ class Frag_genarate_complain : Fragment() {
                         departmentList = ArrayList()
                         departmentList = res.data
                         loadDepartment1(txtDepartment, res.data)
-
+                        loadingAnim.dismiss()
                     }
 
                 }
@@ -1026,8 +1027,8 @@ class Frag_genarate_complain : Fragment() {
 
                             Toast.makeText(requireContext(), "successful", Toast.LENGTH_SHORT).show()
                             loadingAnim.dismiss()
-                               // val intent = Intent(requireContext(), Frag_history::class.java)
-                               // startActivity(intent)
+                            val intent = Intent(requireContext(), Frag_history::class.java)
+                            startActivity(intent)
 
                             }
 
@@ -1100,8 +1101,8 @@ class Frag_genarate_complain : Fragment() {
 
                             Toast.makeText(requireContext(), "successful", Toast.LENGTH_SHORT).show()
                             loadingAnim.dismiss()
-                            // val intent = Intent(requireContext(), Frag_history::class.java)
-                            // startActivity(intent)
+                            val intent = Intent(requireContext(), Frag_history::class.java)
+                            startActivity(intent)
 
                         }
 

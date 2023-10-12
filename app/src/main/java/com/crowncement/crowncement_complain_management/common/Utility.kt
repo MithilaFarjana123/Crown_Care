@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.crowncement.crowncement_complain_management.R
 import com.crowncement.crowncement_complain_management.data.Model.Data
+import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
 import com.google.gson.Gson
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
@@ -191,6 +192,15 @@ object Utility {
         val gson = Gson()
         val json = gson.toJson(info)
         mPrefs.putString("UserInfo", json)
+        mPrefs.commit()
+    }
+
+    fun saveCompInfo(info: GetComplainData, activity: Activity) {
+        val mPrefs =
+            activity.getSharedPreferences(activity.packageName, Context.MODE_PRIVATE).edit()
+        val gson = Gson()
+        val json = gson.toJson(info)
+        mPrefs.putString("CompInfo", json)
         mPrefs.commit()
     }
 

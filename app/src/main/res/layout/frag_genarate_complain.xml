@@ -254,7 +254,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
                         android:hint="Details"
-                        android:singleLine="true" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!--Date-->
