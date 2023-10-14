@@ -91,7 +91,7 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
                 .into(holder.itemView.n_img)
         }
 
-
+/*
         holder.itemView.setOnClickListener(object :View.OnClickListener{
             override fun onClick(p0: View?) {
                val activity = p0?.context as AppCompatActivity
@@ -117,6 +117,8 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
 
 
         })
+
+ */
 
 
 

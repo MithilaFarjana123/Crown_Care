@@ -32,19 +32,20 @@ class UpdateSeenStatViewModel: ViewModel() {
 
 
     //Todo save UpdateAction
-    fun getUpdateActionData(
+    fun SaveUpdateActionData(
         user_id:String,
         rq_trn_no:String,
         rq_trn_row:String,
         feedback_date:String,
         feedback_det:String,
         solution_det:String,
-        action_type:String
+        action_type:String,
+        doc_ext:String
     ): MutableLiveData<Resource<UpdateActionResponce>>? {
 
         UpdateActionMutableLiveData =
-            UpdateSeenStatRepository.getUpdateAction(user_id,rq_trn_no
-                    ,rq_trn_row,feedback_date,feedback_det,solution_det,action_type
+            UpdateSeenStatRepository.SaveUpdateAction(user_id,rq_trn_no
+                    ,rq_trn_row,feedback_date,feedback_det,solution_det,action_type,doc_ext
             )
 
         return UpdateActionMutableLiveData

@@ -33,6 +33,7 @@ import com.crowncement.crowncement_complain_management.data.Adapter.ComplainAdap
 import com.crowncement.crowncement_complain_management.data.Model.Data
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainResponse
+import com.crowncement.crowncement_complain_management.data.Model.RequestDetails
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodel.UpdateSeenStatViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainViewModelFactory
@@ -226,6 +227,9 @@ class Frag_history : Fragment() {
             ComplainAdapter.OnAdapterItemClickListener {
 
             override fun OnClick(v: View?, position: Int) {
+
+                val userData: GetComplainData = items.get(position)
+                Utility.savehisCompInfo(userData, requireActivity())
 
                 val activity = view?.context as AppCompatActivity
                 val demofragment = Frag_details()

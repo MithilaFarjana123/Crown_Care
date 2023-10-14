@@ -50,15 +50,15 @@ class ComplainViewModel: ViewModel() {
     }
 
     //Todo Image
-    fun VisitorImageUpload(
+    fun actionImageUpload(
         party_code: String,
         party_type: String,
         doc_type: String,
         doc_ext: String,
-        all_images: File
+        all_images: ArrayList<File>
     ): MutableLiveData<Resource<ImageResponce>>? {
 
-        getImageMutableLiveData = ComplainRepository.getImageUpload(party_code, party_type,doc_type,
+        getImageMutableLiveData = ComplainRepository.complainImageUpload(party_code, party_type,doc_type,
             doc_ext,all_images)
 
         return getImageMutableLiveData

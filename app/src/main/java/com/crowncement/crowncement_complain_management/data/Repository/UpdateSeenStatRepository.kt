@@ -55,14 +55,15 @@ object UpdateSeenStatRepository {
 
 
     //Todo UpdateSeenStat
-    fun getUpdateAction(
+    fun SaveUpdateAction(
         user_id: String,
         rq_trn_no:String,
         rq_trn_row:String,
         feedback_date:String,
         feedback_det:String,
         solution_det:String,
-        action_type:String
+        action_type:String,
+        doc_ext:String
 
         ): MutableLiveData<Resource<UpdateActionResponce>> {
         val user_id = RequestBody.create("application/json".toMediaTypeOrNull(), user_id)
@@ -72,6 +73,7 @@ object UpdateSeenStatRepository {
         val feedback_det = RequestBody.create("application/json".toMediaTypeOrNull(), feedback_det)
         val solution_det = RequestBody.create("application/json".toMediaTypeOrNull(), solution_det)
         val action_type = RequestBody.create("application/json".toMediaTypeOrNull(), action_type)
+        val doc_ext = RequestBody.create("application/json".toMediaTypeOrNull(), doc_ext)
 
 
         val appInfo: MutableLiveData<Resource<UpdateActionResponce>> =
@@ -82,7 +84,7 @@ object UpdateSeenStatRepository {
                 GetDataService::class.java
             )
             service.UpdateAction(user_id,rq_trn_no,rq_trn_row
-            ,feedback_date,feedback_det,solution_det,action_type
+            ,feedback_date,feedback_det,solution_det,action_type,doc_ext
             )
                 ?.toObservable()
                 ?.subscribeOn(Schedulers.io())

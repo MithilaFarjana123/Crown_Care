@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,20 +16,13 @@ import com.crowncement.crowncement_complain_management.R
 import com.crowncement.crowncement_complain_management.common.API.Endpoint
 import com.crowncement.crowncement_complain_management.common.Status
 import com.crowncement.crowncement_complain_management.common.Utility
-import com.crowncement.crowncement_complain_management.data.Adapter.ComplainAdapter
-import com.crowncement.crowncement_complain_management.data.Adapter.ComplainSolve_Adapter
+import com.crowncement.crowncement_complain_management.common.Utility.saveCompInfo
 import com.crowncement.crowncement_complain_management.data.Adapter.NotificationAdapter
-import com.crowncement.crowncement_complain_management.data.Model.GetActivity4AppResponse
-import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
-import com.crowncement.crowncement_complain_management.data.Model.RequestDetails
-import com.crowncement.crowncement_complain_management.data.Model.UpdateSeenStatResponce
+import com.crowncement.crowncement_complain_management.data.Model.*
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainSolverViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodel.UpdateSeenStatViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainSolverViewModelFactory
-import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainViewModelFactory
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.UpdateSeenStatViewModelFactory
-import kotlinx.android.synthetic.main.frag_history.*
-import kotlinx.android.synthetic.main.frag_history.view.*
 import kotlinx.android.synthetic.main.frag_notification.*
 import kotlinx.android.synthetic.main.frag_notification.view.*
 
@@ -118,6 +112,7 @@ class Frag_notification : Fragment() {
                     Status.SUCCESS -> {
 
                         it.responseData?.let { res ->
+
                             successLogList(res)
 
                         }
@@ -154,6 +149,8 @@ class Frag_notification : Fragment() {
 
 
     private fun prepareLogRV(items: java.util.ArrayList<RequestDetails>) {
+
+
         val notificationlogAdapter = NotificationAdapter(items)
         val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
 
@@ -175,8 +172,35 @@ class Frag_notification : Fragment() {
             }
 
             override fun OnClick(v: View?, position: Int) {
-              //  UpdateSeenStatData(id,items[position].reqNo.toString())
+                val userData: RequestDetails = items.get(position)
+                saveCompInfo(userData,requireActivity())
+
                 UpdateSeenStatData("E11-001795",items[position].reqNo.toString())
+
+
+                //  UpdateSeenStatData(id,items[position].reqNo.toString())
+                val activity = view?.context as AppCompatActivity
+                val demofragment = Frag_notificationDetails()
+
+
+
+                // Create a Bundle to hold the position value
+                val bundle = Bundle()
+                bundle.putInt("h_position", position) // Assuming adapterPosition holds the position
+
+                //  val userData: GetComplainData = listToSendAdapter.get(position)
+                // Utility.saveCompInfo(userData, requireActivity())
+
+
+                // Attach the Bundle to the fragment
+                demofragment.arguments = bundle
+
+                // Replace the current fragment with the destination fragment
+                activity.supportFragmentManager.beginTransaction()
+                    .replace(R.id.frag_notification, demofragment)
+                    .addToBackStack(null)
+                    .commit()
+               // UpdateSeenStatData("E11-001795",items[position].reqNo.toString())
 
             }
 
@@ -197,6 +221,7 @@ class Frag_notification : Fragment() {
                     Status.SUCCESS -> {
 
                         it.responseData?.let { res ->
+
                             successLog2List(res)
 
                         }

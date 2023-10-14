@@ -11,15 +11,19 @@ import android.view.*
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.FragmentActivity
 import com.crowncement.crowncement_complain_management.R
 import com.crowncement.crowncement_complain_management.data.Model.Data
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
+import com.crowncement.crowncement_complain_management.data.Model.RequestDetails
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 object Utility {
 
@@ -195,7 +199,14 @@ object Utility {
         mPrefs.commit()
     }
 
-    fun saveCompInfo(info: GetComplainData, activity: Activity) {
+    fun getUserInfo(activity: Activity): Data? {
+        val prefs = activity.getSharedPreferences(activity.packageName, Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = prefs.getString("UserInfo", "")
+        return gson.fromJson(json, Data::class.java)
+    }
+
+    fun saveCompInfo(info: RequestDetails, activity: Activity) {
         val mPrefs =
             activity.getSharedPreferences(activity.packageName, Context.MODE_PRIVATE).edit()
         val gson = Gson()
@@ -203,14 +214,34 @@ object Utility {
         mPrefs.putString("CompInfo", json)
         mPrefs.commit()
     }
-
-
-    fun getUserInfo(activity: Activity): Data? {
+    fun getsaveCompInfo(activity: Activity): RequestDetails? {
         val prefs = activity.getSharedPreferences(activity.packageName, Context.MODE_PRIVATE)
         val gson = Gson()
-        val json = prefs.getString("UserInfo", "")
-        return gson.fromJson(json, Data::class.java)
+        val json = prefs.getString("CompInfo", "")
+      //  val listType = object : TypeToken<ArrayList<RequestDetails>>() {}.type
+        return gson.fromJson(json, RequestDetails::class.java)
     }
+
+
+    fun savehisCompInfo(info: GetComplainData, activity: Activity) {
+        val mPrefs =
+            activity.getSharedPreferences(activity.packageName, Context.MODE_PRIVATE).edit()
+        val gson = Gson()
+        val json = gson.toJson(info)
+        mPrefs.putString("hisCompInfo", json)
+        mPrefs.commit()
+    }
+
+    fun getsavehisCompInfo(activity: Activity): GetComplainData? {
+        val prefs = activity.getSharedPreferences(activity.packageName, Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = prefs.getString("hisCompInfo", "")
+        //  val listType = object : TypeToken<ArrayList<RequestDetails>>() {}.type
+        return gson.fromJson(json, GetComplainData::class.java)
+    }
+
+
+
 
 
     fun noInternetDialog(activity: Activity) {

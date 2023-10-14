@@ -58,7 +58,7 @@ interface GetDataService {
     //Todo for Image
     @Multipart
     @POST("PartyDocUpload")
-    fun visitorImageUpload(
+    fun compImageUpload(
         @Part("party_code") party_code: RequestBody,
         @Part("party_type") party_type: RequestBody,
         @Part("doc_type") doc_type: RequestBody,
@@ -148,6 +148,7 @@ interface GetDataService {
         @Part("feedback_det") feedback_det: RequestBody,
         @Part("solution_det") solution_det: RequestBody,
         @Part("action_type") action_type: RequestBody,
+        @Part("doc_ext") doc_ext: RequestBody
 
         ) : Flowable<UpdateActionResponce>?
 

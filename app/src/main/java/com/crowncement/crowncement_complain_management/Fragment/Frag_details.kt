@@ -32,10 +32,7 @@ import com.crowncement.crowncement_complain_management.common.ImagePathUtils
 import com.crowncement.crowncement_complain_management.common.Status
 import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Adapter.ComplainSolve_Adapter
-import com.crowncement.crowncement_complain_management.data.Model.Complain
-import com.crowncement.crowncement_complain_management.data.Model.FollwAct
-import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
-import com.crowncement.crowncement_complain_management.data.Model.GetComplainResponse
+import com.crowncement.crowncement_complain_management.data.Model.*
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainViewModelFactory
 import kotlinx.android.synthetic.main.frag_dashboard.view.*
@@ -51,19 +48,10 @@ class Frag_details : Fragment() {
     lateinit var logViewModel: ComplainViewModel
     var dataReceived=0
 
-    lateinit var finalFile: File
-    var currentPhotoPath = ""
-    var currentPhotoIDPath = ""
-    var fileType = ""
-    lateinit var attachFile: File
-    lateinit var pdfFile: File
+    lateinit var hiscompdata : GetComplainData
 
-    var extension = ""
 
-    lateinit var setActionImage :ImageView
 
-    private val permissionCode = 101
-    val REQUEST_CODE = 200
 
     lateinit var cardFile: java.util.ArrayList<File>
 
@@ -76,6 +64,7 @@ class Frag_details : Fragment() {
 
         rootView = inflater.inflate(R.layout.frag_details, container, false)
         dataReceived = arguments?.getInt("h_position")!!
+        hiscompdata = Utility.getsavehisCompInfo(requireActivity())!!
         setupViewModel()
         setImg()
         hide()
@@ -86,9 +75,9 @@ class Frag_details : Fragment() {
         val currentMonth = currentDateTime.monthValue.toString()
 
 
-        getComplainList("E00-005445")
+       // getComplainList("E00-005445")
 
-
+        setvalue()
 
 
 
@@ -174,7 +163,7 @@ class Frag_details : Fragment() {
     }
 
 
-
+/*
     private fun getComplainList(
         user_id: String
      //   curr_yr: String,
@@ -241,6 +230,47 @@ class Frag_details : Fragment() {
         rootView.d_oc_details.text=res.reqDet.toString()
 
         var documentImg = res.reqImg.toString()
+        if (documentImg.isNotEmpty()){
+            Glide
+                .with(requireActivity())
+                .load(Endpoint.IMAGE_BASE_URL + documentImg)
+                // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/" + img)
+                .error(R.drawable.document)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                // .placeholder(R.drawable.baseline_no_img)
+                //  .transform(RoundedCorners(30,30.0))
+                .into(rootView.d_oc_img)
+
+        }else{
+            rootView.d_oc_img.setVisibility(View.GONE)
+        }
+
+    }
+
+ */
+
+    fun setvalue(){
+        rootView.item_title.text = hiscompdata.reqCat.toString()+
+                " Title : "+hiscompdata.reqTitle
+
+        rootView.d_oc_date.text= "Occurence Date : "+Utility.changeDateFormat(
+            hiscompdata.trnDate,
+            "yyyy-MM-dd",
+            "MMM dd,yyyy"
+        )
+        rootView.d_oc_expResolvDate.text=Utility.changeDateFormat(hiscompdata.expectedResolvDate,
+            "yyyy-MM-dd",
+            "MMM dd,yyyy"
+        )
+        rootView.d_oc_num.text = hiscompdata.compMob.toString()
+        rootView.d_oc_email.text=hiscompdata.compEmail.toString()
+        rootView.d_oc_type.text=hiscompdata.reqType.toString()
+        rootView.d_oc_details.text=hiscompdata.reqDet.toString()
+
+
+        var documentImg = hiscompdata.reqImg.toString()
         if (documentImg.isNotEmpty()){
             Glide
                 .with(requireActivity())

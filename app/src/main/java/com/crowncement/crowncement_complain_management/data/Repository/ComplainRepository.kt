@@ -123,48 +123,77 @@ object ComplainRepository {
 
 
     //Todo imageupload
-    fun getImageUpload(
+
+    fun complainImageUpload(
         party_code: String,
         party_type: String,
         doc_type: String,
         doc_ext: String,
-        all_images: File
+        all_images: ArrayList<File>
+
     ): MutableLiveData<Resource<ImageResponce>> {
         val party_code = RequestBody.create("application/json".toMediaTypeOrNull(), party_code)
         val party_type = RequestBody.create("application/json".toMediaTypeOrNull(), party_type)
         val doc_type = RequestBody.create("application/json".toMediaTypeOrNull(), doc_type)
-        val doc_ext = RequestBody.create("application/json".toMediaTypeOrNull(), doc_ext)
-        //   val all_images = RequestBody.create("application/json".toMediaTypeOrNull(), all_images)
-        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), all_images)
+        val ext = RequestBody.create("application/json".toMediaTypeOrNull(), doc_ext)
 
-        val userImage: MultipartBody.Part =
-            MultipartBody.Part.createFormData("all_images", all_images.name, requestFile)
 
-        val appInfo: MutableLiveData<Resource<ImageResponce>> =
+        val processImage: ArrayList<MultipartBody.Part> = ArrayList()
+        var requestFile: RequestBody
+        if (all_images.size > 0) {
+            for (item in all_images) {
+                // requestFile = RequestBody.create("application/pdf".toMediaTypeOrNull(), item.absoluteFile)
+                requestFile = if (doc_ext != "pdf") {
+                    RequestBody.create("image/*".toMediaTypeOrNull(), all_images[0])
+                } else {
+                    RequestBody.create("application/pdf".toMediaTypeOrNull(), all_images[0])
+                }
+
+                processImage.add(
+                    MultipartBody.Part.createFormData(
+                        "all_images",
+                        item.name,
+                        requestFile
+                    )
+                )
+            }
+        } else {
+
+            requestFile = RequestBody.create("application/pdf".toMediaTypeOrNull(), "")
+            processImage.add(MultipartBody.Part.createFormData("all_images", "", requestFile))
+        }
+
+        val saveCommonExpense: MutableLiveData<Resource<ImageResponce>> =
             MutableLiveData<Resource<ImageResponce>>()
 
         try {
             val service: GetDataService = RetrofitClientInstance.retrofitInstance.create(
                 GetDataService::class.java
             )
-            service.visitorImageUpload(party_code, party_type,doc_type,doc_ext,userImage)
+            service.compImageUpload(
+                party_code,
+                party_type,
+                doc_type,
+                ext,
+                processImage[0]
+
+            )
                 ?.toObservable()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe(
                     { response ->
-                        appInfo.postValue(Resource.success(response))
+                        saveCommonExpense.postValue(Resource.success(response))
                     },
-                    { error -> //
-                        appInfo.postValue(Resource.error(error.message.toString(), null))
-
+                    { error ->
+                        saveCommonExpense.postValue(Resource.error(error.message.toString(), null))
                     },
                 )
 
         } catch (e: Exception) {
-            Log.e("Complain Repository", "ERROR : " + e.message)
+            Log.e("Complain Repository", "ERROR: " + e.message)
         }
-        return appInfo
+        return saveCommonExpense
     }
 
 

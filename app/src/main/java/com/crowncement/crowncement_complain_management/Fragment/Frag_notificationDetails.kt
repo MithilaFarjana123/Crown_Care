@@ -2,6 +2,7 @@ package com.crowncement.crowncement_complain_management.Fragment
 
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
@@ -22,22 +23,29 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.core.content.FileProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import com.crowncement.crowncement_complain_management.R
-import com.crowncement.crowncement_complain_management.common.API.Endpoint
 import com.crowncement.crowncement_complain_management.common.FileUtility
 import com.crowncement.crowncement_complain_management.common.ImagePathUtils
 import com.crowncement.crowncement_complain_management.common.Status
 import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Model.*
-import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainSolverViewModel
+import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainViewModel
+import com.crowncement.crowncement_complain_management.ui.viewmodel.UpdateSeenStatViewModel
+import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainViewModelFactory
+import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.UpdateSeenStatViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.escalate.view.*
 import kotlinx.android.synthetic.main.frag_details.view.*
+import kotlinx.android.synthetic.main.frag_genarate_complain.*
+import kotlinx.android.synthetic.main.frag_genarate_complain.view.*
+import kotlinx.android.synthetic.main.take_action.*
 import kotlinx.android.synthetic.main.take_action.view.*
+import kotlinx.android.synthetic.main.take_action.view.imgAddDoc
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -45,7 +53,11 @@ import java.util.*
 class Frag_notificationDetails : Fragment() {
 
     lateinit var rootView: View
-    lateinit var logViewModel: ComplainSolverViewModel
+    lateinit var loadingAnim: Dialog
+
+    lateinit var logViewModel: UpdateSeenStatViewModel
+
+    lateinit var logImgViewModel: ComplainViewModel
 
     lateinit var takeAction : TextView
     lateinit var escalate:TextView
@@ -53,7 +65,8 @@ class Frag_notificationDetails : Fragment() {
     lateinit var rq_trn_no : String
     lateinit var rq_trn_row: String
     lateinit var party_code :String
-
+    lateinit var id : String
+    lateinit var compdata : RequestDetails
 
     lateinit var finalFile: File
     var currentPhotoPath = ""
@@ -61,6 +74,8 @@ class Frag_notificationDetails : Fragment() {
     var fileType = ""
     lateinit var attachFile: File
     lateinit var pdfFile: File
+
+    var result = false
 
     var extension = ""
 
@@ -82,8 +97,22 @@ class Frag_notificationDetails : Fragment() {
 
         rootView = inflater.inflate(R.layout.frag_notification_details, container, false)
         initiate()
+        setupViewModel()
         dataReceived = arguments?.getInt("position")!!
+        id = Utility.getValueByKey(requireActivity(),"username").toString()
+        compdata = Utility.getsaveCompInfo(requireActivity())!!
+        action()
 
+        return rootView
+
+    }
+
+
+     fun action(){
+
+        var rq_trn_no =compdata.reqNo.toString()
+        var position = compdata.follwAct.size-1
+        var rq_trn_row = compdata.follwAct.get(position).actRow.toString()
 
         takeAction.setOnClickListener {l ->
 
@@ -115,7 +144,6 @@ class Frag_notificationDetails : Fragment() {
             setActionImage = v.findViewById<ImageView>(R.id.setActionImage)
 
 
-
             dialog.setContentView(v)
             dialog.setCancelable(true)
             dialog.show()
@@ -145,6 +173,7 @@ class Frag_notificationDetails : Fragment() {
                 )
                 picker.show()
             }
+            actionTaken=""
             radio_Feedback.setOnClickListener {
                 laytakeActDoc.visibility = View.GONE
                 layoutResolvedate.setVisibility(View.VISIBLE)
@@ -164,19 +193,11 @@ class Frag_notificationDetails : Fragment() {
                 actionTaken = "Reject"
 
             }
-            /*
-            UpdateAction (
-                user_id:String, rq_trn_no:String, rq_trn_row:int, feedback_date:yyyy-MM-dd,
-                feedback_det:String, solution_det:String, action_type:String, doc_ext: String )
 
-             */
-            var user_id: String? = Utility.getValueByKey(requireActivity(),"username")
-           // rq_trn_no
 
             var feedback_date = v.txtFrResolvedDate.text.toString()
             var feedback_det = v.txtActionComment.text.toString()
             var solution_det = v.txtActionComment.text.toString()
-            //  var doc_ext =
 
 
             v.pdfAddDoc.setOnClickListener {
@@ -192,10 +213,25 @@ class Frag_notificationDetails : Fragment() {
 
 
             takeActionCancel.setOnClickListener { dialog.hide() }
-            btntakeActSub.setOnClickListener { dialog.hide()
+            btntakeActSub.setOnClickListener {
+                if(actionTaken.isNotEmpty()){
+                    // v.actionQ.setTextColor(R.color.black)
+                    if((actionTaken=="Feedback")&&saveUIValidationFeedback(v).equals(true)){
 
+                        SaveUpdateActionData(id,rq_trn_no,rq_trn_row,feedback_date,
+                            feedback_det,"",actionTaken,extension)
+                        dialog.hide()
+                    }else if( saveUIValidation(v).equals(true)){
+                        SaveUpdateActionData(id,rq_trn_no,rq_trn_row,"",
+                            "",solution_det,actionTaken,extension)
+                        dialog.hide()
 
+                    }
 
+                }else{
+
+                    Toast.makeText(requireContext(), "Please select your action", Toast.LENGTH_SHORT).show()                }
+                //   v.actionQ.setTextColor(R.color.red)
             }
 
         }
@@ -209,20 +245,113 @@ class Frag_notificationDetails : Fragment() {
             Objects.requireNonNull(dialog.window)
                 ?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
-            val EscActionCancel = v.findViewById<ImageView>(R.id.EscActionCancel)
-            val btnEscActSub = v.findViewById<MaterialButton>(R.id.btnEscActSub)
+            var EscActionCancel = v.findViewById<ImageView>(R.id.EscActionCancel)
+            var btnEscActSub = v.findViewById<MaterialButton>(R.id.btnEscActSub)
 
             dialog.setContentView(v)
             dialog.setCancelable(true)
             dialog.show()
-            onRadioButtonClicked(v)
+            // onRadioButtonClicked(v)
 
             EscActionCancel.setOnClickListener { dialog.hide() }
-            btnEscActSub.setOnClickListener { dialog.hide() }
+            btnEscActSub.setOnClickListener {
+                if(saveUIEscValidation(v).equals(true)){
+
+                    dialog.hide()
+
+                }
+
+            }
         }
 
-        return rootView
+    }
 
+
+    private fun saveUIValidationFeedback(view: View): Boolean {
+
+        result = false
+
+        //department
+        removeUIErrorSign(view.layTakeaction)
+        removeUIErrorSign(view.layoutResolvedate)
+
+
+        if (view.txtActionComment.text.toString().isEmpty()||view.txtActionComment.text.toString().equals("")) {
+            result = false
+            setError(view.layTakeaction, "Please mention your action ")
+
+        }else if(view.txtFrResolvedDate.text.toString().isEmpty()||view.txtFrResolvedDate.text.toString().equals("")){
+            result = false
+            setError(view.layoutResolvedate, "Select Date")
+        }
+
+
+        else {
+            result = true
+        }
+
+        return result
+
+    }
+
+    private fun saveUIValidation(view: View): Boolean {
+
+        result = false
+
+        //department
+        removeUIErrorSign(view.layTakeaction)
+
+
+        if (view.txtActionComment.text.toString().isEmpty()||view.txtActionComment.text.toString().equals("")) {
+            result = false
+            setError(view.layTakeaction, "Please mention your action ")
+
+        }
+
+
+        else {
+            result = true
+        }
+
+        return result
+
+    }
+
+
+    private fun saveUIEscValidation(view: View): Boolean {
+
+        result = false
+
+        //department
+        removeUIErrorSign(view.layEscReason)
+
+
+        if (view.txtEscReason.text.toString().isEmpty()||view.txtEscReason.text.toString().equals("")) {
+            result = false
+            setError(view.layEscReason, "Please mention your reason ")
+
+        }
+
+
+        else {
+            result = true
+        }
+
+        return result
+
+    }
+
+
+
+    private fun removeUIErrorSign(field: TextInputLayout) {
+        field.isErrorEnabled = false
+        field.error = null
+    }
+
+    private fun setError(field: TextInputLayout, message: String) {
+
+        field.isErrorEnabled = true
+        field.error = message
     }
 
 
@@ -292,61 +421,65 @@ class Frag_notificationDetails : Fragment() {
         escalate= rootView!!.findViewById<TextView>(R.id.escalate)
     }
 
+    private fun setupViewModel() {
+        logViewModel =
+            ViewModelProviders.of(requireActivity(), UpdateSeenStatViewModelFactory())
+                .get(
+                    UpdateSeenStatViewModel::class.java
+                )
 
+        logImgViewModel =  ViewModelProviders.of(requireActivity(), ComplainViewModelFactory())
+            .get(
+                ComplainViewModel::class.java
+            )
 
-
-    fun onRadioButtonClicked(view: View) {
-        if (view is RadioButton) {
-            // Is the button now checked?
-            val checked = view.isChecked
-
-            // Check which radio button was clicked
-            when (view.getId()) {
-                /*
-                R.id.radio_Yes ->
-                    if (checked) {
-                        // Pirates are the best
-                    }
-                R.id.radio_no ->
-                    if (checked) {
-                        // Ninjas rule
-                    }
-
-                 */
-            }
-        }
     }
 
 
+//todo UpdateActionData
 
-    //todo for get data
+    private fun SaveUpdateActionData(
+        user_id: String,
+        rq_trn_no:String,
+        rq_trn_row:String,
+        feedback_date:String,
+        feedback_det:String,
+        solution_det:String,
+        action_type:String,
+        doc_ext: String
 
-
-
-
-
-
-
-
-    private fun getComplainSolverDataList(
-        user_id: String
 
     ) {
-        logViewModel.getComSolverData(user_id)
+
+        loadingAnim = Utility.baseLoadingAnimation(
+            requireActivity(),
+            Dialog(requireActivity()),
+            "P l e a s e    w a i t"
+        )
+        loadingAnim.show()
+
+
+        logViewModel.SaveUpdateActionData(user_id,rq_trn_no,
+            rq_trn_row,feedback_date,feedback_det,
+            solution_det,action_type,doc_ext
+        )
             ?.observe(requireActivity()) {
                 when (it.status) {
                     Status.SUCCESS -> {
 
                         it.responseData?.let { res ->
                             successLogList(res)
+                            loadingAnim.dismiss()
 
                         }
 
                     }
+
                     Status.LOADING -> {
 
                     }
                     Status.ERROR -> {
+                        loadingAnim.dismiss()
 
                         // rootView.shimmer_att_container.visibility = View.GONE
                         // rootView.shimmer_att_container.stopShimmer()
@@ -354,31 +487,46 @@ class Frag_notificationDetails : Fragment() {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
                             .show()
                     }
+                   // loadingAnim.dismiss()
+
                 }
             }
     }
 
 
-    private fun successLogList(res: GetActivity4AppResponse) {
 
+    private fun successLogList(res: UpdateActionResponce) {
+
+        var rq_trn_no =compdata.reqNo.toString()
+        var position = compdata.follwAct.size-1
+        var rq_trn_row = compdata.follwAct.get(position).actRow.toString()
+        var party_code =rq_trn_no+"_"+ rq_trn_row
+        Toast.makeText(requireContext(), "Feedback done", Toast.LENGTH_LONG)
+            .show()
+
+/*
         if (res.code == "200") {
-            if (res.data.isNotEmpty()) {
 
-                successLogList1(res.data.get(dataReceived))
-            } else {
+            if (cardFile.size > 0) {
 
-
+                actionImageUpload(
+                    party_code,
+                    "care",
+                    actionTaken,
+                    extension,
+                    cardFile,
+                    loadingAnim
+                )
+            }else{
+                loadingAnim.dismiss()
             }
+
+
         }
+
+ */
     }
 
-
-    private fun successLogList1(res: RequestDetails) {
-        party_code = res.reqNo.toString()+"_"+(res.follwAct.size-1).toString()
-        rq_trn_no = res.reqNo.toString()
-        rq_trn_row = (res.follwAct.size-1).toString()
-
-    }
 
 
     @Deprecated("Deprecated in Java")
@@ -501,7 +649,7 @@ class Frag_notificationDetails : Fragment() {
                         Utility.getBaseMessage(
                             requireActivity(),
                             "Failed",
-                            "Failed to capture visiting card",
+                            "Failed to capture document",
                             R.drawable.error_white,
                             2
                         )
@@ -561,11 +709,91 @@ class Frag_notificationDetails : Fragment() {
             // inImage,
             getResizedBitmap(inImage, 800),
             imageName,
-            "Engineer"
+            "Action"
         )
         return Uri.parse(path)
     }
 
 
 
+    //todo img upload
+    private fun actionImageUpload(
+        party_code: String,
+        party_type: String,
+        doc_type: String,
+        doc_ext:String,
+        all_images: ArrayList<File>,
+        loading: Dialog
+    ) {
+        logImgViewModel.actionImageUpload(
+            party_code,
+            party_type,
+            doc_type,
+            doc_ext,
+            all_images
+        )
+            ?.observe(requireActivity()) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+
+                        it.responseData?.let { res ->
+                            try {
+                                if (res.code == "200") {
+                                    loading.dismiss()
+                                    if (party_code != "") {
+                                        Utility.getBaseMessage(
+                                            requireActivity(),
+                                            "Updated",
+                                            "Information has been updated successfully",
+                                            R.drawable.ic_checked_green,
+                                            1
+                                        )
+                                    } else {
+                                        Utility.getBaseMessage(
+                                            requireActivity(),
+                                            "Successful",
+                                            "Action taken successfully",
+                                            R.drawable.ic_checked_green,
+                                            1
+                                        )
+                                    }
+
+                                   // val navController =
+                                   //     requireActivity().findNavController(R.id.nav_host_fragment)
+                                  //  navController.navigate(R.id.nav_dashboard)
+                                } else {
+
+                                    loading.dismiss()
+                                    Utility.getBaseMessage(
+                                        requireActivity(),
+                                        "Warning",
+                                        res.message.toString(),
+                                        R.drawable.error_white,
+                                        0
+                                    )
+                                }
+
+                            } catch (e: Exception) {
+                                loading.dismiss()
+                                Log.e("Action Document Add", "Error: " + e.message)
+                            }
+
+                        }
+                    }
+                    Status.LOADING -> {
+
+                    }
+
+                    Status.ERROR -> {
+                        loading.dismiss()
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+    }
+
+
+
 }
+
+
