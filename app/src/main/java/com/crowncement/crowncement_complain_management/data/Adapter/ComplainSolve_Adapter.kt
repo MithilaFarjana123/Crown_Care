@@ -4,11 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.crowncement.crowncement_complain_management.R
-import com.crowncement.crowncement_complain_management.data.Model.Complain
+import com.crowncement.crowncement_complain_management.data.Model.FollwAct
 
-class ComplainSolve_Adapter (val complainList : List<Complain>) : RecyclerView.Adapter<ComplainSolve_Adapter.MyViewHolder>() {
+class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerView.Adapter<ComplainSolve_Adapter.MyViewHolder>() {
     lateinit var mContext: Context
   //  private lateinit var onClickListener: OnAdapterItemClickListener
 
@@ -39,6 +40,11 @@ class ComplainSolve_Adapter (val complainList : List<Complain>) : RecyclerView.A
     override fun onBindViewHolder(holder: ComplainSolve_Adapter.MyViewHolder, position: Int) {
         mContext = holder.itemView.context
         var visitorposition = complainList[position]
+        holder.hf_reportingBName.text=complainList[position].repToName
+
+
+
+
     }
 
     override fun getItemCount(): Int {
@@ -47,6 +53,11 @@ class ComplainSolve_Adapter (val complainList : List<Complain>) : RecyclerView.A
 
 
     class MyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
+
+        val hf_reportingBName = itemView.findViewById<TextView>(R.id.hf_reportingBName)
+        val hf_replyDate = itemView.findViewById<TextView>(R.id.hf_replyDate)
+        val hf_reprtingBCom = itemView.findViewById<TextView>(R.id.hf_reprtingBCom)
+
 
 //        init {
 //            itemView.setOnClickListener {

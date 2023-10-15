@@ -24,7 +24,6 @@ import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import com.crowncement.crowncement_complain_management.R
 import com.crowncement.crowncement_complain_management.common.FileUtility
 import com.crowncement.crowncement_complain_management.common.ImagePathUtils
@@ -98,6 +97,7 @@ class Frag_notificationDetails : Fragment() {
         rootView = inflater.inflate(R.layout.frag_notification_details, container, false)
         initiate()
         setupViewModel()
+        cardFile = ArrayList()
         dataReceived = arguments?.getInt("position")!!
         id = Utility.getValueByKey(requireActivity(),"username").toString()
         compdata = Utility.getsaveCompInfo(requireActivity())!!
@@ -110,9 +110,13 @@ class Frag_notificationDetails : Fragment() {
 
      fun action(){
 
+
         var rq_trn_no =compdata.reqNo.toString()
         var position = compdata.follwAct.size-1
-        var rq_trn_row = compdata.follwAct.get(position).actRow.toString()
+         var user_id = compdata.follwAct.get(position).repTo.toString()
+      //  var rq_trn_row : Int = compdata.follwAct.get(position).actRow!!
+           var rq_trn_row : String = compdata.follwAct.get(position).actRow.toString()
+
 
         takeAction.setOnClickListener {l ->
 
@@ -166,7 +170,7 @@ class Frag_notificationDetails : Fragment() {
                             Utility.changeDateFormat(
                                 selectedDate,
                                 "yyyy-MM-dd",
-                                "dd-MMM-yyyy"
+                                "yyyy-MM-dd"
                             )
                         )
                     }, year, month, day
@@ -177,7 +181,7 @@ class Frag_notificationDetails : Fragment() {
             radio_Feedback.setOnClickListener {
                 laytakeActDoc.visibility = View.GONE
                 layoutResolvedate.setVisibility(View.VISIBLE)
-                actionTaken = "Feedback"
+                actionTaken = "feedback"
 
             }
 
@@ -216,13 +220,24 @@ class Frag_notificationDetails : Fragment() {
             btntakeActSub.setOnClickListener {
                 if(actionTaken.isNotEmpty()){
                     // v.actionQ.setTextColor(R.color.black)
-                    if((actionTaken=="Feedback")&&saveUIValidationFeedback(v).equals(true)){
+                    if((actionTaken=="feedback")&&saveUIValidationFeedback(v).equals(true)){
+                        var feedback_date = v.txtFrResolvedDate.text.toString()
+                        var feedback_det = v.txtActionComment.text.toString()
 
-                        SaveUpdateActionData(id,rq_trn_no,rq_trn_row,feedback_date,
-                            feedback_det,"",actionTaken,extension)
+                        SaveUpdateActionData(user_id,rq_trn_no,rq_trn_row,feedback_date,
+                            feedback_det,"",actionTaken,"")
+
                         dialog.hide()
+
+/*
+                        SaveUpdateActionData("E00-005445","23091100016","1","2023-09-01",
+                        "test purpose","","feedback","jpg")
+
+ */
                     }else if( saveUIValidation(v).equals(true)){
-                        SaveUpdateActionData(id,rq_trn_no,rq_trn_row,"",
+                        var solution_det = v.txtActionComment.text.toString()
+
+                        SaveUpdateActionData(user_id,rq_trn_no,rq_trn_row,"",
                             "",solution_det,actionTaken,extension)
                         dialog.hide()
 
@@ -441,13 +456,12 @@ class Frag_notificationDetails : Fragment() {
     private fun SaveUpdateActionData(
         user_id: String,
         rq_trn_no:String,
-        rq_trn_row:String,
+        rq_trn_row: String,
         feedback_date:String,
         feedback_det:String,
         solution_det:String,
         action_type:String,
         doc_ext: String
-
 
     ) {
 
@@ -468,7 +482,13 @@ class Frag_notificationDetails : Fragment() {
                     Status.SUCCESS -> {
 
                         it.responseData?.let { res ->
-                            successLogList(res)
+                            val b = res.code
+                            val c = res.message
+
+                            if(res.code == "200"){
+                                successLogList(res)
+
+                            }
                             loadingAnim.dismiss()
 
                         }
@@ -501,10 +521,18 @@ class Frag_notificationDetails : Fragment() {
         var position = compdata.follwAct.size-1
         var rq_trn_row = compdata.follwAct.get(position).actRow.toString()
         var party_code =rq_trn_no+"_"+ rq_trn_row
-        Toast.makeText(requireContext(), "Feedback done", Toast.LENGTH_LONG)
+
+       /* Toast.makeText(requireContext(), "Feedback done", Toast.LENGTH_LONG)
             .show()
 
-/*
+        */
+
+     //   Utility.commonToast(requireActivity(),"Feedback done",res.message.toString(),1)
+
+
+
+
+
         if (res.code == "200") {
 
             if (cardFile.size > 0) {
@@ -512,19 +540,22 @@ class Frag_notificationDetails : Fragment() {
                 actionImageUpload(
                     party_code,
                     "care",
-                    actionTaken,
+                    "follwup/reject",
                     extension,
                     cardFile,
                     loadingAnim
                 )
             }else{
+                Utility.commonToast(requireActivity(),"Feedback done",res.message.toString(),1)
                 loadingAnim.dismiss()
             }
 
 
         }
 
- */
+
+
+
     }
 
 

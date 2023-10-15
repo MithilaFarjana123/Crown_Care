@@ -5,13 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import com.crowncement.crowncement_complain_management.common.API.GetDataService
 import com.crowncement.crowncement_complain_management.common.API.RetrofitClientInstance
 import com.crowncement.crowncement_complain_management.common.Resource
-import com.crowncement.crowncement_complain_management.data.Model.GetComplainResponse
 import com.crowncement.crowncement_complain_management.data.Model.UpdateActionResponce
 import com.crowncement.crowncement_complain_management.data.Model.UpdateSeenStatResponce
+import com.google.gson.Gson
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 object UpdateSeenStatRepository {
 
@@ -58,7 +59,7 @@ object UpdateSeenStatRepository {
     fun SaveUpdateAction(
         user_id: String,
         rq_trn_no:String,
-        rq_trn_row:String,
+        rq_trn_row: String,
         feedback_date:String,
         feedback_det:String,
         solution_det:String,
@@ -69,6 +70,9 @@ object UpdateSeenStatRepository {
         val user_id = RequestBody.create("application/json".toMediaTypeOrNull(), user_id)
         val rq_trn_no = RequestBody.create("application/json".toMediaTypeOrNull(), rq_trn_no)
         val rq_trn_row = RequestBody.create("application/json".toMediaTypeOrNull(), rq_trn_row)
+      //  val trn_row: Int = rq_trn_row
+      //  val json = Gson().toJson(trn_row)
+      //  val rq_trn_row = json.toRequestBody("application/json".toMediaTypeOrNull())
         val feedback_date = RequestBody.create("application/json".toMediaTypeOrNull(), feedback_date)
         val feedback_det = RequestBody.create("application/json".toMediaTypeOrNull(), feedback_det)
         val solution_det = RequestBody.create("application/json".toMediaTypeOrNull(), solution_det)
@@ -109,6 +113,8 @@ object UpdateSeenStatRepository {
 
 
 }
+
+
 
 
 

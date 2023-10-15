@@ -1,24 +1,11 @@
 package com.crowncement.crowncement_complain_management.Fragment
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
-import android.provider.OpenableColumns
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,9 +14,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.crowncement.crowncement_complain_management.R
 import com.crowncement.crowncement_complain_management.common.API.Endpoint
-import com.crowncement.crowncement_complain_management.common.FileUtility
-import com.crowncement.crowncement_complain_management.common.ImagePathUtils
-import com.crowncement.crowncement_complain_management.common.Status
 import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Adapter.ComplainSolve_Adapter
 import com.crowncement.crowncement_complain_management.data.Model.*
@@ -65,6 +49,10 @@ class Frag_details : Fragment() {
         rootView = inflater.inflate(R.layout.frag_details, container, false)
         dataReceived = arguments?.getInt("h_position")!!
         hiscompdata = Utility.getsavehisCompInfo(requireActivity())!!
+        var actionTakenList = hiscompdata.follwAct
+
+        dataReceived = arguments?.getInt("h_position")!!
+
         setupViewModel()
         setImg()
         hide()
@@ -86,6 +74,8 @@ class Frag_details : Fragment() {
         // this creates a vertical layout Manager
         recyclerView.layoutManager = LinearLayoutManager(context)
 
+
+        /*
         // ArrayList of class ItemsViewModel
         val data = ArrayList<Complain>()
 
@@ -94,9 +84,10 @@ class Frag_details : Fragment() {
         for (i in 1..3) {
             data.add(Complain("Item " + i))
         }
+        */
 
         // This will pass the ArrayList to our Adapter
-        val adapter = ComplainSolve_Adapter(data)
+        val adapter = ComplainSolve_Adapter(actionTakenList)
 
         // Setting the Adapter with the recyclerview
         recyclerView.adapter = adapter
@@ -275,7 +266,7 @@ class Frag_details : Fragment() {
             Glide
                 .with(requireActivity())
                 .load(Endpoint.IMAGE_BASE_URL + documentImg)
-                // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/" + img)
+                // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/" + documentImg)
                 .error(R.drawable.document)
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -283,6 +274,7 @@ class Frag_details : Fragment() {
                 // .placeholder(R.drawable.baseline_no_img)
                 //  .transform(RoundedCorners(30,30.0))
                 .into(rootView.d_oc_img)
+
 
         }else{
             rootView.d_oc_img.setVisibility(View.GONE)

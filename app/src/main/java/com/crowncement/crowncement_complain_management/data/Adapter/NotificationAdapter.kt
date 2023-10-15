@@ -73,7 +73,7 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
       //  holder.n_u_desig.text = notificationList[position].r
 
         holder.n_u_dep.text = notificationList[position].deptNam
-
+/*
         var img = notificationList[position].reqImg.toString()
 
         if (img.isNotEmpty()) {
@@ -90,6 +90,8 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
                 //  .transform(RoundedCorners(30,30.0))
                 .into(holder.itemView.n_img)
         }
+
+ */
 
 /*
         holder.itemView.setOnClickListener(object :View.OnClickListener{

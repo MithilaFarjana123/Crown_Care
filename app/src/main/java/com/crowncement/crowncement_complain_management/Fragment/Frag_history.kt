@@ -228,8 +228,10 @@ class Frag_history : Fragment() {
 
             override fun OnClick(v: View?, position: Int) {
 
-                val userData: GetComplainData = items.get(position)
+                val userData: GetComplainData = listToSendAdapter.get(position)
                 Utility.savehisCompInfo(userData, requireActivity())
+
+
 
                 val activity = view?.context as AppCompatActivity
                 val demofragment = Frag_details()
@@ -240,7 +242,6 @@ class Frag_history : Fragment() {
 
               //  val userData: GetComplainData = listToSendAdapter.get(position)
                // Utility.saveCompInfo(userData, requireActivity())
-
 
                 // Attach the Bundle to the fragment
                 demofragment.arguments = bundle
