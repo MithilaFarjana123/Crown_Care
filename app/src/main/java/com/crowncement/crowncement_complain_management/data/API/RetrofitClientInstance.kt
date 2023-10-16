@@ -1,6 +1,7 @@
 package com.crowncement.crowncement_complain_management.common.API
 
 import com.crowncement.crowncement_complain_management.common.API.Endpoint.BASE_URL
+import com.crowncement.crowncement_complain_management.common.API.Endpoint.Base_URL_Empolyee
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitClientInstance {
     lateinit var retrofit: Retrofit
 
-  //  lateinit var retrofit_login: Retrofit
+    lateinit var retrofit_emp: Retrofit
 
     val retrofitInstance: Retrofit
         get() {
@@ -47,37 +48,37 @@ object RetrofitClientInstance {
 
 
 
-//    val retrofitInstance_login: Retrofit
-//        get() {
-//            if (!this::retrofit_login.isInitialized) {
-//                val loggingInterceptor = HttpLoggingInterceptor()
-//                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-//                val okHttpClient = OkHttpClient.Builder()
-//                    .readTimeout(60, TimeUnit.SECONDS)
-//                    .connectTimeout(60, TimeUnit.SECONDS)
-//                    .addInterceptor(loggingInterceptor)
+    val retrofitInstance_forEmp: Retrofit
+        get() {
+            if (!this::retrofit_emp.isInitialized) {
+                val loggingInterceptor = HttpLoggingInterceptor()
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+                val okHttpClient = OkHttpClient.Builder()
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .connectTimeout(60, TimeUnit.SECONDS)
+                    .addInterceptor(loggingInterceptor)
+                    .build()
+
+//                val headersInterceptor = Interceptor { chain ->
+//                    val requestBuilder = chain.request().newBuilder()
+//                   // requestBuilder.header("Authorization", "Bearer $token")
+//                    chain.proceed(requestBuilder.build())
+//                }
+//                val okHttpClient = OkHttpClient()
+//                    .newBuilder()
+//                    .followRedirects(true)
+//                    .addInterceptor(headersInterceptor)
 //                    .build()
-//
-////                val headersInterceptor = Interceptor { chain ->
-////                    val requestBuilder = chain.request().newBuilder()
-////                   // requestBuilder.header("Authorization", "Bearer $token")
-////                    chain.proceed(requestBuilder.build())
-////                }
-////                val okHttpClient = OkHttpClient()
-////                    .newBuilder()
-////                    .followRedirects(true)
-////                    .addInterceptor(headersInterceptor)
-////                    .build()
-//
-//                retrofit_login = Retrofit.Builder()
-//                    .baseUrl(Base_URL_Login)
-//                    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .client(okHttpClient)
-//                    .build()
-//            }
-//            return retrofit_login
-//        }
+
+                retrofit_emp = Retrofit.Builder()
+                    .baseUrl(Base_URL_Empolyee)
+                    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
+                    .build()
+            }
+            return retrofit_emp
+        }
 
 
     val upload_location_retrofitInstance: Retrofit

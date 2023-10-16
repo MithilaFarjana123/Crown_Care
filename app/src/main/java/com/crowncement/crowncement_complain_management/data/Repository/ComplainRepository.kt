@@ -49,6 +49,43 @@ object ComplainRepository {
         return appInfo
     }
 
+
+
+    //todo Emp name
+    fun getSavedEmpName(
+        dept_name: String
+    ): MutableLiveData<Resource<GetEmpNameResponce>> {
+        val dept_name = RequestBody.create("application/json".toMediaTypeOrNull(), dept_name)
+
+        val appInfo: MutableLiveData<Resource<GetEmpNameResponce>> =
+            MutableLiveData<Resource<GetEmpNameResponce>>()
+
+
+        try {
+            val service: GetDataService = RetrofitClientInstance.retrofitInstance_forEmp.create(
+                GetDataService::class.java
+            )
+            service.savedEmpname(dept_name)
+                ?.toObservable()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(
+                    { response ->
+                        appInfo.postValue(Resource.success(response))
+
+                    },
+                    { error ->
+                        appInfo.postValue(Resource.error(error.message.toString(), null))
+
+                    },
+                )
+
+        } catch (e: Exception) {
+            Log.e("ComplainRepository", "ERROR : " + e.message)
+        }
+        return appInfo
+    }
+
 //Todo get incident/inquiry category
     fun getSavedInCategory(doc_cat:String,dept:String): MutableLiveData<Resource<CategoryResponce>> {
 

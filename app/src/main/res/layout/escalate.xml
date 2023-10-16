@@ -94,13 +94,14 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layEscperson"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    style="@style/TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:hint="Person"
+                    android:hint="Escalate To"
+                    app:endIconMode="clear_text"
                     app:boxStrokeErrorColor="@color/orange"
                     app:errorIconTint="@color/orange"
                     app:errorTextColor="@color/orange"
@@ -110,10 +111,9 @@
                         android:id="@+id/txtEscperson"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusable="false" />
+                        />
 
-                </com.google.android.material.textfield.TextInputLayout>
-
+                </com.google.android.material.textfield.TextInputLayout>']
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layEscReason"
@@ -152,9 +152,9 @@
             android:layout_marginTop="50dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
-            android:text="Submit"
+            android:text="Escalate"
             app:cornerRadius="0dp"
-            app:strokeColor="@color/black" />
+            app:strokeColor="@color/black"/>
 
 
     </LinearLayout>

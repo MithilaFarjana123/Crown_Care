@@ -53,7 +53,7 @@ class Frag_notification : Fragment() {
 //            getComplainSolverDataList(id)
 //        }
 
-        getComplainSolverDataList("E11-001795")
+        getComplainSolverDataList(id)
 
 
         return rootView
@@ -175,7 +175,7 @@ class Frag_notification : Fragment() {
                 val userData: RequestDetails = items.get(position)
                 saveCompInfo(userData,requireActivity())
 
-                UpdateSeenStatData("E11-001795",items[position].reqNo.toString())
+                UpdateSeenStatData(id,items[position].reqNo.toString())
 
 
                 //  UpdateSeenStatData(id,items[position].reqNo.toString())
@@ -232,8 +232,6 @@ class Frag_notification : Fragment() {
                     }
                     Status.ERROR -> {
 
-                        // rootView.shimmer_att_container.visibility = View.GONE
-                        // rootView.shimmer_att_container.stopShimmer()
 
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
                             .show()

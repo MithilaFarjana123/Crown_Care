@@ -29,6 +29,7 @@ import com.crowncement.crowncement_complain_management.common.FileUtility
 import com.crowncement.crowncement_complain_management.common.ImagePathUtils
 import com.crowncement.crowncement_complain_management.common.Status
 import com.crowncement.crowncement_complain_management.common.Utility
+import com.crowncement.crowncement_complain_management.data.Adapter.EmpInfoAdapter
 import com.crowncement.crowncement_complain_management.data.Model.*
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodel.UpdateSeenStatViewModel
@@ -38,6 +39,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.escalate.*
 import kotlinx.android.synthetic.main.escalate.view.*
 import kotlinx.android.synthetic.main.frag_details.view.*
 import kotlinx.android.synthetic.main.frag_genarate_complain.*
@@ -58,6 +60,12 @@ class Frag_notificationDetails : Fragment() {
 
     lateinit var logImgViewModel: ComplainViewModel
 
+    lateinit var departmentList: ArrayList<DepartmentData>
+    lateinit var empnameList: ArrayList<GetEmpName>
+
+
+    lateinit var txtDepartment: AutoCompleteTextView
+    lateinit var txtEscperson:AutoCompleteTextView
     lateinit var takeAction : TextView
     lateinit var escalate:TextView
     lateinit var actionTaken : String
@@ -67,10 +75,14 @@ class Frag_notificationDetails : Fragment() {
     lateinit var id : String
     lateinit var compdata : RequestDetails
 
+    private var selectedDepartment: String = ""
+
+
     lateinit var finalFile: File
     var currentPhotoPath = ""
     var currentPhotoIDPath = ""
     var fileType = ""
+    var emp = " "
     lateinit var attachFile: File
     lateinit var pdfFile: File
 
@@ -84,6 +96,8 @@ class Frag_notificationDetails : Fragment() {
     val REQUEST_CODE = 200
 
     lateinit var cardFile: ArrayList<File>
+    var allempolye: java.util.ArrayList<GetEmpName> = java.util.ArrayList()
+    lateinit var employeNameitems: java.util.ArrayList<String>
 
     var dataReceived=0
 
@@ -95,6 +109,12 @@ class Frag_notificationDetails : Fragment() {
 
 
         rootView = inflater.inflate(R.layout.frag_notification_details, container, false)
+
+        loadingAnim = Utility.baseLoadingAnimation(
+            requireActivity(),
+            Dialog(requireActivity()),
+            "P l e a s e    w a i t"
+        )
         initiate()
         setupViewModel()
         cardFile = ArrayList()
@@ -262,16 +282,68 @@ class Frag_notificationDetails : Fragment() {
 
             var EscActionCancel = v.findViewById<ImageView>(R.id.EscActionCancel)
             var btnEscActSub = v.findViewById<MaterialButton>(R.id.btnEscActSub)
+            txtDepartment = v.findViewById<AutoCompleteTextView>(R.id.txtEscDep)
+            txtEscperson = v.findViewById<AutoCompleteTextView>(R.id.txtEscperson)
+            getSavedDepartmentList()
+
 
             dialog.setContentView(v)
             dialog.setCancelable(true)
             dialog.show()
             // onRadioButtonClicked(v)
+            //eventClickListener()
+            txtDepartment.setOnItemClickListener { parent, arg1, position, arg3 ->
 
+                if (position > 0) {
+                    selectedDepartment = parent.getItemAtPosition(position).toString()
+                    if (selectedDepartment.isNotEmpty()) {
+
+                        //   txtmeet.isEnabled = true
+                        getsavedEmp(selectedDepartment)
+
+                    }
+                    //     loadDepartment1(txtDep)
+                    // result=true
+
+                    // getSavedInCategorytList(selectedCategory, selectedDivision)
+                } else {
+                    //  txtmeet.isEnabled = false
+
+                    selectedDepartment = ""
+                }
+
+
+            }
+
+
+            txtEscperson.setOnItemClickListener { parent, arg1, position, arg3 ->
+
+
+                //    val empObj:GetEmpName=(txtmeet.getAdapter().getItem(position).toString(), false)
+
+                val empObj: GetEmpName = (txtEscperson.getAdapter().getItem(position) as GetEmpName)
+
+                txtEscperson.setText(empObj.empName.toString())
+                var empolyename = empObj.empName.toString()
+
+
+              //   emp =getEmpIDByName(parent.getItemAtPosition(position).toString())
+                 emp = getEmpIDByName(empolyename)
+
+                  Log.d("emp select", emp)
+
+
+                // emp =parent.getItemAtPosition(position).
+            }
             EscActionCancel.setOnClickListener { dialog.hide() }
             btnEscActSub.setOnClickListener {
                 if(saveUIEscValidation(v).equals(true)){
+                    var esc_remarks = v.txtEscReason.text.toString()
 
+
+                    Toast.makeText(requireContext(), "Emp : "+emp, Toast.LENGTH_LONG)
+                        .show()
+                    SaveEscalateActionData(user_id,rq_trn_no,rq_trn_row,emp,esc_remarks)
                     dialog.hide()
 
                 }
@@ -280,6 +352,174 @@ class Frag_notificationDetails : Fragment() {
         }
 
     }
+
+
+    //get emp id
+    fun getEmpIDByName(name: String): String {
+        var res = ""
+        for (item in allempolye) {
+            if (item.empName == name) {
+                res = item.empId.toString()
+                break
+            } else {
+                res = ""
+            }
+        }
+        return res
+    }
+
+
+
+    //Todo for department
+    private fun getSavedDepartmentList(
+
+    ) {
+        logImgViewModel.getDepartmentData()?.observe(requireActivity()) {
+            when (it.status) {
+                Status.SUCCESS -> {
+
+                    it.responseData?.let { res ->
+                        departmentList = ArrayList()
+                        departmentList = res.data
+                        loadDepartment1(txtDepartment, res.data)
+                        loadingAnim.dismiss()
+                    }
+
+                }
+                Status.LOADING -> {
+
+                }
+                Status.ERROR -> {
+                    loadingAnim.dismiss()
+
+                }
+            }
+        }
+    }
+    private fun loadDepartment1(ac: AutoCompleteTextView, lists: ArrayList<DepartmentData>) {
+
+        val items: ArrayList<String> = ArrayList()
+        items.add("Select Department")
+        for (item in lists) {
+            items.add(item.Department.toString())
+        }
+
+        ac.setText(items[0])
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            items
+        )
+        ac.setAdapter(adapter)
+        adapter.notifyDataSetChanged()
+
+    }
+
+
+    //Todo load EmpName
+
+    private fun getsavedEmp(
+        dept_name: String
+    ) {
+        logImgViewModel.getEmpData(dept_name)?.observe(requireActivity()) {
+            when (it.status) {
+                Status.SUCCESS -> {
+
+                    it.responseData?.let { res ->
+
+                        empnameList = ArrayList()
+                        empnameList = res.data
+                        loadEmpName(txtEscperson, res.data)
+
+                    }
+
+                }
+                Status.LOADING -> {
+
+                }
+                Status.ERROR -> {
+                    loadingAnim.dismiss()
+
+                }
+            }
+        }
+    }
+
+
+    private fun loadEmpName(
+        ac: AutoCompleteTextView,
+        lists: java.util.ArrayList<GetEmpName>
+    ) {
+        allempolye = lists
+
+        var empiditems: java.util.ArrayList<String> = java.util.ArrayList()
+
+        employeNameitems = ArrayList()
+
+        for (item in lists) {
+            employeNameitems.add(item.empName.toString() + " ( " + item.empDesig.toString() + " )")
+            //   empiditems.add(item.empId.toString())
+        }
+
+
+//        val adapter = ArrayAdapter(
+//            this, android.R.layout.simple_dropdown_item_1line, employeNameitems
+//        )
+//        ac.setAdapter(adapter)
+//        adapter.notifyDataSetChanged()
+        val adapter = EmpInfoAdapter(requireContext(), lists)
+        ac.setAdapter(adapter)
+        adapter.notifyDataSetChanged()
+    }
+
+
+    fun eventClickListener() {
+        txtDepartment.setOnItemClickListener { parent, arg1, position, arg3 ->
+
+            if (position > 0) {
+                selectedDepartment = parent.getItemAtPosition(position).toString()
+                if (selectedDepartment.isNotEmpty()) {
+
+                    //   txtmeet.isEnabled = true
+                    getsavedEmp(selectedDepartment)
+
+                }
+                //     loadDepartment1(txtDep)
+                // result=true
+
+                // getSavedInCategorytList(selectedCategory, selectedDivision)
+            } else {
+                //  txtmeet.isEnabled = false
+
+                selectedDepartment = ""
+            }
+
+
+        }
+
+        txtEscperson.setOnItemClickListener { parent, arg1, position, arg3 ->
+
+
+            //    val empObj:GetEmpName=(txtmeet.getAdapter().getItem(position).toString(), false)
+
+            val empObj: GetEmpName = (txtEscperson.getAdapter().getItem(position) as GetEmpName)
+
+            txtEscperson.setText(empObj.empName.toString())
+
+
+            // emp =getEmpIDByName(parent.getItemAtPosition(position).toString())
+           // emp = getEmpIDByName(txtmeet.text.toString())
+          //  Log.d("emp select", emp)
+
+
+            // emp =parent.getItemAtPosition(position).
+        }
+
+
+    }
+
+
+
 
 
     private fun saveUIValidationFeedback(view: View): Boolean {
@@ -338,12 +578,21 @@ class Frag_notificationDetails : Fragment() {
         result = false
 
         //department
+        removeUIErrorSign(view.layEscDep)
+        removeUIErrorSign(view.layEscperson)
         removeUIErrorSign(view.layEscReason)
 
-
-        if (view.txtEscReason.text.toString().isEmpty()||view.txtEscReason.text.toString().equals("")) {
+        if (view.txtEscDep.text.toString().isEmpty()||view.txtEscDep.text.toString().equals("Select Department")) {
             result = false
-            setError(view.layEscReason, "Please mention your reason ")
+            setError(view.layEscDep, "Please provide Department ")
+        }
+        else if(view.txtEscperson.text.toString().isEmpty()){
+            result = false
+            setError(view.layEscperson, "Escalated person name is required ")
+        }
+        else if (view.txtEscReason.text.toString().isEmpty()||view.txtEscReason.text.toString().equals("")) {
+            result = false
+            setError(view.layEscReason, "Please mention your remarks ")
 
         }
 
@@ -556,6 +805,73 @@ class Frag_notificationDetails : Fragment() {
 
 
 
+    }
+
+
+    //todo Escalate
+
+    private fun SaveEscalateActionData(
+        user_id: String,
+        rq_trn_no:String,
+        rq_trn_row: String,
+        esc_to:String,
+        esc_remark:String
+
+    ) {
+
+        loadingAnim = Utility.baseLoadingAnimation(
+            requireActivity(),
+            Dialog(requireActivity()),
+            "P l e a s e    w a i t"
+        )
+        loadingAnim.show()
+
+
+        logViewModel.SaveEscActionData(user_id,rq_trn_no,
+            rq_trn_row,esc_to,esc_remark
+        )
+            ?.observe(requireActivity()) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+
+                        it.responseData?.let { res ->
+                            val b = res.code
+                            val c = res.message
+
+                            if(res.code == "200"){
+                                Utility.getBaseMessage(
+                                    requireActivity(),
+                                    "Successful",
+                                    res.message.toString(),
+                                    R.drawable.ic_checked_green,
+                                    1
+                                )
+
+                            //    successLogList(res)
+
+                            }
+                            loadingAnim.dismiss()
+
+                        }
+
+                    }
+
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+                        loadingAnim.dismiss()
+
+                        // rootView.shimmer_att_container.visibility = View.GONE
+                        // rootView.shimmer_att_container.stopShimmer()
+
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+                    // loadingAnim.dismiss()
+
+                }
+            }
     }
 
 

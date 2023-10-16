@@ -3,6 +3,7 @@ package com.crowncement.crowncement_complain_management.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crowncement.crowncement_complain_management.common.Resource
+import com.crowncement.crowncement_complain_management.data.Escalationresponce
 import com.crowncement.crowncement_complain_management.data.Model.UpdateActionResponce
 import com.crowncement.crowncement_complain_management.data.Model.UpdateSeenStatResponce
 import com.crowncement.crowncement_complain_management.data.Repository.UpdateSeenStatRepository
@@ -12,6 +13,7 @@ class UpdateSeenStatViewModel: ViewModel() {
 
     private var UpdateActionMutableLiveData: MutableLiveData<Resource<UpdateActionResponce>>? = null
 
+    private var EscalateMutableLiveData: MutableLiveData<Resource<Escalationresponce>>? = null
 
 
     //Todo save UpdateSeenStat
@@ -49,6 +51,24 @@ class UpdateSeenStatViewModel: ViewModel() {
 
     }
 
+
+    //Todo Escalate
+    fun SaveEscActionData(
+        user_id:String,
+        rq_trn_no:String,
+        rq_trn_row: String,
+        esc_to:String,
+        esc_remark:String
+    ): MutableLiveData<Resource<Escalationresponce>>? {
+
+        EscalateMutableLiveData =
+            UpdateSeenStatRepository.SaveEscalateAction(user_id,rq_trn_no
+                ,rq_trn_row,esc_to,esc_remark
+            )
+
+        return EscalateMutableLiveData
+
+    }
 
 
 

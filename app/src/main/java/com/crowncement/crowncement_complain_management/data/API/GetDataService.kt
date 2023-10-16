@@ -1,5 +1,6 @@
 package com.crowncement.crowncement_complain_management.common.API
 
+import com.crowncement.crowncement_complain_management.data.Escalationresponce
 import com.crowncement.crowncement_complain_management.data.Model.*
 import io.reactivex.rxjava3.core.Flowable
 import okhttp3.MultipartBody
@@ -37,6 +38,14 @@ interface GetDataService {
     //todo department
     @GET("GetDept")
     fun savedDepartment(): Flowable<DepartmentResponce>?
+
+
+    //Todo for GetEmp name
+    @Multipart
+    @POST("DeptEmpList")
+    fun savedEmpname(
+        @Part("dept_name") dept_name : RequestBody,
+    ): Flowable<GetEmpNameResponce>?
 
     //todo inquiry/incident Category
     @Multipart
@@ -151,6 +160,19 @@ interface GetDataService {
         @Part("doc_ext") doc_ext: RequestBody
 
         ) : Flowable<UpdateActionResponce>?
+
+
+    //Todo Escalate
+    @Multipart
+    @POST("EscalateTrn")
+    fun EscalateTrn(
+        @Part("user_id") user_id: RequestBody,
+        @Part("rq_trn_no") rq_trn_no: RequestBody,
+        @Part("rq_trn_row") rq_trn_row: RequestBody,
+        @Part("esc_to") esc_to: RequestBody,
+        @Part("esc_remark") esc_remark: RequestBody
+
+        ) : Flowable<Escalationresponce>?
 
 }
 

@@ -1,5 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:paddingBottom">8dp</item>
+        <item name="boxStrokeColor">@color/green</item>
+        <item name="errorTextColor">@color/search_opaque</item>
+        <item name="boxStrokeErrorColor">@color/search_opaque</item>
+
+    </style>
+
     <style name="Theme.Crowncement_Complain_management" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#1d8348</item>

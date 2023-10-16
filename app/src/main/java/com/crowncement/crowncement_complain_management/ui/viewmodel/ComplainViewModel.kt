@@ -17,6 +17,9 @@ class ComplainViewModel: ViewModel() {
 
     private var getImageMutableLiveData:MutableLiveData<Resource<ImageResponce>>? = null
 
+    private var getEmpNameMutableLiveData:MutableLiveData<Resource<GetEmpNameResponce>>? = null
+
+
     private var getsavedComplainMutableLiveData:MutableLiveData<Resource<GetComplainResponse>>? = null
 
     //Todo get depertment
@@ -27,6 +30,15 @@ class ComplainViewModel: ViewModel() {
         getsavedDepartmentMutableLiveData = ComplainRepository.getSavedDepartment()
 
         return getsavedDepartmentMutableLiveData
+    }
+
+
+    //Todo get EmpName
+    fun getEmpData(
+        dept_name: String
+    ) : MutableLiveData<Resource<GetEmpNameResponce>>?{
+        getEmpNameMutableLiveData = ComplainRepository.getSavedEmpName(dept_name)
+        return getEmpNameMutableLiveData
     }
 
     //Todo get category

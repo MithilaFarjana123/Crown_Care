@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.crowncement.crowncement_complain_management.common.API.GetDataService
 import com.crowncement.crowncement_complain_management.common.API.RetrofitClientInstance
 import com.crowncement.crowncement_complain_management.common.Resource
+import com.crowncement.crowncement_complain_management.data.Escalationresponce
 import com.crowncement.crowncement_complain_management.data.Model.UpdateActionResponce
 import com.crowncement.crowncement_complain_management.data.Model.UpdateSeenStatResponce
 import com.google.gson.Gson
@@ -111,8 +112,65 @@ object UpdateSeenStatRepository {
 
 
 
+    //Todo Escalate
+    fun SaveEscalateAction(
+        user_id: String,
+        rq_trn_no:String,
+        rq_trn_row: String,
+        esc_to:String,
+        esc_remark:String
+
+    ): MutableLiveData<Resource<Escalationresponce>> {
+        val user_id = RequestBody.create("application/json".toMediaTypeOrNull(), user_id)
+        val rq_trn_no = RequestBody.create("application/json".toMediaTypeOrNull(), rq_trn_no)
+        val rq_trn_row = RequestBody.create("application/json".toMediaTypeOrNull(), rq_trn_row)
+        //  val trn_row: Int = rq_trn_row
+        //  val json = Gson().toJson(trn_row)
+        //  val rq_trn_row = json.toRequestBody("application/json".toMediaTypeOrNull())
+        val esc_to = RequestBody.create("application/json".toMediaTypeOrNull(), esc_to)
+        val esc_remark = RequestBody.create("application/json".toMediaTypeOrNull(), esc_remark)
+
+
+
+        val appInfo: MutableLiveData<Resource<Escalationresponce>> =
+            MutableLiveData<Resource<Escalationresponce>>()
+
+        try {
+            val service: GetDataService = RetrofitClientInstance.retrofitInstance.create(
+                GetDataService::class.java
+            )
+            service.EscalateTrn(user_id,rq_trn_no,rq_trn_row
+                ,esc_to,esc_remark
+            )
+                ?.toObservable()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(
+                    { response ->
+                        appInfo.postValue(Resource.success(response))
+                    },
+                    { error -> //
+                        appInfo.postValue(Resource.error(error.message.toString(), null))
+
+                    },
+                )
+
+        } catch (e: Exception) {
+            Log.e("Complain Repository", "ERROR : " + e.message)
+        }
+        return appInfo
+    }
+
+
+
+
 
 }
+
+
+
+
+
 
 
 

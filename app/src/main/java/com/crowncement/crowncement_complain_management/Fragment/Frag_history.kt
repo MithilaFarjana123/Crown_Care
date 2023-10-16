@@ -215,7 +215,7 @@ class Frag_history : Fragment() {
 
 
 
-        val comlogAdapter = ComplainAdapter(listToSendAdapter)
+        val comlogAdapter = ComplainAdapter(items)
         val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
 
         history_recyclerView.layoutManager = rLayoutmanager
@@ -228,9 +228,8 @@ class Frag_history : Fragment() {
 
             override fun OnClick(v: View?, position: Int) {
 
-                val userData: GetComplainData = listToSendAdapter.get(position)
+                val userData: GetComplainData = items.get(position)
                 Utility.savehisCompInfo(userData, requireActivity())
-
 
 
                 val activity = view?.context as AppCompatActivity
