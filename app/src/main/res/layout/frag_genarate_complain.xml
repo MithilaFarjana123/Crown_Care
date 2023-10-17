@@ -24,7 +24,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#d9ebf7"
+                android:background="@color/green"
                 android:orientation="horizontal">
 
                 <TextView
@@ -36,7 +36,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center"
                     android:text="Give us your Headache and we will we'll handel it"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="17sp"
                     android:textStyle="bold"/>
 

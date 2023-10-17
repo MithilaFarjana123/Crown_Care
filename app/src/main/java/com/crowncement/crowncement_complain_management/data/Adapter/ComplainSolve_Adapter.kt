@@ -41,6 +41,15 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
         mContext = holder.itemView.context
         var visitorposition = complainList[position]
         holder.hf_reportingBName.text=complainList[position].repToName
+        var feedbackDet = complainList[position].feedbackDet
+        var actionDet = complainList[position].feedbackDet
+        if(!feedbackDet.equals("")){
+            holder.hf_reprtingBCom.text=complainList[position].feedbackDet
+        }else if (!actionDet.equals("")){
+            holder.hf_reprtingBCom.text=complainList[position].actionDet
+        }else {
+            holder.hf_reprtingBCom.visibility = View.GONE
+        }
 
 
 

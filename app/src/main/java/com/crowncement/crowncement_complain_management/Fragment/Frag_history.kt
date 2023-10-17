@@ -201,7 +201,7 @@ class Frag_history : Fragment() {
 
         listToSendAdapter = listForOpen
 
-
+/*
         rootView.h_open.setOnClickListener {
             listToSendAdapter = listForOpen
 
@@ -212,6 +212,8 @@ class Frag_history : Fragment() {
             listToSendAdapter = listForDone
 
         }
+
+ */
 
 
 

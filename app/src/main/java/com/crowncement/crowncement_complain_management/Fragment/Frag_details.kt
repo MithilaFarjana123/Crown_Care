@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,8 @@ import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.Compl
 import kotlinx.android.synthetic.main.frag_dashboard.view.*
 import kotlinx.android.synthetic.main.frag_details.view.*
 import kotlinx.android.synthetic.main.frag_notification.view.*
+import kotlinx.android.synthetic.main.frag_notification.view.toolbar_title
+import kotlinx.android.synthetic.main.frag_notification_details.view.*
 import java.io.File
 import java.time.LocalDateTime
 
@@ -48,52 +51,43 @@ class Frag_details : Fragment() {
 
         rootView = inflater.inflate(R.layout.frag_details, container, false)
         dataReceived = arguments?.getInt("h_position")!!
-        hiscompdata = Utility.getsavehisCompInfo(requireActivity())!!
-        var actionTakenList = hiscompdata.follwAct
-
-        dataReceived = arguments?.getInt("h_position")!!
 
         setupViewModel()
         setImg()
         hide()
         show()
+        hiscompdata = Utility.getsavehisCompInfo(requireActivity())!!
 
         val currentDateTime = LocalDateTime.now()
         val currentYear = currentDateTime.year.toString()
         val currentMonth = currentDateTime.monthValue.toString()
 
 
-       // getComplainList("E00-005445")
 
         setvalue()
 
 
 
     //todo action taken
+        var title = hiscompdata.reqCat + " Details"
+        rootView.toolbar_dtitle.text = title.toString()
+        var actionTakenList = hiscompdata.follwAct
+        var position = hiscompdata.follwAct.size-1
+        var actStatus = actionTakenList.get(position).actStatus
+
+        val action_taken: TextView = rootView.findViewById(R.id.action_taken)
+
         val recyclerView: RecyclerView = rootView.findViewById(R.id.RVsolution)
-        // this creates a vertical layout Manager
+
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-
-        /*
-        // ArrayList of class ItemsViewModel
-        val data = ArrayList<Complain>()
-
-        // This loop will create 20 Views containing
-        // the image with the count of view
-        for (i in 1..3) {
-            data.add(Complain("Item " + i))
+        if(!actStatus.equals("")){
+            val adapter = ComplainSolve_Adapter(actionTakenList)
+            recyclerView.adapter = adapter
+        }else{
+            action_taken.visibility= View.GONE
+            recyclerView.visibility = View.GONE
         }
-        */
-
-        // This will pass the ArrayList to our Adapter
-        val adapter = ComplainSolve_Adapter(actionTakenList)
-
-        // Setting the Adapter with the recyclerview
-        recyclerView.adapter = adapter
-
-
-
 
 
         return rootView
@@ -154,93 +148,7 @@ class Frag_details : Fragment() {
     }
 
 
-/*
-    private fun getComplainList(
-        user_id: String
-     //   curr_yr: String,
-      //  curr_mon: String
 
-    ) {
-        logViewModel.getSavedcomplain(user_id)
-            ?.observe(requireActivity()) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-
-                        it.responseData?.let { res ->
-                            successLogList(res)
-
-                        }
-
-                    }
-                    Status.LOADING -> {
-
-                    }
-                    Status.ERROR -> {
-
-                        // rootView.shimmer_att_container.visibility = View.GONE
-                        // rootView.shimmer_att_container.stopShimmer()
-
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
-                            .show()
-                    }
-                }
-            }
-    }
-
-
-    private fun successLogList(res: GetComplainResponse) {
-
-        if (res.code == "200") {
-            if (res.data.isNotEmpty()) {
-
-                successLogList1(res.data.get(dataReceived))
-            } else {
-
-
-            }
-        }
-    }
-
-    private fun successLogList1(res: GetComplainData) {
-
-        rootView.item_title.text = res.reqCat.toString()+" Title : "+res.reqTitle.toString()
-
-        rootView.d_oc_date.text= "Occurence Date : "+Utility.changeDateFormat(
-            res.trnDate,
-            "yyyy-MM-dd",
-            "MMM dd,yyyy"
-        )
-        rootView.d_oc_expResolvDate.text=Utility.changeDateFormat(res.expectedResolvDate,
-            "yyyy-MM-dd",
-            "MMM dd,yyyy"
-        )
-
-        rootView.d_oc_num.text = res.compMob.toString()
-        rootView.d_oc_email.text=res.compEmail.toString()
-        rootView.d_oc_type.text=res.reqType.toString()
-        rootView.d_oc_details.text=res.reqDet.toString()
-
-        var documentImg = res.reqImg.toString()
-        if (documentImg.isNotEmpty()){
-            Glide
-                .with(requireActivity())
-                .load(Endpoint.IMAGE_BASE_URL + documentImg)
-                // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/" + img)
-                .error(R.drawable.document)
-                .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                // .placeholder(R.drawable.baseline_no_img)
-                //  .transform(RoundedCorners(30,30.0))
-                .into(rootView.d_oc_img)
-
-        }else{
-            rootView.d_oc_img.setVisibility(View.GONE)
-        }
-
-    }
-
- */
 
     fun setvalue(){
         rootView.item_title.text = hiscompdata.reqCat.toString()+

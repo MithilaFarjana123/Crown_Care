@@ -44,6 +44,7 @@ import kotlinx.android.synthetic.main.escalate.view.*
 import kotlinx.android.synthetic.main.frag_details.view.*
 import kotlinx.android.synthetic.main.frag_genarate_complain.*
 import kotlinx.android.synthetic.main.frag_genarate_complain.view.*
+import kotlinx.android.synthetic.main.frag_notification_details.view.*
 import kotlinx.android.synthetic.main.take_action.*
 import kotlinx.android.synthetic.main.take_action.view.*
 import kotlinx.android.synthetic.main.take_action.view.imgAddDoc
@@ -121,6 +122,8 @@ class Frag_notificationDetails : Fragment() {
         dataReceived = arguments?.getInt("position")!!
         id = Utility.getValueByKey(requireActivity(),"username").toString()
         compdata = Utility.getsaveCompInfo(requireActivity())!!
+        var title = compdata.reqCat + " Details"
+        rootView.toolbar_title.text = title.toString()
         action()
 
         return rootView

@@ -87,7 +87,7 @@
             <View
                 android:layout_width="4dp"
                 android:layout_height="match_parent"
-                android:background="#d6eaf8" />
+                android:background="#d5f5e3" />
 
         </LinearLayout>
 
@@ -98,19 +98,19 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#d6eaf8"
-                android:backgroundTint="#ebf5fb"
+                android:background="#239b56"
+                android:backgroundTint="#239b56"
                 app:cardCornerRadius="20dp"
                 android:layout_margin="10dp">
 
                 <TextView
                     android:id="@+id/hf_reprtingBCom"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:text="We are considering your issue . Make a schduale as soon as possible "
                     />
 

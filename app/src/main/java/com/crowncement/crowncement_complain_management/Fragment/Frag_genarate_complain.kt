@@ -45,6 +45,7 @@ import kotlinx.android.synthetic.main.frag_genarate_complain.view.*
 
 
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 
@@ -314,6 +315,7 @@ class Frag_genarate_complain : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        //images = ArrayList()
         if (resultCode != Activity.RESULT_CANCELED) {
             // Toast.makeText(requireContext(), fileType, Toast.LENGTH_LONG).show()
             when (requestCode) {
@@ -372,6 +374,98 @@ class Frag_genarate_complain : Fragment() {
 
             //attach from galary
                 200 -> {
+
+                    if (data != null) {
+                        if (data.clipData != null) {
+                            val count = data.clipData!!.itemCount
+
+                            for (i in 0 until count) {
+                                val imageUri: Uri = data.clipData!!.getItemAt(i).uri
+
+                                val path: File =
+                                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                                try {
+                                    path.mkdirs()
+                                    val file =
+                                        File(ImagePathUtils.getRealPath(requireContext(), imageUri)!!)
+                                    cardFile.add(file)
+                                    extension = ImagePathUtils.getRealPath(requireContext(), imageUri)
+                                        .toString().split(".")[1]
+                                    Log.e("extension", "onActivityResult: $extension")
+                                    // val selectedImage =   data.clipData!!.getItemAt(i).uri as Bitmap?
+                                    setImage(file, rootView.imgDocument)
+                                } catch (e: Exception) {
+                                    Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG)
+                                        .show()
+                                }
+                            }
+
+                        }
+
+                //                    else if (data.data != null) {
+                //                        val imagePath: String = data.data!!.path!!
+                //                        Log.e("imagePath", imagePath)
+                //                        val imgUri: Uri = data.data!!
+                //                        val path: File = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                //                        try {
+                //                            path.mkdirs()
+                //                            val file = File(ImagePathUtils.getRealPath(requireContext(), imgUri)!!)
+                //                            images.add(file)
+                //                            setImage(file, rootView.attachedDoc)
+                //                            // For whats app size becomes 3 else size 2
+                //                            val splitSize:Int=ImagePathUtils.getRealPath(requireContext(), imgUri).toString().split(".").count()
+                //                            extension = if(splitSize>2){
+                //                                ImagePathUtils.getRealPath(requireContext(), imgUri).toString().split(".")[2]
+                //                            } else{
+                //                                ImagePathUtils.getRealPath(requireContext(), imgUri).toString().split(".")[1]
+                //                            }
+                //                            Log.e("extension", "onActivityResult: $extension")
+                //
+                //                        } catch (e: Exception) {
+                //                            Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+                //                        }
+                //                    }
+
+                        else if (data.data != null) {
+                            val imagePath: String = data.data!!.path!!
+                            val imgUri: Uri = data.data!!
+
+
+                            val path: File = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                            try {
+
+                                val  file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2) {
+                                    createFileFromImageUri(requireContext(),imgUri)!!
+                                } else{
+                                    path.mkdirs()
+                                    File(ImagePathUtils.getRealPath(requireContext(), imgUri)!!)
+                                }
+                                cardFile.add(file)
+                //
+                                //get file extension
+                                // extension = ImagePathUtils.getRealPath(requireContext(), imgUri).toString().split(".").last()
+                                extension ="jpg"
+                                //Set image to view
+                                val bitmap = BitmapFactory.decodeStream(requireContext().contentResolver.openInputStream(imgUri))
+                                rootView.imgDocument.setImageBitmap(bitmap)
+
+                            } catch (e: Exception) {
+                                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+                            }
+                        } else {
+                            Utility.getBaseMessage(
+                                requireActivity(),
+                                "Failed",
+                                "Please select minimum one photo ",
+                                R.drawable.error_white,
+                                2
+                            )
+                        }
+                    }
+                }
+
+                /*
+                200 -> {
                     if (fileType == "ATTACH" && data!!.data != null) {
                         val imagePath: String = data.data!!.path!!
                         Log.e("imagePath", imagePath)
@@ -417,6 +511,8 @@ class Frag_genarate_complain : Fragment() {
                         )
                     }
                 }
+
+                 */
 
             }
 
@@ -472,6 +568,30 @@ class Frag_genarate_complain : Fragment() {
         return Bitmap.createScaledBitmap(image, width, height, true)
     }
 
+//added new
+    fun createFileFromImageUri(context: Context, imageUri: Uri): File? {
+        val inputStream = context.contentResolver.openInputStream(imageUri)
+        val file = createTempImageFile(context)
+
+        return try {
+            val outputStream = FileOutputStream(file)
+            inputStream?.copyTo(outputStream)
+            outputStream.close()
+            inputStream?.close()
+            file
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    fun createTempImageFile(context: Context): File {
+        val tempFileName = "temp_image.jpg" // Replace with your desired file name and extension
+        val storageDir = context.cacheDir // Use cache directory or external storage depending on your needs
+        return File.createTempFile(tempFileName, null, storageDir)
+    }
+
+// new end
 
 
     //TODO Spinner priority
