@@ -769,12 +769,12 @@ class Frag_genarate_complain : Fragment() {
 //
 //            )
 //
-            var occ_date = txtComdate.text.toString()
-            val comp_mob=txtnum.text.toString()
-            val comp_email=txtEmail.text.toString()
-            val req_prior=txtpriority.text.toString()
-            val comp_name: String = rootView.txtcompname.text.toString()
-            var exp_solve_date = rootView.txtExpdate.toString()
+            var occ_date = rootView.txtComdate.text.toString()
+            var comp_mob=rootView.txtnum.text.toString()
+            var comp_email=rootView.txtEmail.text.toString()
+            var req_prior=rootView.txtpriority.text.toString()
+            var comp_name: String = rootView.txtcompname.text.toString()
+            var exp_solve_date = rootView.txtExpdate.text.toString()
 
 
 
@@ -803,13 +803,13 @@ class Frag_genarate_complain : Fragment() {
                     exp_solve_date = "2999-12-31"
                 }else{
 
-                    val dt = Utility.changeDateFormat(
-                        txtComdate.text.toString(),
+                    val dcxp = Utility.changeDateFormat(
+                        txtExpdate.text.toString(),
                         "dd-MMM-yyyy",
                         "yyyy-MM-dd"
 
                     )
-                    exp_solve_date= dt.toString()
+                    exp_solve_date= dcxp.toString()
                 }
 
 
@@ -1145,10 +1145,10 @@ class Frag_genarate_complain : Fragment() {
 
                         if (res.code == "200") {
 
-                            Toast.makeText(requireContext(), "successful", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), res.message, Toast.LENGTH_SHORT).show()
                             loadingAnim.dismiss()
-                            val intent = Intent(requireContext(), Frag_history::class.java)
-                            startActivity(intent)
+                          //  val intent = Intent(requireContext(), Frag_history::class.java)
+                           // startActivity(intent)
 
                             }
 

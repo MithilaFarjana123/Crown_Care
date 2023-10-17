@@ -98,21 +98,53 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#239b56"
                 android:backgroundTint="#239b56"
                 app:cardCornerRadius="20dp"
                 android:layout_margin="10dp">
 
-                <TextView
-                    android:id="@+id/hf_reprtingBCom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:text="We are considering your issue . Make a schduale as soon as possible "
-                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/feedback_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Feedback Date : Jun 10, 2023"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/white"/>
+
+
+                    <TextView
+                        android:id="@+id/hf_reprtingBCom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:text="We are considering your issue . Make a schduale as soon as possible "
+                        />
+
+
+                    <TextView
+                        android:id="@+id/seen_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Jun 10, 2023"
+                        android:layout_marginRight="10dp"
+                        android:gravity="end"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/white"/>
+
+
+
+                </LinearLayout>
+
 
             </androidx.cardview.widget.CardView>
 

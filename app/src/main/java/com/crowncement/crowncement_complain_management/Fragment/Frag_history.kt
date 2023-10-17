@@ -218,7 +218,7 @@ class Frag_history : Fragment() {
 
 
         val comlogAdapter = ComplainAdapter(items)
-        val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+        val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireActivity())
 
         history_recyclerView.layoutManager = rLayoutmanager
         val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

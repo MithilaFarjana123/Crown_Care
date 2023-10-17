@@ -32,6 +32,7 @@ class Act_Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+       loadingAnim = baseLoadingAnimation(this, Dialog(this), "P l e a s e    w a i t")
 
         //requestBackgroundLocationPermission()
         regularTask()
@@ -134,6 +135,7 @@ class Act_Login : AppCompatActivity() {
 
 
     private fun checkAutoLogin() {
+        loadingAnim = baseLoadingAnimation(this, Dialog(this), "P l e a s e    w a i t")
 
         val username: String = Utility.getValueByKey(this, "username")!!
         val pass: String = Utility.getValueByKey(this, "pass")!!

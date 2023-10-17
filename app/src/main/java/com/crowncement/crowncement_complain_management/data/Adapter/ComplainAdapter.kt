@@ -105,7 +105,6 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
         }else if (st.equals("Done")){
             holder.h_status.text=st
             holder.h_status.setTextColor(Color.parseColor("#c0392b"))
-
         }else{
             holder.h_status.text=st
             holder.h_status.setTextColor(R.color.red)
