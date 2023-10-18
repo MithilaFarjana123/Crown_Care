@@ -116,6 +116,9 @@ class Frag_notificationDetails : Fragment() {
             Dialog(requireActivity()),
             "P l e a s e    w a i t"
         )
+
+        rootView.takeAction.setVisibility(View.GONE)
+        rootView.escalate.setVisibility(View.GONE)
         initiate()
         setupViewModel()
         cardFile = ArrayList()
@@ -137,8 +140,27 @@ class Frag_notificationDetails : Fragment() {
         var rq_trn_no =compdata.reqNo.toString()
         var position = compdata.follwAct.size-1
          var user_id = compdata.follwAct.get(position).repTo.toString()
-      //  var rq_trn_row : Int = compdata.follwAct.get(position).actRow!!
            var rq_trn_row : String = compdata.follwAct.get(position).actRow.toString()
+        //  var rq_row : Int = compdata.follwAct.get(position).actRow!!
+
+         var esc_status: String =compdata.follwAct.get(position-1).actStatus.toString()
+
+         if(compdata.trnStatus=="Open"){
+             rootView.takeAction.setVisibility(View.VISIBLE)
+             rootView.escalate.setVisibility(View.VISIBLE)
+         }else if(compdata.trnStatus=="Pending"){
+             rootView.takeAction.setVisibility(View.VISIBLE)
+             rootView.escalate.setVisibility(View.VISIBLE)
+         }
+         else{
+             rootView.takeAction.setVisibility(View.GONE)
+             rootView.escalate.setVisibility(View.GONE)
+         }
+
+         if(esc_status=="Forwarded"){
+             rootView.takeAction.setVisibility(View.GONE)
+             rootView.escalate.setVisibility(View.GONE)
+         }
 
 
         takeAction.setOnClickListener {l ->
@@ -343,9 +365,11 @@ class Frag_notificationDetails : Fragment() {
                 if(saveUIEscValidation(v).equals(true)){
                     var esc_remarks = v.txtEscReason.text.toString()
 
-
+/*
                     Toast.makeText(requireContext(), "Emp : "+emp, Toast.LENGTH_LONG)
                         .show()
+
+ */
                     SaveEscalateActionData(user_id,rq_trn_no,rq_trn_row,emp,esc_remarks)
                     dialog.hide()
 

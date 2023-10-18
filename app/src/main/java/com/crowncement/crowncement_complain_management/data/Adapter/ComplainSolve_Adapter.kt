@@ -7,22 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.crowncement.crowncement_complain_management.R
+import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Model.FollwAct
 
 class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerView.Adapter<ComplainSolve_Adapter.MyViewHolder>() {
     lateinit var mContext: Context
-  //  private lateinit var onClickListener: OnAdapterItemClickListener
 
-
-//    interface OnAdapterItemClickListener {
-//
-//        fun OnClick(v: View?, position: Int)
-//
-//    }
-
-//    fun setOnItemClickListener(listener: ComplainSolve_Adapter.OnAdapterItemClickListener) {
-//        onClickListener = listener
-//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComplainSolve_Adapter.MyViewHolder {
 
@@ -32,7 +22,7 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
          return MyViewHolder(View)
 
 
-        // return ComplainSolve_Adapter.MyViewHolder(View,onClickListener)
+
     }
 
 
@@ -43,6 +33,7 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
         holder.hf_reportingBName.text=complainList[position].repToName
         var feedbackDet = complainList[position].feedbackDet
         var actionDet = complainList[position].feedbackDet
+        var feedback_date = complainList[position].feedbackDate
         if(!feedbackDet.equals("")){
             holder.hf_reprtingBCom.text=complainList[position].feedbackDet
         }else if (!actionDet.equals("")){
@@ -51,6 +42,15 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
             holder.hf_reprtingBCom.visibility = View.GONE
         }
 
+
+        if(!feedbackDet.equals("")){
+            feedback_date= "Feedback Date : "+ Utility.changeDateFormat(
+                feedback_date,
+                "yyyy-MM-dd",
+                "MMM dd,yyyy"
+            )
+            holder.hf_feedback_date.text = feedback_date
+        }
 
 
 
@@ -64,17 +64,10 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
     class MyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
 
         val hf_reportingBName = itemView.findViewById<TextView>(R.id.hf_reportingBName)
-        val hf_replyDate = itemView.findViewById<TextView>(R.id.hf_replyDate)
+      //  val hf_replyDate = itemView.findViewById<TextView>(R.id.hf_replyDate)
         val hf_reprtingBCom = itemView.findViewById<TextView>(R.id.hf_reprtingBCom)
+        val hf_feedback_date = itemView.findViewById<TextView>(R.id.hf_feedback_date)
 
-
-//        init {
-//            itemView.setOnClickListener {
-//                listener.OnClick(itemView, adapterPosition)
-//
-//
-//            }
-//        }
 
     }
 

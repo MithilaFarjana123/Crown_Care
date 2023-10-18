@@ -185,17 +185,10 @@ class Frag_details : Fragment() {
 
 
         }else{
+          //  rootView.d_oc_vf_img.setVisibility(View.GONE)
             rootView.d_oc_img.setVisibility(View.GONE)
         }
 
     }
-
-
-
-
-
-
-
-
 
 }

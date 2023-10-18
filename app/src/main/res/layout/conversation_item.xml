@@ -51,7 +51,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/hf_replyDate"
+                android:id="@+id/hf_feedback_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=" Jun 10,2023 "
@@ -111,14 +111,14 @@
                     android:orientation="vertical">
 
 
-                    <TextView
-                        android:id="@+id/feedback_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Feedback Date : Jun 10, 2023"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/white"/>
+<!--                    <TextView-->
+<!--                        android:id="@+id/hf_feedback_date"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Feedback Date : Jun 10, 2023"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textColor="@color/white"/>-->
 
 
                     <TextView

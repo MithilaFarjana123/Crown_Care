@@ -216,7 +216,6 @@ class Frag_history : Fragment() {
  */
 
 
-
         val comlogAdapter = ComplainAdapter(items)
         val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireActivity())
 
