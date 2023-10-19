@@ -87,7 +87,7 @@
             <View
                 android:layout_width="4dp"
                 android:layout_height="match_parent"
-                android:background="#d5f5e3" />
+                android:background="#ebf5fb" />
 
         </LinearLayout>
 
@@ -100,13 +100,12 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#239b56"
-                android:backgroundTint="#239b56"
+                android:backgroundTint="#d6eaf8"
                 app:cardCornerRadius="20dp"
                 android:layout_margin="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
@@ -126,9 +125,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:textColor="@color/white"
                         android:text="We are considering your issue . Make a schduale as soon as possible "
-                        />
+                         />
 
 
                     <TextView
@@ -138,8 +136,7 @@
                         android:text="Jun 10, 2023"
                         android:layout_marginRight="10dp"
                         android:gravity="end"
-                        android:layout_marginBottom="10dp"
-                        android:textColor="@color/white"/>
+                       />
 
 
 

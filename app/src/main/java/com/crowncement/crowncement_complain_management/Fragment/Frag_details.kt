@@ -62,7 +62,7 @@ class Frag_details : Fragment() {
         val currentYear = currentDateTime.year.toString()
         val currentMonth = currentDateTime.monthValue.toString()
 
-
+        var list = hiscompdata.follwAct
 
         setvalue()
 
@@ -151,6 +151,9 @@ class Frag_details : Fragment() {
 
 
     fun setvalue(){
+
+        rootView.item_req_num.text = "Request Number : "+hiscompdata.reqNo.toString()
+
         rootView.item_title.text = hiscompdata.reqCat.toString()+
                 " Title : "+hiscompdata.reqTitle
 

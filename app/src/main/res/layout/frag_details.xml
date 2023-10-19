@@ -97,6 +97,16 @@
                         android:textStyle="bold"
                         android:textColor="@color/black"/>
 
+                    <TextView
+                        android:id="@+id/item_req_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Request Number : "
+                        android:textSize="13sp"
+                       />
+
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -108,6 +118,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6">
+
 
                             <TextView
                                 android:id="@+id/d_oc_date"
@@ -528,7 +539,7 @@
                         android:padding="5dp"
                         android:text="Action Taken"
                         android:textSize="18sp"
-                        android:textColor="@color/green"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
 

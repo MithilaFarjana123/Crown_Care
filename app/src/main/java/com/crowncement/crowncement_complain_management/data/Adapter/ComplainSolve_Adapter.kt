@@ -44,12 +44,14 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
 
 
         if(!feedbackDet.equals("")){
-            feedback_date= "Feedback Date : "+ Utility.changeDateFormat(
+            feedback_date= " Feedback Date : "+ Utility.changeDateFormat(
                 feedback_date,
                 "yyyy-MM-dd",
                 "MMM dd,yyyy"
             )
             holder.hf_feedback_date.text = feedback_date
+        }else{
+            holder.hf_feedback_date.visibility= View.GONE
         }
 
 
