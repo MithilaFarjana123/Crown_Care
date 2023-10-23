@@ -72,7 +72,7 @@ class Frag_history : Fragment() {
 
     lateinit var hiscompdata : GetComplainData
 
-
+    lateinit var loadingAnim: Dialog
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -145,6 +145,13 @@ class Frag_history : Fragment() {
        // curr_mon: String
 
     ) {
+        loadingAnim = Utility.baseLoadingAnimation(
+            requireActivity(),
+            Dialog(requireContext()),
+            "P l e a s e    w a i t"
+        )
+        loadingAnim.show()
+
         logViewModel.getSavedcomplain(user_id)
             ?.observe(requireActivity()) {
                 when (it.status) {
@@ -154,6 +161,10 @@ class Frag_history : Fragment() {
 
                             successLogList(res)
 
+                            if (res.code == "200") {
+                                loadingAnim.dismiss()
+                            }
+
                         }
 
                     }
@@ -161,9 +172,8 @@ class Frag_history : Fragment() {
 
                     }
                     Status.ERROR -> {
+                        loadingAnim.dismiss()
 
-                        // rootView.shimmer_att_container.visibility = View.GONE
-                        // rootView.shimmer_att_container.stopShimmer()
 
                         Toast.makeText(requireActivity(), it.message, Toast.LENGTH_LONG)
                             .show()
@@ -211,21 +221,6 @@ class Frag_history : Fragment() {
 
         listToSendAdapter = listForOpen
 
-/*
-        rootView.h_open.setOnClickListener {
-            listToSendAdapter = listForOpen
-
-        }
-
-        rootView.h_Done.setOnClickListener {
-
-            listToSendAdapter = listForDone
-
-        }
-
- */
-
-
         val comlogAdapter = ComplainAdapter(items)
         val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
 
@@ -264,33 +259,6 @@ class Frag_history : Fragment() {
             }
             })
 
-/*
-
-                val activity = view?.context as AppCompatActivity
-                val demofragment = Frag_details()
-
-                // Create a Bundle to hold the position value
-                val bundle = Bundle()
-                bundle.putInt("h_position", position) // Assuming adapterPosition holds the position
-
-              //  val userData: GetComplainData = listToSendAdapter.get(position)
-               // Utility.saveCompInfo(userData, requireActivity())
-
-                // Attach the Bundle to the fragment
-                demofragment.arguments = bundle
-
-                // Replace the current fragment with the destination fragment
-                activity.supportFragmentManager.beginTransaction()
-                    .replace(R.id.history_fragment, demofragment)
-                    .addToBackStack(null)
-                    .commit()
-
-            }
-
-
-        })
-
- */
 
         ////////////
 

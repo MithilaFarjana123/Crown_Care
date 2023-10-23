@@ -143,7 +143,7 @@ class Frag_notificationDetails : Fragment() {
            var rq_trn_row : String = compdata.follwAct.get(position).actRow.toString()
         //  var rq_row : Int = compdata.follwAct.get(position).actRow!!
 
-         var esc_status: String =compdata.follwAct.get(position-1).actStatus.toString()
+         var esc_status: String =compdata.follwAct.get(position).actStatus.toString()
 
          if(compdata.trnStatus=="Open"){
              rootView.takeAction.setVisibility(View.VISIBLE)

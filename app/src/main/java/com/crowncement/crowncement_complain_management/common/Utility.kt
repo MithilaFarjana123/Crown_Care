@@ -211,13 +211,13 @@ object Utility {
             activity.getSharedPreferences(activity.packageName, Context.MODE_PRIVATE).edit()
         val gson = Gson()
         val json = gson.toJson(info)
-        mPrefs.putString("CompInfo", json)
+        mPrefs.putString("NotificationCompInfo", json)
         mPrefs.commit()
     }
     fun getsaveCompInfo(activity: Activity): RequestDetails? {
         val prefs = activity.getSharedPreferences(activity.packageName, Context.MODE_PRIVATE)
         val gson = Gson()
-        val json = prefs.getString("CompInfo", "")
+        val json = prefs.getString("NotificationCompInfo", "")
       //  val listType = object : TypeToken<ArrayList<RequestDetails>>() {}.type
         return gson.fromJson(json, RequestDetails::class.java)
     }

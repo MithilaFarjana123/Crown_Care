@@ -68,7 +68,12 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
 
             holder.seen_status.setImageResource(R.drawable.seen)
 
+        }else{
+            holder.seen_status.setImageResource(R.drawable.unseen)
+
         }
+
+
 
         var selectedDate =complainList[position].trnDate
 
@@ -113,48 +118,6 @@ class ComplainAdapter (val complainList : List<GetComplainData>) : RecyclerView.
         holder.h_title.text = complainList[position].reqTitle
 
         holder.item_heading.text = complainList[position].reqCat + " Info "
-
-
-
-
-
-
-/*
-        holder.details.setOnClickListener(object :View.OnClickListener{
-
-            override fun onClick(p0: View?) {
-                val activity = p0?.context as AppCompatActivity
-                val demofragment = Frag_details()
-                activity.supportFragmentManager.beginTransaction().replace(R.id.history_fragment,demofragment)
-                    .addToBackStack(null).commit()
-            }
-
-        })
-
- */
-
-/*
-        holder.itemView.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(view: View?) {
-                val activity = view?.context as AppCompatActivity
-                val demofragment = Frag_details()
-
-                // Create a Bundle to hold the position value
-                val bundle = Bundle()
-                bundle.putInt("position", holder.adapterPosition) // Assuming adapterPosition holds the position
-
-                // Attach the Bundle to the fragment
-                demofragment.arguments = bundle
-
-                // Replace the current fragment with the destination fragment
-                activity.supportFragmentManager.beginTransaction()
-                    .replace(R.id.history_fragment, demofragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-        })
-
- */
 
 
     }

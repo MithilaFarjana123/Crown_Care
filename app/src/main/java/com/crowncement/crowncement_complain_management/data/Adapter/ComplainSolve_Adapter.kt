@@ -4,11 +4,17 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.crowncement.crowncement_complain_management.R
+import com.crowncement.crowncement_complain_management.common.API.Endpoint
 import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Model.FollwAct
+import kotlinx.android.synthetic.main.frag_history.view.*
 
 class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerView.Adapter<ComplainSolve_Adapter.MyViewHolder>() {
     lateinit var mContext: Context
@@ -44,7 +50,7 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
 
 
         if(!feedbackDet.equals("")){
-            feedback_date= " Feedback Date : "+ Utility.changeDateFormat(
+            feedback_date= " Resolve by : "+ Utility.changeDateFormat(
                 feedback_date,
                 "yyyy-MM-dd",
                 "MMM dd,yyyy"
@@ -54,6 +60,24 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
             holder.hf_feedback_date.visibility= View.GONE
         }
 
+        var documentimg =  complainList[position].follImg
+
+            if(!documentimg.equals("")) {
+                Glide
+                    .with(mContext)
+                    .load(Endpoint.IMAGE_BASE_URL + documentimg)
+                    // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/" + img)
+                    .error(R.drawable.document)
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    // .placeholder(R.drawable.baseline_no_img)
+                    //  .transform(RoundedCorners(30,30.0))
+                    .into(holder.hf_doc_img)
+            }
+            else{
+                holder.hf_doc.visibility= View.GONE
+            }
 
 
     }
@@ -69,7 +93,8 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
       //  val hf_replyDate = itemView.findViewById<TextView>(R.id.hf_replyDate)
         val hf_reprtingBCom = itemView.findViewById<TextView>(R.id.hf_reprtingBCom)
         val hf_feedback_date = itemView.findViewById<TextView>(R.id.hf_feedback_date)
-
+        val hf_doc = itemView.findViewById<CardView>(R.id.hf_doc)
+        var hf_doc_img = itemView.findViewById<ImageView>(R.id.hf_doc_img)
 
     }
 
