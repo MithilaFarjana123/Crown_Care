@@ -109,7 +109,7 @@ object ComplainSaveRepository {
         val req_prior = RequestBody.create("application/json".toMediaTypeOrNull(), req_prior)
         val doc_ext = RequestBody.create("application/json".toMediaTypeOrNull(), doc_ext)
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), all_images)
-        val comp_name=RequestBody.create("application/json".toMediaTypeOrNull(), comp_name)
+        val comp_name =RequestBody.create("application/json".toMediaTypeOrNull(), comp_name)
         val exp_solve_date=RequestBody.create("application/json".toMediaTypeOrNull(), exp_solve_date)
 
 

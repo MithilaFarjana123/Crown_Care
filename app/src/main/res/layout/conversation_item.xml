@@ -5,7 +5,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
+    android:id="@+id/conversation_item"
     android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/seen_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="5:45 PM"
+        android:textSize="11sp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        />
 
 
     <LinearLayout
@@ -143,18 +155,6 @@
                         android:orientation="vertical">
 
 
-                        <!--                    <TextView-->
-                        <!--                        android:id="@+id/hf_feedback_date"-->
-                        <!--                        android:layout_width="match_parent"-->
-                        <!--                        android:layout_height="wrap_content"-->
-                        <!--                        android:text="Feedback Date : Jun 10, 2023"-->
-                        <!--                        android:layout_marginLeft="10dp"-->
-                        <!--                        android:layout_marginTop="10dp"-->
-                        <!--                        android:textColor="@color/white"/>-->
-
-
-
-
                         <TextView
                             android:id="@+id/hf_reprtingBCom"
                             android:layout_width="wrap_content"
@@ -171,8 +171,38 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#d6eaf8"
+                    app:cardCornerRadius="20dp"
+                    android:layout_margin="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/hf_reprtingBaction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:text="We are considering your issue . Make a schduale as soon as possible "
+                            />
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
                 <TextView
-                    android:id="@+id/seen_date"
+                    android:id="@+id/seen_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="5:45 PM"

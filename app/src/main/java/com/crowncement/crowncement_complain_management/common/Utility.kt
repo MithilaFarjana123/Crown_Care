@@ -49,6 +49,8 @@ object Utility {
         return newDateString
     }
 
+
+
     fun getBaseMessage(activity: Activity, title: String, mess: String, icon: Int, status: Int) {
 /*
         when (status) {

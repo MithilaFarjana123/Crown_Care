@@ -323,7 +323,7 @@ class Frag_history : Fragment() {
                 " Title : "+hiscompdata.reqTitle
 
         view.d_oc_date.text= "Occurence Date : "+Utility.changeDateFormat(
-            hiscompdata.trnDate,
+            hiscompdata.reqDate,
             "yyyy-MM-dd",
             "MMM dd,yyyy"
         )
@@ -360,6 +360,7 @@ class Frag_history : Fragment() {
 
         //todo action taken
         var title = hiscompdata.reqCat + " Details"
+        val Status = hiscompdata.trnStatus
         view.toolbar_dtitle.text = title.toString()
         var actionTakenList = hiscompdata.follwAct
         var position = hiscompdata.follwAct.size-1
@@ -371,7 +372,7 @@ class Frag_history : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        if(!actStatus.equals("")){
+        if(!Status.equals("Open")){
             val adapter = ComplainSolve_Adapter(actionTakenList)
             recyclerView.adapter = adapter
         }else{

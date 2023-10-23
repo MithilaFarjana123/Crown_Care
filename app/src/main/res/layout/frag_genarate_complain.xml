@@ -298,7 +298,7 @@
                     app:startIconDrawable="@drawable/baseline_person_pin_24">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/txtcompname"
+                        android:id="@+id/txtcomplainername"
                         android:inputType="textPersonName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

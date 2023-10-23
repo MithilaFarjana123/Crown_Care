@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -38,14 +39,18 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
         var visitorposition = complainList[position]
         holder.hf_reportingBName.text=complainList[position].repToName
         var feedbackDet = complainList[position].feedbackDet
-        var actionDet = complainList[position].feedbackDet
+        var actionDet = complainList[position].actionDet
         var feedback_date = complainList[position].feedbackDate
         if(!feedbackDet.equals("")){
             holder.hf_reprtingBCom.text=complainList[position].feedbackDet
-        }else if (!actionDet.equals("")){
-            holder.hf_reprtingBCom.text=complainList[position].actionDet
-        }else {
+        }else{
             holder.hf_reprtingBCom.visibility = View.GONE
+        }
+
+        if (!actionDet.equals("")){
+            holder.hf_reprtingBaction.text=complainList[position].actionDet
+        }else{
+            holder.hf_reprtingBaction.visibility = View.GONE
         }
 
 
@@ -56,11 +61,33 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
                 "MMM dd,yyyy"
             )
             holder.hf_feedback_date.text = feedback_date
-        }else{
+        }else if(
+            (complainList.get(position).actStatus.equals("Done"))||
+            (complainList.get(position).actStatus.equals("Forwarded"))
+                ){
             holder.hf_feedback_date.visibility= View.GONE
         }
 
-        var documentimg =  complainList[position].follImg
+        else{
+            holder.hf_feedback_date.visibility= View.GONE
+        }
+
+
+        var replyTime = complainList.get(position).actTime
+            holder.seen_time.text = Utility.changeDateFormat(
+                replyTime,
+                "yyyy-MM-dd hh:mm:ss",
+                "hh:mm:ss a"
+            )
+
+        holder.seen_date.text =Utility.changeDateFormat(
+            replyTime,
+            "yyyy-MM-dd hh:mm:ss",
+            "MMM dd,yyyy"
+        )
+
+
+        var documentimg =  complainList[position].follImg.toString()
 
             if(!documentimg.equals("")) {
                 Glide
@@ -74,10 +101,18 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
                     // .placeholder(R.drawable.baseline_no_img)
                     //  .transform(RoundedCorners(30,30.0))
                     .into(holder.hf_doc_img)
+            }else{
+                holder.hf_doc.visibility = View.GONE
+
             }
-            else{
-                holder.hf_doc.visibility= View.GONE
-            }
+
+        if(complainList.get(position).actStatus.equals("")){
+            holder.conversation_item.visibility = View.GONE
+        }
+
+
+
+
 
 
     }
@@ -95,7 +130,10 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
         val hf_feedback_date = itemView.findViewById<TextView>(R.id.hf_feedback_date)
         val hf_doc = itemView.findViewById<CardView>(R.id.hf_doc)
         var hf_doc_img = itemView.findViewById<ImageView>(R.id.hf_doc_img)
-
+        var seen_time = itemView.findViewById<TextView>(R.id.seen_time)
+        var seen_date = itemView.findViewById<TextView>(R.id.seen_date)
+        var hf_reprtingBaction =itemView.findViewById<TextView>(R.id.hf_reprtingBaction)
+        var conversation_item = itemView.findViewById<LinearLayout>(R.id.conversation_item)
     }
 
 }

@@ -1,6 +1,7 @@
 package com.crowncement.crowncement_complain_management.data.Adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -69,12 +70,11 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
 
         holder.n_title.text = notificationList[position].reqTitle
         holder.n_u_name.text = notificationList[position].reqEmpName
-
-      //  holder.n_u_desig.text = notificationList[position].r
+        holder.n_u_catagory.text = notificationList[position].reqCat
 
         holder.n_u_dep.text = notificationList[position].deptNam
-/*
-        var img = notificationList[position].reqImg.toString()
+
+        var img = notificationList[position].compImage.toString()
 
         if (img.isNotEmpty()) {
             //ToDo Image
@@ -91,40 +91,84 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
                 .into(holder.itemView.n_img)
         }
 
- */
 
-/*
-        holder.itemView.setOnClickListener(object :View.OnClickListener{
-            override fun onClick(p0: View?) {
-               val activity = p0?.context as AppCompatActivity
-                val bundle = Bundle()
-                bundle.putInt("position", holder.adapterPosition) // Assuming adapterPosition holds the position
+//for resolve date
 
-                //  bundle.putParcelableArrayList("list",notificationList)
-                val demofragment = Frag_notificationDetails()
-                demofragment.arguments= bundle
 
-              //  demofragment.arguments = bundle
+        val startDateStr = notificationList[position].trnDate.toString()
+        val endDateStr = notificationList[position].expectedResolvDate.toString()
 
-                // Replace the current fragment with the destination fragment
-                activity.supportFragmentManager.beginTransaction()
-                    .replace(R.id.res, demofragment)
-                    .addToBackStack(null)
-                    .commit()
+      //  holder.itemView.setBackgroundResource(R.color.colorSelected)
+        val percentageRemaining = calculatePercentageRemaining(startDateStr, endDateStr)
+        if (percentageRemaining >= 67) {
+            holder.itemView.cardLay.setBackgroundColor(Color.parseColor("#E1F2E8"))
+        }
+        else if(percentageRemaining >= 34)
+            holder.itemView.cardLay.setBackgroundColor(Color.parseColor("#F8F3E5"))
+        else if(percentageRemaining >= 0){
+            holder.itemView.cardLay.setBackgroundColor(Color.parseColor("#FAEFEE"))
+           // println("Error in date parsing or calculation.")
+        }else{
+            holder.itemView.cardLay.setBackgroundColor(Color.parseColor("#FAEFEE"))
+        }
 
-//                activity.supportFragmentManager.beginTransaction().replace(R.id.res,demofragment)
-//                    .addToBackStack(null).commit()
 
+    }
+
+
+    fun calculateRemainingDays(startDateStr: String, endDateStr: String): Int {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+
+        try {
+            val startDate = dateFormat.parse(startDateStr)
+            val endDate = dateFormat.parse(endDateStr)
+
+            val currentTimeMillis = System.currentTimeMillis()
+            val currentDateTime = Date(currentTimeMillis)
+
+            if (startDate.before(currentDateTime)) {
+                startDate.time = currentDateTime.time
             }
 
+            val difference = endDate.time - startDate.time
+            val remainingDays = (difference / (1000 * 60 * 60 * 24)).toInt()
 
-        })
+            return remainingDays
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
- */
+        return -1
+    }
 
+    fun calculatePercentageRemaining(startDateStr: String, endDateStr: String): Double {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
 
+        try {
+            val startDate = dateFormat.parse(startDateStr)
+            val endDate = dateFormat.parse(endDateStr)
 
+            val currentTimeMillis = System.currentTimeMillis()
+            val currentDateTime = Date(currentTimeMillis)
 
+            if (startDate.before(currentDateTime)) {
+                startDate.time = currentDateTime.time
+            }
+
+            val difference = endDate.time - startDate.time
+            val remainingDays = (difference / (1000 * 60 * 60 * 24)).toInt()
+
+            val totalDays = calculateRemainingDays(startDateStr, endDateStr)
+
+            if (totalDays >= 0) {
+                val percentageRemaining = (remainingDays.toDouble() / totalDays.toDouble()) * 100
+                return percentageRemaining
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return -1.0
     }
 
 
@@ -134,7 +178,7 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
         var n_img=itemView.findViewById<ImageView>(R.id.n_img)
         var n_title = itemView.findViewById<TextView>(R.id.n_title)
         var n_u_name = itemView.findViewById<TextView>(R.id.n_u_name)
-        var n_u_desig = itemView.findViewById<TextView>(R.id.n_u_desig)
+        var n_u_catagory = itemView.findViewById<TextView>(R.id.n_u_catagory)
         var n_u_dep = itemView.findViewById<TextView>(R.id.n_u_dep)
 
 

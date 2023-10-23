@@ -52,9 +52,11 @@ import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.escalate.*
 import kotlinx.android.synthetic.main.escalate.view.*
 import kotlinx.android.synthetic.main.frag_details.view.*
+import kotlinx.android.synthetic.main.frag_details.view.d_userImg
 import kotlinx.android.synthetic.main.frag_notification.*
 import kotlinx.android.synthetic.main.frag_notification.view.*
 import kotlinx.android.synthetic.main.frag_notification_details.view.*
+import kotlinx.android.synthetic.main.notification_details.view.*
 import kotlinx.android.synthetic.main.take_action.view.*
 import java.io.File
 import java.io.IOException
@@ -90,8 +92,8 @@ class Frag_notification : Fragment() {
 
     lateinit var txtDepartment: AutoCompleteTextView
     lateinit var txtEscperson:AutoCompleteTextView
-    lateinit var takeAction : TextView
-    lateinit var escalate:TextView
+    lateinit var takeAction : CardView
+    lateinit var escalate:CardView
   //  lateinit var radio_Feedback:RadioButton
     lateinit var actionTaken : String
     lateinit var id : String
@@ -129,13 +131,13 @@ class Frag_notification : Fragment() {
         setImg()
 
          id = Utility.getValueByKey(requireActivity(),"username").toString()
-        compdata = Utility.getsaveCompInfo(requireActivity())!!
+        //  compdata = Utility.getsaveCompInfo(requireActivity())!!
 
 //
         if (id != null) {
           //  getComplainSolverDataList(id)
-            getComplainSolverDataList("E11-001795")
-
+            getComplainSolverDataList("E00-005445")
+          //  getComplainSolverDataList("E11-001795")
         }
 
 
@@ -266,13 +268,12 @@ class Frag_notification : Fragment() {
 
             override fun OnClick(v: View?, position: Int) {
                 val userData: RequestDetails = items.get(position)
-                saveCompInfo(userData,requireActivity())
-              //  var empid = items[position].follwAct.get(position).repTo.toString()
-            //  var row = items[position].reqNo.toString()
-             //   row = "bmvbk"
+               // saveCompInfo(userData,requireActivity())
+
 //todo check id
                // UpdateSeenStatData(id,items[position].reqNo.toString())
-                UpdateSeenStatData("E11-001795",items[position].reqNo.toString())
+                UpdateSeenStatData("E00-005445",items[position].reqNo.toString())
+                //UpdateSeenStatData("E11-001795",items[position].reqNo.toString())
 
 
 
@@ -283,7 +284,8 @@ class Frag_notification : Fragment() {
 
 
                 setImg(v)
-                action(v)
+                setvalue(v,userData)
+                action(v,userData)
 
 
                 dialog.setContentView(v)
@@ -295,32 +297,6 @@ class Frag_notification : Fragment() {
                 }
 
 
-/*
-                //  UpdateSeenStatData(id,items[position].reqNo.toString())
-                val activity = view?.context as AppCompatActivity
-                val demofragment = Frag_notificationDetails()
-
-
-
-                // Create a Bundle to hold the position value
-                val bundle = Bundle()
-                bundle.putInt("h_position", position) // Assuming adapterPosition holds the position
-
-                //  val userData: GetComplainData = listToSendAdapter.get(position)
-                // Utility.saveCompInfo(userData, requireActivity())
-
-
-                // Attach the Bundle to the fragment
-                demofragment.arguments = bundle
-
-                // Replace the current fragment with the destination fragment
-                activity.supportFragmentManager.beginTransaction()
-                    .replace(R.id.frag_notification, demofragment)
-                    .addToBackStack(null)
-                    .commit()
-               // UpdateSeenStatData("E11-001795",items[position].reqNo.toString())
-
- */
 
             }
 
@@ -349,13 +325,65 @@ class Frag_notification : Fragment() {
         }
     }
 
+    fun setvalue(v: View,userData: RequestDetails){
+        var data = userData
+        var catagory = data.reqCat
+        v.nd_toolbar_dtitle.text = catagory+" Details"
+
+        v.nd_reqid.text=data.reqNo
+        v.nd_item_title.text = data.reqTitle
+        v.nd_sob_date.text=Utility.changeDateFormat(
+            data.trnDate,
+            "yyyy-MM-dd",
+            "MMM dd,yyyy"
+        )
+        v.nd_oc_date.text=  "Occurence Date : "+Utility.changeDateFormat(
+            data.reqDate,
+            "yyyy-MM-dd",
+            "MMM dd,yyyy"
+        )
+
+        v.nd_oc_expResolvedby.text = Utility.changeDateFormat(
+            data.expectedResolvDate,
+            "yyyy-MM-dd",
+            "MMM dd,yyyy"
+        )
+
+        v.nd_comp_name.text= data.compName.toString()
+        v.nd_oc_num.text = data.compMob.toString()
+        v.nd_oc_email.text=data.compEmail.toString()
+        v.nd_oc_type.text = data.reqType.toString()
+        v.nd_oc_details.text = data.reqDet.toString()
+
+        var documentImg = data.reqImg.toString()
+        if (documentImg.isNotEmpty()){
+            Glide
+                .with(requireActivity())
+                .load(Endpoint.IMAGE_BASE_URL + documentImg)
+                // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/" + documentImg)
+                .error(R.drawable.document)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                // .placeholder(R.drawable.baseline_no_img)
+                //  .transform(RoundedCorners(30,30.0))
+                .into(v.nd_oc_img)
+
+
+        }else{
+            //  rootView.d_oc_vf_img.setVisibility(View.GONE)
+            v.nd_oc_img.setVisibility(View.GONE)
+        }
+
+    }
 
 
 
-    fun action(v: View){
 
-        takeAction = v.findViewById<TextView>(R.id.nd_takeAction)
-        escalate= v.findViewById<TextView>(R.id.nd_escalate)
+    fun action(v: View,userData: RequestDetails){
+        compdata = userData
+        takeAction = v.findViewById<CardView>(R.id.nd_takeAction)
+        escalate= v.findViewById<CardView>(R.id.nd_escalate)
       //  radio_Feedback = v.findViewById<RadioButton>(R.id.radio_Feedback)
 
         var rq_trn_no =compdata.reqNo.toString()
@@ -364,15 +392,15 @@ class Frag_notification : Fragment() {
         var rq_trn_row : String = compdata.follwAct.get(position).actRow.toString()
         var p = rq_trn_row.toInt()-1
         //  var rq_row : Int = compdata.follwAct.get(position).actRow!!
-       // var
+        var feedback_status : String = compdata.follwAct.get(p).actStatus.toString()
         var esc_status: String =compdata.follwAct.get(position).actStatus.toString()
 
         if(compdata.trnStatus=="Open"){
             takeAction.setVisibility(View.VISIBLE)
             escalate.setVisibility(View.VISIBLE)
         }else if(compdata.trnStatus=="Pending"){
-           // takeAction.setVisibility(View.VISIBLE)
-           // escalate.setVisibility(View.VISIBLE)
+            takeAction.setVisibility(View.VISIBLE)
+            escalate.setVisibility(View.VISIBLE)
         }
         else {
             takeAction.setVisibility(View.GONE)
@@ -384,12 +412,9 @@ class Frag_notification : Fragment() {
            escalate.setVisibility(View.GONE)
         }
 
-
-
         takeAction.setOnClickListener {l ->
 
             val v: View = layoutInflater.inflate(R.layout.take_action, null)
-           // radio_Feedback = v.findViewById<RadioButton>(R.id.radio_Feedback)
             val dialog = BottomSheetDialog(requireActivity())
             var picker: DatePickerDialog
 
@@ -415,7 +440,9 @@ class Frag_notification : Fragment() {
             var addCameraDoc = v.findViewById<ImageView>(R.id.addCameraDoc)
 
             setActionImage = v.findViewById<ImageView>(R.id.setActionImage)
-            if (esc_status=="Reviewed"){
+
+
+            if (feedback_status=="Reviewed"){
                 radio_Feedback.visibility= View.GONE
             }
 

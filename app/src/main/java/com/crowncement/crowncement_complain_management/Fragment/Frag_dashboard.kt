@@ -212,10 +212,10 @@ class Frag_dashboard : Fragment() {
 
 
         val comlogAdapter = Dasgbord_OngoingAdapter(listForOpen)
-        val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+        val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireActivity())
 
         dashbord_recyclerView.layoutManager = rLayoutmanager
-        val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val manager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         dashbord_recyclerView.layoutManager = manager
         dashbord_recyclerView.adapter = comlogAdapter
         /*

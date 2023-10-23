@@ -112,7 +112,7 @@ interface GetDataService {
         @Part("req_prior") req_prior: RequestBody,
         @Part("doc_ext") doc_ext: RequestBody,
         @Part all_images: MultipartBody.Part,
-        @Part("doc_ext") comp_name: RequestBody,
+        @Part("comp_name") comp_name: RequestBody,
         @Part("exp_solve_date") exp_solve_date: RequestBody
 
 

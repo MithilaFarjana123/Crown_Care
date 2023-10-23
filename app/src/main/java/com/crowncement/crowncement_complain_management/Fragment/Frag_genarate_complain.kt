@@ -758,7 +758,7 @@ class Frag_genarate_complain : Fragment() {
             var comp_mob=rootView.txtnum.text.toString()
             var comp_email=rootView.txtEmail.text.toString()
             var req_prior=rootView.txtpriority.text.toString()
-            var comp_name: String = rootView.txtcompname.text.toString()
+            var comp_name = rootView.txtcomplainername.text.toString()
             var exp_solve_date = rootView.txtExpdate.text.toString()
 
 
@@ -929,67 +929,12 @@ class Frag_genarate_complain : Fragment() {
         )
         ac.setAdapter(adapter)
         adapter.notifyDataSetChanged()
-        // categoryname = ac.text.toString()
-        // getSavedInCategorytList(categoryname,departmentName)
+
     }
 
 //  Todo title end
 
-    //Todo upload image
-    /*
-    private fun uploadComplainPhoto(
-        party_code: String,
-        party_type: String,
-        doc_type: String,
-        doc_ext: String,
-        all_images: File,
-        loading: Dialog
-    ) {
-        logViewModel.VisitorImageUpload(
-            party_code,
-            party_type,
-            doc_type,
-            doc_ext,
-            all_images
 
-        )
-            ?.observe(this) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-
-                        it.responseData?.let { res ->
-                            try {
-                                if (res.code == "200") {
-                                    loading.dismiss()
-
-
-                                } else {
-
-                                    loading.dismiss()
-
-                                }
-
-                            } catch (e: Exception) {
-                                loading.dismiss()
-                                Log.e("Complain Add", "Error: " + e.message)
-                            }
-
-                        }
-                    }
-                    Status.LOADING -> {
-
-
-                    }
-
-                    Status.ERROR -> {
-                        loading.dismiss()
-                     //   Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
-    }
-
-     */
 
     
 //Todo validation start
@@ -1038,7 +983,7 @@ class Frag_genarate_complain : Fragment() {
         }else if (txtcomsum.text.toString().isEmpty()) {
             result = false
             setError(rootView.layoutComSum, "Your Details id is required")
-        }else if (txtcompname.text.toString().isEmpty()) {
+        }else if (txtcomplainername.text.toString().isEmpty()) {
             result = false
             setError(rootView.layoutComName, "Complainers name is required")
         }

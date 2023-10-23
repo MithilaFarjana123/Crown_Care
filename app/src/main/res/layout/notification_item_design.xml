@@ -9,6 +9,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardLay"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_width="match_parent"
@@ -90,7 +91,7 @@
                         android:text="Md.Abdur Rahman"/>
 
                     <TextView
-                        android:id="@+id/n_u_desig"
+                        android:id="@+id/n_u_catagory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"

@@ -3,6 +3,7 @@ package com.crowncement.crowncement_complain_management.data.Model
 import com.google.gson.annotations.SerializedName
 
 data class FollwAct(
+
     @SerializedName("act_row"       ) var actRow       : Int?    = null,
     @SerializedName("rep_to"        ) var repTo        : String? = null,
     @SerializedName("rep_to_name"   ) var repToName    : String? = null,
@@ -15,5 +16,6 @@ data class FollwAct(
     @SerializedName("foll_img"      ) var follImg      : String? = null,
     @SerializedName("feedback_date" ) var feedbackDate : String? = null,
     @SerializedName("feedback_det"  ) var feedbackDet  : String? = null,
-    @SerializedName("seen_status"   ) var seenStatus   : String? = null
+    @SerializedName("seen_status"   ) var seenStatus   : String? = null,
+    @SerializedName("act_time"      ) var actTime      : String? = null
 )

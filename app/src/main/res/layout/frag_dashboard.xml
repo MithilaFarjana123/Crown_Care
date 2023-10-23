@@ -2,131 +2,85 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dashbord_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f8f9f9"
-    android:id="@+id/dashbord_fragment"
     tools:context=".Fragment.Frag_dashboard">
 
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#1d8348" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/wave" />
 
 
         <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="0dp"
-            android:layout_weight="0.04">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.7"
-                android:layout_height="match_parent"
-                android:text=""/>
-
-            <ImageView
-                android:id="@+id/btn_logout"
-                android:layout_width="0dp"
-                android:layout_weight="0.3"
-                android:layout_height="match_parent"
-                android:src="@drawable/baseline_logout_24"/>
-
-        </LinearLayout>
-
-
-<!--    1st    -->
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="0.05">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_marginRight="20dp"-->
-<!--                android:layout_marginLeft="20dp"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal">-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_weight="0.3"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text=""-->
-<!--                        />-->
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_weight="0.3"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    />-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_weight="0.3"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent">-->
-<!--                    <TextView-->
-<!--                        android:id="@+id/btn_logout"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text=""-->
-<!--                        android:gravity="right"-->
-<!--                        android:textColor="@color/design_default_color_error"-->
-<!--                        android:drawableEnd="@drawable/baseline_logout_24"/>-->
-<!--                </LinearLayout>-->
-
-<!--            </LinearLayout>-->
-
-
-<!--        </LinearLayout>-->
-
-
-        <!--    2nd    -->
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.3">
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="-150dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="0.2">
 
-            <FrameLayout
+            <!--            <FrameLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content">-->
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                >
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="5dp">
 
-                <androidx.cardview.widget.CardView
+                <LinearLayout
+                    android:paddingTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="15dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="5dp">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_marginBottom="15dp"
+                        android:id="@+id/userImg"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.2"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:src="@drawable/human"
+                        app:civ_border_color="#CCCCCC"
+                        app:civ_border_width="2dp"
+                        app:civ_circle_background_color="@color/white" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:paddingBottom="10dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.8"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="45dp"
                         android:orientation="vertical">
-
 
                         <TextView
                             android:id="@+id/txt_userName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
                             android:gravity="center"
                             android:text="Md. Abdur Rahman"
                             android:textColor="@color/black"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
 
@@ -154,67 +108,101 @@
                             android:layout_marginBottom="15dp"
                             android:gravity="center"
                             android:text="E00-005445"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/userImg"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/human"
-                    android:translationZ="10dp"
-                    app:civ_circle_background_color="@color/white" />
-            </FrameLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <!--            </FrameLayout>-->
 
         </LinearLayout>
 
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:layout_marginBottom="30dp"
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="0dp"
-            android:layout_weight="0.7">
-            <include layout="@layout/dashboard_child" />
-
+            android:layout_weight="0.78">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/dashboard_child"
+                    android:visibility="gone" />
+
+                <include
+                    layout="@layout/dashboard_summary_child_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp" />
+
+                <include
+                    layout="@layout/dashboard_child_summary_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:paddingLeft="10dp"
+                    android:text="Recent Activity"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/dashbord_recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:scrollbars="none"
+                    android:layout_height="250dp"
                     android:orientation="horizontal"
+                    android:scrollbars="none"
                     tools:listitem="@layout/dashboardchild_underway" />
 
-<!--                <include layout="@layout/dashboardchild_underway"/>-->
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.02"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:text="" />
+
+                    <ImageView
+                        android:id="@+id/btn_logout"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/baseline_logout_24" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
 
-        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-        <!--    4th    -->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="0.2">-->
-
-<!--            <include layout="@layout/dashboardchild_underway"/>-->
-
-<!--        </LinearLayout>-->
 
     </LinearLayout>
-
 
 
 </FrameLayout>
