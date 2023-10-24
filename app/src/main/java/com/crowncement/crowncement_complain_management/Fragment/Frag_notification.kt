@@ -135,8 +135,8 @@ class Frag_notification : Fragment() {
 
 //
         if (id != null) {
-          //  getComplainSolverDataList(id)
-            getComplainSolverDataList("E00-005445")
+            getComplainSolverDataList(id)
+         //   getComplainSolverDataList("E00-005445")
           //  getComplainSolverDataList("E11-001795")
         }
 
@@ -271,9 +271,9 @@ class Frag_notification : Fragment() {
                // saveCompInfo(userData,requireActivity())
 
 //todo check id
-               // UpdateSeenStatData(id,items[position].reqNo.toString())
-                UpdateSeenStatData("E00-005445",items[position].reqNo.toString())
-                //UpdateSeenStatData("E11-001795",items[position].reqNo.toString())
+                UpdateSeenStatData(id,items[position].reqNo.toString())
+             //   UpdateSeenStatData("E00-005445",items[position].reqNo.toString())
+               // UpdateSeenStatData("E11-001795",items[position].reqNo.toString())
 
 
 
@@ -701,16 +701,6 @@ class Frag_notification : Fragment() {
         var rq_trn_row = compdata.follwAct.get(position).actRow.toString()
         var party_code =rq_trn_no+"_"+ rq_trn_row
 
-        /* Toast.makeText(requireContext(), "Feedback done", Toast.LENGTH_LONG)
-             .show()
-
-         */
-
-        //   Utility.commonToast(requireActivity(),"Feedback done",res.message.toString(),1)
-
-
-
-
 
         if (res.code == "200") {
 
@@ -840,6 +830,32 @@ class Frag_notification : Fragment() {
                         it.responseData?.let { res ->
                             val b = res.code
                             val c = res.message
+
+                            var rq_trn_no =compdata.reqNo.toString()
+                            var position = compdata.follwAct.size-1
+                            var rq_trn_row = compdata.follwAct.get(position).actRow.toString()
+                            var party_code =rq_trn_no+"_"+ rq_trn_row
+
+
+                            if (res.code == "200") {
+
+                                if (cardFile.size > 0) {
+
+                                    actionImageUpload(
+                                        party_code,
+                                        "care",
+                                        "follwup/reject",
+                                        extension,
+                                        cardFile,
+                                        loadingAnim
+                                    )
+                                }else{
+                                    Utility.commonToast(requireActivity(),"Feedback done",res.message.toString(),1)
+                                    loadingAnim.dismiss()
+                                }
+
+
+                            }
 
                             if(res.code == "200"){
                                 Utility.getBaseMessage(

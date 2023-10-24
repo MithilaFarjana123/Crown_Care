@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,10 +19,11 @@ import com.crowncement.crowncement_complain_management.R
 import com.crowncement.crowncement_complain_management.common.API.Endpoint
 import com.crowncement.crowncement_complain_management.common.Status
 import com.crowncement.crowncement_complain_management.common.Utility
-import com.crowncement.crowncement_complain_management.data.Adapter.ComplainAdapter
 import com.crowncement.crowncement_complain_management.data.Adapter.Dasgbord_OngoingAdapter
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainResponse
+import com.crowncement.crowncement_complain_management.data.Model.GetUserReqSumData
+import com.crowncement.crowncement_complain_management.data.Model.GetUserReqSumResponce
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodelfactory.ComplainViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -30,7 +32,7 @@ import kotlinx.android.synthetic.main.frag_dashboard.*
 import kotlinx.android.synthetic.main.frag_dashboard.view.*
 import kotlinx.android.synthetic.main.frag_history.*
 import java.util.*
-
+import kotlin.collections.ArrayList
 
 
 class Frag_dashboard : Fragment() {
@@ -38,7 +40,6 @@ class Frag_dashboard : Fragment() {
     lateinit var rootView: View
     lateinit var logViewModel: ComplainViewModel
     lateinit var listForOpen : ArrayList<GetComplainData>
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +49,11 @@ class Frag_dashboard : Fragment() {
         ComplainViewModelFactory()
         setupViewModel()
         setValue()
+        var user_id: String? = Utility.getValueByKey(requireActivity(),"username")
+
+        if (user_id != null) {
+            getComplainSummary(user_id)
+        }
         // Inflate the layout for this fragment
         eventClickListener()
         return rootView
@@ -239,7 +245,86 @@ class Frag_dashboard : Fragment() {
      */
     }
 
+//todo for comp summary
+    private fun getComplainSummary(
+        user_id: String
 
+
+    ) {
+        logViewModel.getSavedComplainSum(user_id)
+            ?.observe(requireActivity()) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+
+                        it.responseData?.let { res ->
+                            successLogList1(res)
+                        }
+
+                    }
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+
+                        // rootView.shimmer_att_container.visibility = View.GONE
+                        // rootView.shimmer_att_container.stopShimmer()
+
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+                }
+            }
+    }
+
+    private fun successLogList1(res: GetUserReqSumResponce) {
+
+        if (res.code == "200") {
+            if (res.data.isNotEmpty()) {
+                prepareLogRV1(res.data)
+
+
+
+            } else {
+
+
+            }
+        }
+    }
+
+
+    private fun prepareLogRV1(items: ArrayList<GetUserReqSumData>) {
+
+
+        var incidentNum : TextView = rootView.findViewById(R.id.d_incidentNum)
+        var inquireyNum : TextView =  rootView.findViewById(R.id.d_inquiresNum)
+        var pendingIncident : TextView = rootView.findViewById(R.id.d_penIncident)
+        var PendingInquirey : TextView =  rootView.findViewById(R.id.d_penInquirey)
+        var appliedNo: TextView =  rootView.findViewById(R.id.appliedNo)
+        var resolvedNo: TextView =  rootView.findViewById(R.id.resolvedNo)
+
+        var pendingNo: TextView =  rootView.findViewById(R.id.pendingNo)
+        incidentNum.setText(items.get(0).incidentNo.toString())
+        inquireyNum.setText(items.get(0).inquiryNo.toString())
+        pendingIncident.setText("Pending "+items.get(0).incidentPendingNo.toString())
+        PendingInquirey.setText("Pending "+items.get(0).inquiryPendingNo.toString())
+        appliedNo.setText(items.get(0).appliedNo.toString())
+        resolvedNo.setText(items.get(0).resolvedNo.toString())
+        pendingNo.setText(items.get(0).pendingNo.toString())
+
+
+        val progressBar = rootView.findViewById<ProgressBar>(R.id.progressBar)
+        val maxProgress = 100 // Set your custom maximum progress value
+        progressBar.max = maxProgress
+        var progress = items.get(0).incidentNo!!.toInt() // Set your desired progress value here
+        progressBar.progress = progress
+
+        val progressBar1 = rootView.findViewById<ProgressBar>(R.id.progressBar2)
+        val maxProgress1 = 100 // Set your custom maximum progress value
+        progressBar.max = maxProgress1
+        var progress1 = items.get(0).inquiryNo!!.toInt() // Set your desired progress value here
+        progressBar1.progress = progress1
+
+    }
 
 
 }

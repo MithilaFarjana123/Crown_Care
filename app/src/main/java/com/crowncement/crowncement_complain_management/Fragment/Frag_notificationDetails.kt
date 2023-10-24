@@ -866,6 +866,8 @@ class Frag_notificationDetails : Fragment() {
                             val c = res.message
 
                             if(res.code == "200"){
+
+
                                 Utility.getBaseMessage(
                                     requireActivity(),
                                     "Successful",

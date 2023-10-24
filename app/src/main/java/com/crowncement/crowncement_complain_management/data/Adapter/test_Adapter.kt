@@ -12,13 +12,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.crowncement.crowncement_complain_management.Fragment.Frag_details
 import com.crowncement.crowncement_complain_management.R
-import com.crowncement.crowncement_complain_management.common.API.Endpoint
+import com.crowncement.crowncement_complain_management.common.API.Endpoint.IMAGE_BASE_URL
 import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Model.Complain
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
-import kotlinx.android.synthetic.main.dashboardchild_underway.view.*
+import kotlinx.android.synthetic.main.dashboardchild_underway.view.imgComplain
 
-class Dasgbord_OngoingAdapter(val complainList : List<GetComplainData>) : RecyclerView.Adapter<Dasgbord_OngoingAdapter.MyViewHolder>() {
+class test_Adapter(val complainList : List<GetComplainData>) : RecyclerView.Adapter<Dasgbord_OngoingAdapter.MyViewHolder>() {
 
 
     lateinit var mContext: Context
@@ -51,22 +51,25 @@ class Dasgbord_OngoingAdapter(val complainList : List<GetComplainData>) : Recycl
             "yyyy-MM-dd",
             "MMM dd,yyyy"
         )
-
-        holder.do_comTitle.text = complainList[position].reqTitle
-        val p = complainList[position].follwAct.size-1
-        holder.do_comHandleby.text=complainList[position].follwAct[p].repToName
-
+/*
         holder.txtExpectedResolveDate.text= Utility.changeDateFormat(
             complainList[position].expectedResolvDate,
             "yyyy-MM-dd",
             "MMM dd,yyyy"
         )
 
+ */
+
+        holder.do_comTitle.text = complainList[position].reqTitle
+        val p = complainList[position].follwAct.size-1
+        holder.do_comHandleby.text=complainList[position].follwAct[p].repToName
+
+
         if (complainList[position].reqImg!="") {
 
             Glide
                 .with(mContext)
-                .load(Endpoint.IMAGE_BASE_URL +complainList[position].reqImg)
+                .load(IMAGE_BASE_URL+complainList[position].reqImg)
                 .error(R.drawable.complain)
                 .centerInside()
                 .skipMemoryCache(true)
@@ -94,7 +97,6 @@ class Dasgbord_OngoingAdapter(val complainList : List<GetComplainData>) : Recycl
                     .commit()
             }
         })
-
 
     }
 

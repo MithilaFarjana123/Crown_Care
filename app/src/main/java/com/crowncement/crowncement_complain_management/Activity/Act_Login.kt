@@ -32,7 +32,7 @@ class Act_Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-       loadingAnim = baseLoadingAnimation(this, Dialog(this), "P l e a s e    w a i t")
+        loadingAnim = baseLoadingAnimation(this, Dialog(this), "P l e a s e    w a i t")
 
         //requestBackgroundLocationPermission()
         regularTask()

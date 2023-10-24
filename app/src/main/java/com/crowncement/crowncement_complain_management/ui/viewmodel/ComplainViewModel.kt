@@ -22,6 +22,8 @@ class ComplainViewModel: ViewModel() {
 
     private var getsavedComplainMutableLiveData:MutableLiveData<Resource<GetComplainResponse>>? = null
 
+    private var getSavedComplainSumMutableLiveData: MutableLiveData<Resource<GetUserReqSumResponce>>? = null
+
     //Todo get depertment
     fun getDepartmentData(
 
@@ -89,6 +91,16 @@ class ComplainViewModel: ViewModel() {
 
         return getsavedComplainMutableLiveData
     }
+
+
+
+    fun getSavedComplainSum(
+        user_id: String
+    ) : MutableLiveData<Resource<GetUserReqSumResponce>>? {
+        getSavedComplainSumMutableLiveData = ComplainRepository.getSavedComplainSummary(user_id)
+        return getSavedComplainSumMutableLiveData
+    }
+
 
 
 }

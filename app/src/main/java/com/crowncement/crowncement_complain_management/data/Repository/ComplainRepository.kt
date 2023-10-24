@@ -272,8 +272,45 @@ object ComplainRepository {
     }
 
 
+    //Todo get Saved complain
+    fun getSavedComplainSummary(
+        user_id: String
+        //  curr_yr: String,
+        // curr_mon: String
+    ): MutableLiveData<Resource<GetUserReqSumResponce>> {
+        val user_id = RequestBody.create("application/json".toMediaTypeOrNull(), user_id)
+        //  val curr_yr = RequestBody.create("application/json".toMediaTypeOrNull(), curr_yr)
+        //  val curr_mon = RequestBody.create("application/json".toMediaTypeOrNull(), curr_mon)
 
+        val appInfo: MutableLiveData<Resource<GetUserReqSumResponce>> =
+            MutableLiveData<Resource<GetUserReqSumResponce>>()
+
+        try {
+            val service: GetDataService = RetrofitClientInstance.retrofitInstance.create(
+                GetDataService::class.java
+            )
+            service.GetUserReqSum(user_id)
+                ?.toObservable()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(
+                    { response ->
+                        appInfo.postValue(Resource.success(response))
+                    },
+                    { error -> //
+                        appInfo.postValue(Resource.error(error.message.toString(), null))
+
+                    },
+                )
+
+        } catch (e: Exception) {
+            Log.e("Complain Repository", "ERROR : " + e.message)
+        }
+        return appInfo
+    }
 
 
 }
+
+
 

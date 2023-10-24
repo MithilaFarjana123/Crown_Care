@@ -93,7 +93,7 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
                 Glide
                     .with(mContext)
                     .load(Endpoint.IMAGE_BASE_URL + documentimg)
-                    // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/" + img)
+                   // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/care/follimg/" + documentimg)
                     .error(R.drawable.document)
                     .fitCenter()
                     .diskCacheStrategy(DiskCacheStrategy.NONE)

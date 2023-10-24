@@ -174,5 +174,12 @@ interface GetDataService {
 
         ) : Flowable<Escalationresponce>?
 
+
+    //todo GetUserReqSum
+    @Multipart
+    @POST("GetUserReqSum")
+    fun GetUserReqSum(
+        @Part("user_id") user_id: RequestBody
+    ) : Flowable<GetUserReqSumResponce>?
 }
 

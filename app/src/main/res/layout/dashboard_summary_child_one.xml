@@ -55,6 +55,7 @@
                     android:progressDrawable="@drawable/progress_drawable" />
 
                 <TextView
+                    android:id="@+id/d_penIncident"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pending 10"
@@ -76,6 +77,7 @@
             <!--                android:layout_weight="0.1">-->
 
             <TextView
+                android:id="@+id/d_incidentNum"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -124,6 +126,7 @@
                     android:progressDrawable="@drawable/progress_drawable_inquries" />
 
                 <TextView
+                    android:id="@+id/d_penInquirey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pending 6"
@@ -145,6 +148,7 @@
             <!--                app:cardCornerRadius="100dp">-->
 
             <TextView
+                android:id="@+id/d_inquiresNum"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
