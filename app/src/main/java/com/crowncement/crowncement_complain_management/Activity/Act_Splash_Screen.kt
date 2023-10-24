@@ -20,6 +20,7 @@ import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -51,7 +52,7 @@ import java.util.*
 
 class Act_Splash_Screen : AppCompatActivity() {
 
-    private lateinit var lottieAnimationView: LottieAnimationView
+    private lateinit var lottieAnimationView: ImageView
     private lateinit var splashViewModel: SplashViewModel
 
 
@@ -162,6 +163,8 @@ class Act_Splash_Screen : AppCompatActivity() {
             finish()
         }, 2000)
     }
+
+
 
 
 

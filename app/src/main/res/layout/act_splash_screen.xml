@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Act_Splash_Screen">
+    tools:context=".Activity.Act_Splash_Screen"
+    android:orientation="vertical">
 
     <include layout="@layout/layout_no_internet"
         android:id="@+id/no_internet"
         android:visibility="gone"/>
+
 
 <!--    <ImageView-->
 <!--        android:id="@+id/img_CrownICon"-->
@@ -33,15 +35,24 @@
             android:layout_weight="0.9"
             android:orientation="vertical">
 
-            <com.airbnb.lottie.LottieAnimationView
+            <ImageView
                 android:id="@+id/lottie"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:elevation="5dp"
-                app:lottie_autoPlay="true"
-                app:lottie_rawRes="@raw/complain"
-                tools:ignore="MissingConstraints" />
+                android:src="@drawable/care_circle"
+                android:layout_gravity="center"/>
+
+
+
+<!--            <com.airbnb.lottie.LottieAnimationView-->
+<!--                android:id="@+id/lottie"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:elevation="5dp"-->
+<!--                app:lottie_autoPlay="true"-->
+<!--                app:lottie_rawRes="@raw/complain"-->
+<!--                tools:ignore="MissingConstraints" />-->
 
         </LinearLayout>
 
@@ -74,7 +85,7 @@
                 android:fontFamily="@font/archivoblack"
                 android:gravity="center"
                 android:text="@string/crown_cement"
-                android:textColor="#116D41"
+                android:textColor="@color/green"
                 android:textSize="22sp"
                 android:padding="5dp"
                 android:textStyle="bold"
@@ -107,4 +118,4 @@
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -245,6 +245,9 @@ class Frag_notification : Fragment() {
 
     private fun prepareLogRV(items: java.util.ArrayList<RequestDetails>) {
 
+        items.sortByDescending {
+            it.reqNo
+        }
 
         val notificationlogAdapter = NotificationAdapter(items)
         val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
@@ -836,7 +839,7 @@ class Frag_notification : Fragment() {
                             var rq_trn_row = compdata.follwAct.get(position).actRow.toString()
                             var party_code =rq_trn_no+"_"+ rq_trn_row
 
-
+/*
                             if (res.code == "200") {
 
                                 if (cardFile.size > 0) {
@@ -856,6 +859,8 @@ class Frag_notification : Fragment() {
 
 
                             }
+
+ */
 
                             if(res.code == "200"){
                                 Utility.getBaseMessage(

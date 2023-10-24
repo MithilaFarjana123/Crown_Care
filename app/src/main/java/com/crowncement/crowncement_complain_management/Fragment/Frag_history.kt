@@ -221,6 +221,10 @@ class Frag_history : Fragment() {
 
         listToSendAdapter = listForOpen
 
+        items.sortByDescending {
+            it.reqNo
+        }
+
         val comlogAdapter = ComplainAdapter(items)
         val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
 

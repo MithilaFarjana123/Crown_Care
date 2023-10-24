@@ -141,8 +141,9 @@
                             <ImageView
                                 android:id="@+id/nd_oc_img"
                                 android:layout_width="match_parent"
-                                android:layout_height="150dp"
+                                android:layout_height="200dp"
                                 android:padding="10dp"
+                                android:scaleType="fitXY"
                                 android:src="@drawable/document"
                                 android:textStyle="bold"/>
 

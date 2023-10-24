@@ -10,45 +10,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:padding="5dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="3dp"
             android:orientation="horizontal">
 
         <TextView
             android:id="@+id/item_heading"
-            android:layout_weight="0.6"
+            android:layout_weight="0.7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Complain Info"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="@color/green"/>
 
 
-            <LinearLayout
-                android:layout_weight="0.2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-<!--                <TextView-->
-<!--                    android:background="@drawable/gradient_box"-->
-<!--                    android:id="@+id/h_details"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:text=" Details"-->
-<!--                    android:textSize="11sp"-->
-<!--                    android:gravity="center"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:textColor="#067C2E"-->
-<!--                    android:drawableRight="@drawable/baseline_keyboard_double_arrow_right_24"/>-->
-
-
-            </LinearLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/item_id"-->
+<!--                android:layout_weight="0.3"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="23126777878"-->
+<!--                android:gravity="end"-->
+<!--                android:textSize="13sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/black"/>-->
 
 
 
@@ -59,6 +51,11 @@
 
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#a5a4a4"/>
 
         <LinearLayout
             android:layout_width="match_parent"

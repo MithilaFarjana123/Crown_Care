@@ -242,7 +242,22 @@ object Utility {
         return gson.fromJson(json, GetComplainData::class.java)
     }
 
+    fun savedasCompInfo(info: GetComplainData, activity: Activity) {
+        val mPrefs =
+            activity.getSharedPreferences(activity.packageName, Context.MODE_PRIVATE).edit()
+        val gson = Gson()
+        val json = gson.toJson(info)
+        mPrefs.putString("dasCompInfo", json)
+        mPrefs.commit()
+    }
 
+    fun getsavedasCompInfo(activity: Activity): GetComplainData? {
+        val prefs = activity.getSharedPreferences(activity.packageName, Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = prefs.getString("dasCompInfo", "")
+        //  val listType = object : TypeToken<ArrayList<RequestDetails>>() {}.type
+        return gson.fromJson(json, GetComplainData::class.java)
+    }
 
 
 

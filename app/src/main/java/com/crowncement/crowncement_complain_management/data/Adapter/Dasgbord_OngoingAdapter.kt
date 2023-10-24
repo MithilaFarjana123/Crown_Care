@@ -14,7 +14,6 @@ import com.crowncement.crowncement_complain_management.Fragment.Frag_details
 import com.crowncement.crowncement_complain_management.R
 import com.crowncement.crowncement_complain_management.common.API.Endpoint
 import com.crowncement.crowncement_complain_management.common.Utility
-import com.crowncement.crowncement_complain_management.data.Model.Complain
 import com.crowncement.crowncement_complain_management.data.Model.GetComplainData
 import kotlinx.android.synthetic.main.dashboardchild_underway.view.*
 
@@ -22,25 +21,34 @@ class Dasgbord_OngoingAdapter(val complainList : List<GetComplainData>) : Recycl
 
 
     lateinit var mContext: Context
+    private lateinit var onClickListener: OnAdapterItemClickListener
 
+    interface OnAdapterItemClickListener {
 
+        fun OnClick(v: View?, position: Int)
+
+    }
+
+    fun setOnItemClickListener(listener: OnAdapterItemClickListener) {
+        onClickListener = listener
+    }
 
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): Dasgbord_OngoingAdapter.MyViewHolder {
+    ): MyViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val View = inflater.inflate(R.layout.dashboardchild_underway, parent, false)
 
-        return Dasgbord_OngoingAdapter.MyViewHolder(View)
+        return MyViewHolder(View,onClickListener)
     }
 
     override fun getItemCount(): Int {
         return complainList.size
     }
 
-    override fun onBindViewHolder(holder: Dasgbord_OngoingAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         mContext = holder.itemView.context
 
 
@@ -74,7 +82,7 @@ class Dasgbord_OngoingAdapter(val complainList : List<GetComplainData>) : Recycl
                 .placeholder(R.drawable.complain)
                 .into(holder.itemView.imgComplain)
         }
-
+/*
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
                 val activity = view?.context as AppCompatActivity
@@ -95,20 +103,30 @@ class Dasgbord_OngoingAdapter(val complainList : List<GetComplainData>) : Recycl
             }
         })
 
+ */
+
 
     }
 
 
 
-    class MyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
+    class MyViewHolder(itemView: View, listener: OnAdapterItemClickListener) : RecyclerView.ViewHolder(itemView) {
 
         val do_comSubDate = itemView.findViewById<TextView>(R.id.do_comSubDate)
         val do_comTitle = itemView.findViewById<TextView>(R.id.do_comTitle)
         val do_comHandleby = itemView.findViewById<TextView>(R.id.do_comHandleby)
         val txtExpectedResolveDate = itemView.findViewById<TextView>(R.id.txtExpectedResolveDate)
 
+        init {
+            itemView.setOnClickListener {
+                listener.OnClick(itemView, adapterPosition)
+
+
+            }
+
+
+        }
+
+
     }
-
-
-
 }
