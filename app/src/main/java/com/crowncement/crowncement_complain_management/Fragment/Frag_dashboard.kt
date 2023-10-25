@@ -77,12 +77,13 @@ class Frag_dashboard : Fragment() {
 
 
 
+
+
     fun eventClickListener(){
         rootView.btn_logout.setOnClickListener {
             logoutBottomSheet()
         }
     }
-
 
 
 
@@ -130,7 +131,7 @@ class Frag_dashboard : Fragment() {
 
 
 
-    private fun logoutBottomSheet() {
+    fun logoutBottomSheet() {
         val v: View = layoutInflater.inflate(R.layout.confirm_logout, null)
         val dialog = BottomSheetDialog(requireContext())
         Objects.requireNonNull(dialog.window)
@@ -436,7 +437,7 @@ class Frag_dashboard : Fragment() {
                         // rootView.shimmer_att_container.visibility = View.GONE
                         // rootView.shimmer_att_container.stopShimmer()
                         loadingAnim.dismiss()
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
+                        Toast.makeText(requireContext(), "No recent activity available", Toast.LENGTH_LONG)
                             .show()
                     }
                 }

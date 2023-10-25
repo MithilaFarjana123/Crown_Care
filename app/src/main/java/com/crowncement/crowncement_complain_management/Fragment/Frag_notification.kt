@@ -411,7 +411,7 @@ class Frag_notification : Fragment() {
         var p = rq_trn_row.toInt()-1
         //  var rq_row : Int = compdata.follwAct.get(position).actRow!!
         var feedback_status : String = compdata.follwAct.get(p).actStatus.toString()
-        var esc_status: String =compdata.follwAct.get(position).actStatus.toString()
+        var esc_status: String = compdata.follwAct.get(position).actStatus.toString()
 
         var party_code =rq_trn_no+"_"+ rq_trn_row
 
