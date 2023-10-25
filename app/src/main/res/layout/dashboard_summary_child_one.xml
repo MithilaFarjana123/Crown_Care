@@ -51,14 +51,14 @@
                     android:layout_height="10dp"
                     android:indeterminate="false"
                     android:max="100"
-                    android:progress="75"
+                    android:progress="0"
                     android:progressDrawable="@drawable/progress_drawable" />
 
                 <TextView
                     android:id="@+id/d_penIncident"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pending 10"
+                    android:text="Pending 0"
                     android:textSize="11sp" />
 
             </LinearLayout>
@@ -85,7 +85,7 @@
                 android:layout_weight="0.1"
                 android:background="@drawable/circle_green"
                 android:gravity="center"
-                android:text="75"
+                android:text="0"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
@@ -122,14 +122,14 @@
                     android:layout_height="10dp"
                     android:indeterminate="false"
                     android:max="100"
-                    android:progress="20"
+                    android:progress="0"
                     android:progressDrawable="@drawable/progress_drawable_inquries" />
 
                 <TextView
                     android:id="@+id/d_penInquirey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pending 6"
+                    android:text="Pending 0"
                     android:textSize="11sp" />
 
             </LinearLayout>
@@ -156,7 +156,7 @@
                 android:layout_weight="0.1"
                 android:background="@drawable/circle_orange"
                 android:gravity="center"
-                android:text="20"
+                android:text="0"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 

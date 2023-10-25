@@ -86,7 +86,7 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
             "MMM dd,yyyy"
         ).toString()
 
-        
+
 
       //  var documentimg =  complainList[position].follImg.toString()
             if(complainList[position].follImg!="") {

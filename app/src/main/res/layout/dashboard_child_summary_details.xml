@@ -65,7 +65,7 @@
                     android:layout_weight="0.1"
                     android:background="@drawable/circle_gray"
                     android:gravity="center"
-                    android:text="20"
+                    android:text="0"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
 
@@ -114,7 +114,7 @@
                     android:layout_weight="0.1"
                     android:background="@drawable/circle_gray"
                     android:gravity="center"
-                    android:text="15"
+                    android:text="0"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
 
@@ -163,7 +163,7 @@
                     android:layout_weight="0.1"
                     android:background="@drawable/circle_gray"
                     android:gravity="center"
-                    android:text="5"
+                    android:text="0"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
 
