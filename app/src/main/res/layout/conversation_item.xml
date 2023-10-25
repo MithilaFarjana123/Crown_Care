@@ -118,13 +118,13 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/hf_doc"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="20dp"
                     android:layout_margin="10dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
@@ -133,8 +133,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:padding="10dp"
+                            android:scaleType="fitXY"
                             android:src="@drawable/document"
-                            android:textStyle="bold"/>
+                          />
 
 
                     </LinearLayout>

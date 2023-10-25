@@ -84,23 +84,25 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
             replyTime,
             "yyyy-MM-dd hh:mm:ss",
             "MMM dd,yyyy"
-        )
+        ).toString()
 
+        
 
-        var documentimg =  complainList[position].follImg.toString()
+      //  var documentimg =  complainList[position].follImg.toString()
+            if(complainList[position].follImg!="") {
 
-            if(!documentimg.equals("")) {
+                val imgS=Endpoint.IMAGE_BASE_URL + complainList[position].follImg
                 Glide
                     .with(mContext)
-                    .load(Endpoint.IMAGE_BASE_URL + documentimg)
+                    .load(imgS)
                    // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/care/follimg/" + documentimg)
                     .error(R.drawable.document)
                     .fitCenter()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
+                   // .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    //.skipMemoryCache(true)
                     // .placeholder(R.drawable.baseline_no_img)
                     //  .transform(RoundedCorners(30,30.0))
-                    .into(holder.hf_doc_img)
+                    .into(holder.hf_document_img)
             }else{
                 holder.hf_doc.visibility = View.GONE
 
@@ -128,8 +130,8 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
       //  val hf_replyDate = itemView.findViewById<TextView>(R.id.hf_replyDate)
         val hf_reprtingBCom = itemView.findViewById<TextView>(R.id.hf_reprtingBCom)
         val hf_feedback_date = itemView.findViewById<TextView>(R.id.hf_feedback_date)
-        val hf_doc = itemView.findViewById<CardView>(R.id.hf_doc)
-        var hf_doc_img = itemView.findViewById<ImageView>(R.id.hf_doc_img)
+        var hf_doc = itemView.findViewById<CardView>(R.id.hf_doc)
+        var hf_document_img = itemView.findViewById<ImageView>(R.id.hf_doc_img)
         var seen_time = itemView.findViewById<TextView>(R.id.seen_time)
         var seen_date = itemView.findViewById<TextView>(R.id.seen_date)
         var hf_reprtingBaction =itemView.findViewById<TextView>(R.id.hf_reprtingBaction)

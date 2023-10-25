@@ -53,12 +53,15 @@ import kotlinx.android.synthetic.main.escalate.*
 import kotlinx.android.synthetic.main.escalate.view.*
 import kotlinx.android.synthetic.main.frag_details.view.*
 import kotlinx.android.synthetic.main.frag_details.view.d_userImg
+import kotlinx.android.synthetic.main.frag_genarate_complain.view.*
 import kotlinx.android.synthetic.main.frag_notification.*
 import kotlinx.android.synthetic.main.frag_notification.view.*
 import kotlinx.android.synthetic.main.frag_notification_details.view.*
 import kotlinx.android.synthetic.main.notification_details.view.*
 import kotlinx.android.synthetic.main.take_action.view.*
+import kotlinx.android.synthetic.main.take_action.view.imgAddDoc
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 
@@ -96,6 +99,14 @@ class Frag_notification : Fragment() {
     lateinit var escalate:CardView
   //  lateinit var radio_Feedback:RadioButton
     lateinit var actionTaken : String
+
+    lateinit var user_id : String
+    lateinit var rq_trn_no : String
+    lateinit var rq_trn_row : String
+    lateinit var solution_det : String
+
+
+
     lateinit var id : String
     lateinit var compdata : RequestDetails
 
@@ -129,7 +140,8 @@ class Frag_notification : Fragment() {
         )
         loadingAnim.show()
         setImg()
-
+        extension= " "
+        solution_det = " "
          id = Utility.getValueByKey(requireActivity(),"username").toString()
         //  compdata = Utility.getsaveCompInfo(requireActivity())!!
 
@@ -389,14 +401,20 @@ class Frag_notification : Fragment() {
         escalate= v.findViewById<CardView>(R.id.nd_escalate)
       //  radio_Feedback = v.findViewById<RadioButton>(R.id.radio_Feedback)
 
-        var rq_trn_no =compdata.reqNo.toString()
+        rq_trn_no = ""
+        rq_trn_no =compdata.reqNo.toString()
         var position = compdata.follwAct.size-1
-        var user_id = compdata.follwAct.get(position).repTo.toString()
-        var rq_trn_row : String = compdata.follwAct.get(position).actRow.toString()
+        user_id = ""
+        user_id = compdata.follwAct.get(position).repTo.toString()
+        rq_trn_row = ""
+        rq_trn_row  = compdata.follwAct.get(position).actRow.toString()
         var p = rq_trn_row.toInt()-1
         //  var rq_row : Int = compdata.follwAct.get(position).actRow!!
         var feedback_status : String = compdata.follwAct.get(p).actStatus.toString()
         var esc_status: String =compdata.follwAct.get(position).actStatus.toString()
+
+        var party_code =rq_trn_no+"_"+ rq_trn_row
+
 
         if(compdata.trnStatus=="Open"){
             takeAction.setVisibility(View.VISIBLE)
@@ -502,7 +520,7 @@ class Frag_notification : Fragment() {
 
             var feedback_date = v.txtFrResolvedDate.text.toString()
             var feedback_det = v.txtActionComment.text.toString()
-            var solution_det = v.txtActionComment.text.toString()
+            solution_det = v.txtActionComment.text.toString()
 
 
             v.pdfAddDoc.setOnClickListener {
@@ -530,23 +548,92 @@ class Frag_notification : Fragment() {
 
                         dialog.hide()
 
-/*
-                        SaveUpdateActionData("E00-005445","23091100016","1","2023-09-01",
-                        "test purpose","","feedback","jpg")
 
- */
-                    }else if( saveUIValidation(v).equals(true)){
-                        var solution_det = v.txtActionComment.text.toString()
+                    }
+                    /*
+                    else if((actionTaken=="done")&&saveUIValidation(v).equals(true)){
+                        var act = actionTaken.toString()
 
-                        SaveUpdateActionData(user_id,rq_trn_no,rq_trn_row,"",
-                            "",solution_det,actionTaken,extension)
+                        solution_det=""
+                        solution_det = v.txtActionComment.text.toString()
+                        if (cardFile.size > 0) {
+
+                            actionImageUpload(
+                                party_code,
+                                "care",
+                                "follwup/done",
+                                extension,
+                                cardFile,
+                                loadingAnim
+                            )
+                        }
+
+                        else{
+
+                            SaveUpdateActionData(user_id,rq_trn_no,rq_trn_row,"",
+                                "",solution_det,actionTaken,extension)
+
+
+                        }
+
+
+                        loadingAnim.dismiss()
+
                         dialog.hide()
 
                     }
 
-                }else{
+                     */
 
-                    Toast.makeText(requireContext(), "Please select your action", Toast.LENGTH_SHORT).show()                }
+
+                    else if(saveUIValidation(v).equals(true)){
+                        solution_det=""
+                        solution_det = v.txtActionComment.text.toString()
+                        if (cardFile.size > 0) {
+                            if(actionTaken=="Done"){
+                                actionImageUpload(
+                                    party_code,
+                                    "care",
+                                    "follwup/done",
+                                    extension,
+                                    cardFile,
+                                    loadingAnim
+                                )
+                            }
+                            else if((actionTaken=="Reject")){
+                                actionImageUpload(
+                                    party_code,
+                                    "care",
+                                    "follwup/reject",
+                                    extension,
+                                    cardFile,
+                                    loadingAnim
+                                )
+                            }
+
+                        }
+
+                        else{
+
+                            SaveUpdateActionData(user_id,rq_trn_no,rq_trn_row,"",
+                                "",solution_det,actionTaken,extension)
+
+
+                        }
+
+
+                        loadingAnim.dismiss()
+
+                        dialog.hide()
+
+                    }
+
+                }
+
+                else{
+
+                    Toast.makeText(requireContext(), "Please select your action", Toast.LENGTH_SHORT).show()
+                }
                 //   v.actionQ.setTextColor(R.color.red)
             }
 
@@ -668,8 +755,12 @@ class Frag_notification : Fragment() {
                             val b = res.code
                             val c = res.message
 
+
                             if(res.code == "200"){
-                                successActLogList(res)
+
+
+
+                               // successActLogList(res)
 
                             }
                             loadingAnim.dismiss()
@@ -704,7 +795,20 @@ class Frag_notification : Fragment() {
         var rq_trn_row = compdata.follwAct.get(position).actRow.toString()
         var party_code =rq_trn_no+"_"+ rq_trn_row
 
+        if(res.code == "200"){
+            Utility.getBaseMessage(
+                requireActivity(),
+                "Successful",
+                res.message.toString(),
+                R.drawable.ic_checked_green,
+                1
+            )
 
+            //    successLogList(res)
+
+        }
+
+/*
         if (res.code == "200") {
 
             if (cardFile.size > 0) {
@@ -724,6 +828,8 @@ class Frag_notification : Fragment() {
 
 
         }
+
+ */
 
 
 
@@ -753,7 +859,15 @@ class Frag_notification : Fragment() {
                         it.responseData?.let { res ->
                             try {
                                 if (res.code == "200") {
+
+
+                                    SaveUpdateActionData(user_id,rq_trn_no,rq_trn_row,"",
+                                        "",solution_det,actionTaken,extension)
+
                                     loading.dismiss()
+
+
+                                    /*
                                     if (party_code != "") {
                                         Utility.getBaseMessage(
                                             requireActivity(),
@@ -771,6 +885,8 @@ class Frag_notification : Fragment() {
                                             1
                                         )
                                     }
+
+                                     */
 
                                     // val navController =
                                     //     requireActivity().findNavController(R.id.nav_host_fragment)
@@ -1184,6 +1300,87 @@ class Frag_notification : Fragment() {
             when (requestCode) {
 //
                 //attach
+
+                200 -> {
+
+                    if (data!!.clipData != null) {
+                        val count = data.clipData!!.itemCount
+
+                        for (i in 0 until count) {
+                            val imageUri: Uri = data.clipData!!.getItemAt(i).uri
+
+                            val path: File =
+                                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                            try {
+                                path.mkdirs()
+                                val file =
+                                    File(ImagePathUtils.getRealPath(requireContext(), imageUri)!!)
+                                cardFile.add(file)
+                                //  finalFile.add()
+                                extension = ImagePathUtils.getRealPath(requireContext(), imageUri)
+                                    .toString().split(".")[1]
+                                Log.e("extension", "onActivityResult: $extension")
+                                // val selectedImage =   data.clipData!!.getItemAt(i).uri as Bitmap?
+                                setImage(file, setActionImage)
+                               // finalFile=file
+                                fileType = ""
+                            } catch (e: Exception) {
+                                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG)
+                                    .show()
+                            }
+                        }
+
+                    }
+
+
+                    else if (data.data != null) {
+                        val imagePath: String = data.data!!.path!!
+                        val imgUri: Uri = data.data!!
+
+
+                        val path: File = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                        try {
+
+                            val  file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2) {
+                                createFileFromImageUri(requireContext(),imgUri)!!
+                            } else{
+                                path.mkdirs()
+                                File(ImagePathUtils.getRealPath(requireContext(), imgUri)!!)
+                            }
+                            cardFile.add(file)
+                           // finalFile=file
+                            fileType = ""
+
+//
+                            //get file extension
+                            // extension = ImagePathUtils.getRealPath(requireContext(), imgUri).toString().split(".").last()
+                            extension ="jpg"
+                            //Set image to view
+                            val bitmap = BitmapFactory.decodeStream(requireContext().contentResolver.openInputStream(imgUri))
+                            setActionImage.setImageBitmap(bitmap)
+
+                        }
+
+                        catch (e: Exception) {
+                            Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                    else {
+                        Utility.getBaseMessage(
+                            requireActivity(),
+                            "Failed",
+                            "Please select minimum one photo ",
+                            R.drawable.error_white,
+                            2
+                        )
+                    }
+                }
+
+
+
+
+/*
                 200 -> {
                     setActionImage.setBackgroundResource(0)
 
@@ -1233,6 +1430,10 @@ class Frag_notification : Fragment() {
                         )
                     }
                 }
+
+ */
+
+
                 //pdf
                 12 -> {
                     if (fileType == "PDF") {
@@ -1321,6 +1522,33 @@ class Frag_notification : Fragment() {
             }
         }
     }
+
+
+
+    //added new
+    fun createFileFromImageUri(context: Context, imageUri: Uri): File? {
+        val inputStream = context.contentResolver.openInputStream(imageUri)
+        val file = createTempImageFile(context)
+
+        return try {
+            val outputStream = FileOutputStream(file)
+            inputStream?.copyTo(outputStream)
+            outputStream.close()
+            inputStream?.close()
+            file
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    fun createTempImageFile(context: Context): File {
+        val tempFileName = "temp_image.jpg" // Replace with your desired file name and extension
+        val storageDir = context.cacheDir // Use cache directory or external storage depending on your needs
+        return File.createTempFile(tempFileName, null, storageDir)
+    }
+
+// new end
 
     private fun setImage(imgFile: File, v: ImageView) {
         v.setImageBitmap(null)
