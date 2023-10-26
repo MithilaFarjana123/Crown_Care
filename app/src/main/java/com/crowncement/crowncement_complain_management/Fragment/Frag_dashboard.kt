@@ -422,6 +422,8 @@ class Frag_dashboard : Fragment() {
 
                         it.responseData?.let { res ->
                             if (res.code == "200") {
+                                rootView.drecent_activity.visibility = View.VISIBLE
+
                                 loadingAnim.dismiss()
                                 successLogList1(res)
                             }
@@ -437,8 +439,8 @@ class Frag_dashboard : Fragment() {
                         // rootView.shimmer_att_container.visibility = View.GONE
                         // rootView.shimmer_att_container.stopShimmer()
                         loadingAnim.dismiss()
-                        Toast.makeText(requireContext(), "No recent activity available", Toast.LENGTH_LONG)
-                            .show()
+                        rootView.drecent_activity.visibility = View.GONE
+                      //  Toast.makeText(requireContext(), "No recent activity available", Toast.LENGTH_LONG).show()
                     }
                 }
             }

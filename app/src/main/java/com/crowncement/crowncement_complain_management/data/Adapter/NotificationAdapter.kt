@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -80,8 +81,8 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
             //ToDo Image
             Glide
                 .with(mContext)
-              //  .load(IMAGE_BASE_URL + img)
-                .load(Endpoint.IMAGE_BASE_URL +  img)
+                //  .load(IMAGE_BASE_URL + img)
+                .load(Endpoint.IMAGE_BASE_URL + img)
                 .error(R.drawable.human)
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -98,17 +99,22 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
         val startDateStr = notificationList[position].trnDate.toString()
         val endDateStr = notificationList[position].expectedResolvDate.toString()
 
-      //  holder.itemView.setBackgroundResource(R.color.colorSelected)
+        //  holder.itemView.setBackgroundResource(R.color.colorSelected)
         val percentageRemaining = calculatePercentageRemaining(startDateStr, endDateStr)
         if (percentageRemaining >= 67) {
+
             holder.itemView.cardLay.setBackgroundColor(Color.parseColor("#E1F2E8"))
-        }
-        else if(percentageRemaining >= 34)
+        } else if (percentageRemaining >= 34) {
+            holder.itemView.n_sideLay.setBackgroundColor(Color.parseColor("#f39c12"))
             holder.itemView.cardLay.setBackgroundColor(Color.parseColor("#F8F3E5"))
-        else if(percentageRemaining >= 0){
+        }else if(percentageRemaining >= 0){
+
+            holder.itemView.n_sideLay.setBackgroundColor(Color.parseColor("#c0392b"))
             holder.itemView.cardLay.setBackgroundColor(Color.parseColor("#FAEFEE"))
            // println("Error in date parsing or calculation.")
         }else{
+
+            holder.itemView.n_sideLay.setBackgroundColor(Color.parseColor("#c0392b"))
             holder.itemView.cardLay.setBackgroundColor(Color.parseColor("#FAEFEE"))
         }
 
@@ -180,7 +186,7 @@ class NotificationAdapter (val notificationList : ArrayList<RequestDetails>) : R
         var n_u_name = itemView.findViewById<TextView>(R.id.n_u_name)
         var n_u_catagory = itemView.findViewById<TextView>(R.id.n_u_catagory)
         var n_u_dep = itemView.findViewById<TextView>(R.id.n_u_dep)
-
+        var n_sideLay = itemView.findViewById<LinearLayout>(R.id.n_sideLay)
 
         init {
             itemView.setOnClickListener {
