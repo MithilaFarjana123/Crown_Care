@@ -55,7 +55,7 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
 
 
         if(!feedbackDet.equals("")){
-            feedback_date= " Resolve by : "+ Utility.changeDateFormat(
+            feedback_date= " Approximate Resolve Date : "+ Utility.changeDateFormat(
                 feedback_date,
                 "yyyy-MM-dd",
                 "MMM dd,yyyy"
@@ -80,7 +80,7 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
                 "hh:mm:ss a"
             )
 
-        holder.seen_date.text =Utility.changeDateFormat(
+        holder.seen_date.text = Utility.changeDateFormat(
             replyTime,
             "yyyy-MM-dd hh:mm:ss",
             "MMM dd,yyyy"

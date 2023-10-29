@@ -25,6 +25,8 @@ import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import com.crowncement.crowncement_complain_management.Activity.MainActivity
 
 import com.crowncement.crowncement_complain_management.R
 import com.crowncement.crowncement_complain_management.common.ImagePathUtils
@@ -1074,9 +1076,20 @@ class Frag_genarate_complain : Fragment() {
                     it.responseData?.let { res ->
 
                         if (res.code == "200") {
+                            /*
+                            Utility.getBaseMessage(
+                                requireActivity(),
+                                "Successful",
+                                "Request submitted successfully",
+                                R.drawable.ic_checked_green,
+                                1
+                            )
 
+                             */
                             Toast.makeText(requireContext(), res.message, Toast.LENGTH_SHORT).show()
                             loadingAnim.dismiss()
+                            Utility.sendActivity(requireActivity(),"MainActivity")
+
                           //  val intent = Intent(requireContext(), Frag_history::class.java)
                            // startActivity(intent)
 
@@ -1149,10 +1162,12 @@ class Frag_genarate_complain : Fragment() {
 
                         if (res.code == "200") {
 
-                            Toast.makeText(requireContext(), "successful", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Successfully Submitted", Toast.LENGTH_SHORT).show()
+
+
+                            Utility.sendActivity(requireActivity(),"MainActivity")
                             loadingAnim.dismiss()
-                         //   val intent = Intent(requireContext(), Frag_history::class.java)
-                         //   startActivity(intent)
+
 
                         }
 

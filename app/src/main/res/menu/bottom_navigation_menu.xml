@@ -14,7 +14,7 @@
         android:icon="@drawable/complain_icon"/>
     <item
         android:id="@+id/history"
-        android:title="Archive"
+        android:title="History"
         android:icon="@drawable/history"/>
     <item
         android:id="@+id/notification"

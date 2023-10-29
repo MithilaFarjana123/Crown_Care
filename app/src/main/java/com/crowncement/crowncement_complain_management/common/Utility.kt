@@ -301,5 +301,20 @@ object Utility {
         editor.commit()
     }
 
+    fun ReturnActivity(from: Activity, className: String) {
+        var cls: Class<*>? = null
+        try {
+            cls = Class.forName("com.crowncement.salesforceapp.ui.Activity.$className")
+            val intent = Intent(from, cls)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            from.startActivity(intent)
+        //    from.overridePendingTransition(R.anim.left_in, R.anim.right_out)
+
+        } catch (e: ClassNotFoundException) {
+            Log.e(TAG, "ReturnActivity: " + e.message)
+        }
+    }
+
+
 
 }

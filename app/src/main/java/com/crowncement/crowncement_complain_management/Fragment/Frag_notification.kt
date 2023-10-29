@@ -15,16 +15,15 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -67,7 +66,6 @@ import java.util.*
 
 
 class Frag_notification : Fragment() {
-
 
     lateinit var rootView: View
     lateinit var logViewModel: ComplainSolverViewModel
@@ -129,6 +127,7 @@ class Frag_notification : Fragment() {
         // Inflate the layout for this fragment
 
         rootView = inflater.inflate(R.layout.frag_notification, container, false)
+     //   (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         ComplainSolverViewModelFactory()
         setupViewModel()
@@ -142,17 +141,25 @@ class Frag_notification : Fragment() {
         setImg()
         extension= " "
         solution_det = " "
-         id = Utility.getValueByKey(requireActivity(),"username").toString()
+        id = Utility.getValueByKey(requireActivity(),"username").toString()
         //  compdata = Utility.getsaveCompInfo(requireActivity())!!
 
-//
+        //
         if (id != null) {
             getComplainSolverDataList(id)
          //   getComplainSolverDataList("E00-005445")
           //  getComplainSolverDataList("E11-001795")
         }
+/*
+        var nback = rootView.findViewById<ImageView>(R.id.nback)
+        nback.setOnClickListener {
+            val navController =
+                requireActivity().findNavController(R.id.nav_host_fragment)
+            navController.navigate(R.id.frag_dashboard)
 
+        }
 
+ */
 
 
         return rootView
@@ -261,6 +268,8 @@ class Frag_notification : Fragment() {
             it.reqNo
         }
 
+        if (items.size>0){
+
         val notificationlogAdapter = NotificationAdapter(items)
         val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
 
@@ -276,20 +285,17 @@ class Frag_notification : Fragment() {
             override fun CancleItem(v: View?, position: Int) {
                 // val adapter = NotificationAdapter(data)
 
-                // Setting the Adapter with the recyclerview
-                // recyclerNView.adapter = adapter
-                // getCheckoutdone(data[position])
+
             }
 
             override fun OnClick(v: View?, position: Int) {
                 val userData: RequestDetails = items.get(position)
-               // saveCompInfo(userData,requireActivity())
+                // saveCompInfo(userData,requireActivity())
 
 //todo check id
-                UpdateSeenStatData(id,items[position].reqNo.toString())
-             //   UpdateSeenStatData("E00-005445",items[position].reqNo.toString())
-               // UpdateSeenStatData("E11-001795",items[position].reqNo.toString())
-
+                UpdateSeenStatData(id, items[position].reqNo.toString())
+                //   UpdateSeenStatData("E00-005445",items[position].reqNo.toString())
+                //   UpdateSeenStatData("E11-001795",items[position].reqNo.toString())
 
 
                 val v: View = layoutInflater.inflate(R.layout.notification_details, null)
@@ -299,25 +305,29 @@ class Frag_notification : Fragment() {
 
 
                 setImg(v)
-                setvalue(v,userData)
-                action(v,userData)
+                setvalue(v, userData)
+                action(v, userData)
 
 
                 dialog.setContentView(v)
                 dialog.setCancelable(true)
                 dialog.show()
-                var back : ImageView = v.findViewById(R.id.ndback)
+
+                var back: ImageView = v.findViewById(R.id.ndback)
                 back.setOnClickListener {
                     dialog.dismiss()
                 }
 
 
-
             }
 
         })
+    }
 
     }
+
+
+
 
     fun setImg(view: View){
         var img = Utility.getValueByKey(requireActivity(), "user_img").toString()
@@ -339,6 +349,8 @@ class Frag_notification : Fragment() {
             view.d_userImg.setBackgroundResource(R.drawable.human)
         }
     }
+
+
 
     fun setvalue(v: View,userData: RequestDetails){
         var data = userData
@@ -369,6 +381,7 @@ class Frag_notification : Fragment() {
         v.nd_oc_email.text=data.compEmail.toString()
         v.nd_oc_type.text = data.reqType.toString()
         v.nd_oc_details.text = data.reqDet.toString()
+
 
         var documentImg = data.reqImg.toString()
         if (documentImg.isNotEmpty()){
@@ -1641,6 +1654,22 @@ class Frag_notification : Fragment() {
 
         }
     }
+
+/*
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Handle the back button press by navigating back to the dashboard fragment
+                findNavController().navigate(R.id.frag_dashboard) // Replace with your destination's ID
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+ */
+
+
 
 
 

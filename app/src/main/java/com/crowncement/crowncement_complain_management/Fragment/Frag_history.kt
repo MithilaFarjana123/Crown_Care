@@ -203,14 +203,14 @@ class Frag_history : Fragment() {
 
         listToSendAdapter = ArrayList()
         listForOpen = ArrayList()
-        listForDone= ArrayList()
-        for (values in items){
+        listForDone = ArrayList()
+        for (values in items) {
             //  if(values.visitCard.toString().isNotEmpty()&& values.visitOutTime.equals(blank)){
 
-            if(values.trnStatus.equals("Open")){
+            if (values.trnStatus.equals("Open")) {
                 listForOpen.add(values)
 
-            }else if (values.trnStatus.equals("Done")){
+            } else if (values.trnStatus.equals("Done")) {
                 listForDone.add(values)
             }
 
@@ -225,6 +225,9 @@ class Frag_history : Fragment() {
             it.reqNo
         }
 
+
+        if(items.size>0){
+
         val comlogAdapter = ComplainAdapter(items)
         val rLayoutmanager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
 
@@ -232,7 +235,7 @@ class Frag_history : Fragment() {
         val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         history_recyclerView.layoutManager = manager
         history_recyclerView.adapter = comlogAdapter
-////////////added new
+        //added new
         comlogAdapter.setOnItemClickListener(object :
             ComplainAdapter.OnAdapterItemClickListener {
 
@@ -254,16 +257,16 @@ class Frag_history : Fragment() {
                 dialog.setContentView(v)
                 dialog.setCancelable(true)
                 dialog.show()
-                var back : ImageView = v.findViewById(R.id.rback)
+                var back: ImageView = v.findViewById(R.id.rback)
                 back.setOnClickListener {
                     dialog.dismiss()
                 }
 
 
             }
-            })
+        })
 
-
+    }
         ////////////
 
 

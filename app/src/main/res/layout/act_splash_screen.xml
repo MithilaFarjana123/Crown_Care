@@ -59,23 +59,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="0.13"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="center"
                 android:textSize="16sp"
                 android:text="@string/developed_by"
                 android:textColor="#BEBABA"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lottie"
-                app:layout_constraintVertical_bias="0.838"
-                tools:layout_editor_absoluteX="0dp" />
+                 />
 
 
             <TextView
@@ -89,10 +85,9 @@
                 android:textSize="22sp"
                 android:padding="5dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/txtAppVersionNo"
-                app:layout_constraintTop_toTopOf="@+id/textView"
-                app:layout_constraintVertical_bias="1.0"
-                tools:layout_editor_absoluteX="16dp" />
+
+             />
+
 
             <TextView
                 android:id="@+id/txtAppVersionNo"
@@ -101,10 +96,8 @@
                 android:gravity="center"
                 android:textColor="#BEBABA"
                 android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lottie"
-                app:layout_constraintVertical_bias="0.986"
-                tools:layout_editor_absoluteX="0dp" />
+
+               />
 
 
         </LinearLayout>
