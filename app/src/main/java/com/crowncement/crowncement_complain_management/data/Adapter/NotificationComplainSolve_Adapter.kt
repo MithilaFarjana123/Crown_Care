@@ -10,48 +10,30 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.crowncement.crowncement_complain_management.R
 import com.crowncement.crowncement_complain_management.common.API.Endpoint
 import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.data.Model.FollwAct
-import kotlinx.android.synthetic.main.conversation_item.view.*
-import kotlinx.android.synthetic.main.frag_history.view.*
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import com.crowncement.crowncement_complain_management.data.Model.FollwAct4GetActivity
 
-class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerView.Adapter<ComplainSolve_Adapter.MyViewHolder>() {
+class NotificationComplainSolve_Adapter (val complainList: ArrayList<FollwAct4GetActivity>) : RecyclerView.Adapter<NotificationComplainSolve_Adapter.MyViewHolder>() {
     lateinit var mContext: Context
 
-//    private lateinit var onClickListener: OnAdapterItemClickListener
-//    interface OnAdapterItemClickListener {
-//
-//        fun Onhide(v: View?, position: Int)
-//
-//    }
 
 
-//    fun setOnItemClickListener(listener: OnAdapterItemClickListener) {
-//        onClickListener = listener
-//    }
-
-
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComplainSolve_Adapter.MyViewHolder {
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationComplainSolve_Adapter.MyViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val View = inflater.inflate(R.layout.conversation_item, parent, false)
 
         return MyViewHolder(View)
-        // return MyViewHolder(View,onClickListener)
-
     }
 
 
 
-    override fun onBindViewHolder(holder: ComplainSolve_Adapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: NotificationComplainSolve_Adapter.MyViewHolder,
+        position: Int
+    ) {
         mContext = holder.itemView.context
         var visitorposition = complainList[position]
         holder.hf_reportingBName.text=complainList[position].repToName
@@ -81,7 +63,7 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
         }else if(
             (complainList.get(position).actStatus.equals("Done"))||
             (complainList.get(position).actStatus.equals("Forwarded"))
-                ){
+        ){
             holder.hf_feedback_date.visibility= View.GONE
         }
 
@@ -89,13 +71,13 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
             holder.hf_feedback_date.visibility= View.GONE
         }
 
-
+/*
         var replyTime = complainList.get(position).actTime
-            holder.seen_time.text = Utility.changeDateFormat(
-                replyTime,
-                "yyyy-MM-dd hh:mm:ss",
-                "hh:mm:ss a"
-            )
+        holder.seen_time.text = Utility.changeDateFormat(
+            replyTime,
+            "yyyy-MM-dd hh:mm:ss",
+            "hh:mm:ss a"
+        )
 
         holder.seen_date.text = Utility.changeDateFormat(
             replyTime,
@@ -103,50 +85,46 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
             "MMM dd,yyyy"
         ).toString()
 
+ */
+
+        holder.users_reply.visibility= View.GONE
 
 
-      //  var documentimg =  complainList[position].follImg.toString()
-            if(complainList[position].follImg!="") {
+        //  var documentimg =  complainList[position].follImg.toString()
+        if(complainList[position].follImg!="") {
 
-                val imgS=Endpoint.IMAGE_BASE_URL + complainList[position].follImg
-                Glide
-                    .with(mContext)
-                    .load(imgS)
-                   // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/care/follimg/" + documentimg)
-                    .error(R.drawable.document)
-                    .fitCenter()
-                   // .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    //.skipMemoryCache(true)
-                    // .placeholder(R.drawable.baseline_no_img)
-                    //  .transform(RoundedCorners(30,30.0))
-                    .into(holder.hf_document_img)
-            }else{
-                holder.hf_doc.visibility = View.GONE
+            val imgS= Endpoint.IMAGE_BASE_URL + complainList[position].follImg
+            Glide
+                .with(mContext)
+                .load(imgS)
+                // .load(Endpoint.IMAGE_BASE_URL + "/da/docs/x880022/care/follimg/" + documentimg)
+                .error(R.drawable.document)
+                .fitCenter()
+                // .diskCacheStrategy(DiskCacheStrategy.NONE)
+                //.skipMemoryCache(true)
+                // .placeholder(R.drawable.baseline_no_img)
+                //  .transform(RoundedCorners(30,30.0))
+                .into(holder.hf_document_img)
+        }else{
+            holder.hf_doc.visibility = View.GONE
 
-            }
+        }
 
         if(complainList.get(position).actStatus.equals("")){
             holder.conversation_item.visibility = View.GONE
         }
-
-
-
-
-
-
     }
 
     override fun getItemCount(): Int {
         return complainList.size
+
     }
 
 
-    class MyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
 
-       // class MyViewHolder (itemView: View,listener: ComplainSolve_Adapter.OnAdapterItemClickListener) : RecyclerView.ViewHolder(itemView){
-
+    class MyViewHolder  (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val hf_reportingBName = itemView.findViewById<TextView>(R.id.hf_reportingBName)
-      //  val hf_replyDate = itemView.findViewById<TextView>(R.id.hf_replyDate)
+        //  val hf_replyDate = itemView.findViewById<TextView>(R.id.hf_replyDate)
         val hf_reprtingBCom = itemView.findViewById<TextView>(R.id.hf_reprtingBCom)
         val hf_feedback_date = itemView.findViewById<TextView>(R.id.hf_feedback_date)
         var hf_doc = itemView.findViewById<CardView>(R.id.hf_doc)
@@ -155,21 +133,7 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
         var seen_date = itemView.findViewById<TextView>(R.id.seen_date)
         var hf_reprtingBaction =itemView.findViewById<TextView>(R.id.hf_reprtingBaction)
         var conversation_item = itemView.findViewById<LinearLayout>(R.id.conversation_item)
-        //var users_reply = itemView.findViewById<LinearLayout>(R.id.users_reply)
-
-        /*
-        init {
-            itemView.setOnClickListener {
-                listener.Onhide(itemView, adapterPosition)
-
-                itemView.users_reply.setVisibility(View.GONE);
-            }
-        }
-
-         */
-
-
+        var users_reply = itemView.findViewById<LinearLayout>(R.id.users_reply)
 
     }
-
 }

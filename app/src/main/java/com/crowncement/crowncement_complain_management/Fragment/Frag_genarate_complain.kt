@@ -115,7 +115,7 @@ class Frag_genarate_complain : Fragment() {
             Dialog(requireActivity()),
             "P l e a s e    w a i t"
         )
-        loadingAnim.show()
+      //  loadingAnim.show()
 
         ComplainViewModelFactory()
         ComplainSaveViewModelfactory()
@@ -124,7 +124,8 @@ class Frag_genarate_complain : Fragment() {
 
         purposeCategory(txtpriority)
        // clickimage()
-        getSavedDepartmentList()
+       // getSavedDepartmentList()
+        loadDepartment1(txtDepartment)
         onClickEventListener()
         date()
 
@@ -644,7 +645,7 @@ class Frag_genarate_complain : Fragment() {
                     it.responseData?.let { res ->
                         departmentList = ArrayList()
                         departmentList = res.data
-                        loadDepartment1(txtDepartment, res.data)
+                     //   loadDepartment1(txtDepartment, res.data)
                         loadingAnim.dismiss()
                     }
 
@@ -661,13 +662,20 @@ class Frag_genarate_complain : Fragment() {
     }
 
 
-    private fun loadDepartment1(ac: AutoCompleteTextView, lists: ArrayList<DepartmentData>) {
+  //  private fun loadDepartment1(ac: AutoCompleteTextView, lists: ArrayList<DepartmentData>) {
+        private fun loadDepartment1(ac: AutoCompleteTextView) {
 
         val items: ArrayList<String> = ArrayList()
-        items.add("Select Department")
+       // items.add("Select Department")
+        var UserDepartment = Utility.getValueByKey(requireActivity(),"user_dept").toString()
+        items.add(UserDepartment)
+        selectedDepartment = UserDepartment
+        /*
         for (item in lists) {
             items.add(item.Department.toString())
         }
+
+         */
 
         ac.setText(items[0])
         val adapter = ArrayAdapter(
@@ -682,9 +690,12 @@ class Frag_genarate_complain : Fragment() {
 
 
     private fun onClickEventListener() {
+        category(txtcat)
+       // selectedDepartment = rootView.txtde.text.toString()
 
+        /*
         rootView.txtDep.setOnItemClickListener { parent, arg1, position, arg3 ->
-            if (position > 0) {
+            if (position == 0) {
 
                 selectedDepartment = parent.getItemAtPosition(position).toString()
                 category(txtcat)
@@ -696,6 +707,8 @@ class Frag_genarate_complain : Fragment() {
             }
 
         }
+
+         */
 
         rootView.txtcat.setOnItemClickListener { parent, arg1, position, arg3 ->
             if (position > 0) {
@@ -840,9 +853,10 @@ class Frag_genarate_complain : Fragment() {
                         InCategoryList = ArrayList()
                         InCategoryList = res.data
                         loadInCategory(txtComCat, res.data)
-
+                        loadingAnim.dismiss()
                         //  successSavedList(res)
                     }
+
 
                 }
                 Status.LOADING -> {
@@ -861,7 +875,7 @@ class Frag_genarate_complain : Fragment() {
 
 
     private fun loadInCategory(ac: AutoCompleteTextView, lists: ArrayList<InCategory>) {
-
+        loadingAnim.dismiss()
         val items: ArrayList<String> = ArrayList()
         items.add("Select your category")
         for (item in lists) {
@@ -897,7 +911,7 @@ class Frag_genarate_complain : Fragment() {
                         TitleList = ArrayList()
                         TitleList = res.data
                         loadtitle(txtcomtilte, res.data)
-
+                        loadingAnim.dismiss()
                         //  successSavedList(res)
                     }
 

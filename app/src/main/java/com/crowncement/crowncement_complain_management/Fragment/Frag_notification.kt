@@ -35,8 +35,10 @@ import com.crowncement.crowncement_complain_management.common.ImagePathUtils
 import com.crowncement.crowncement_complain_management.common.Status
 import com.crowncement.crowncement_complain_management.common.Utility
 import com.crowncement.crowncement_complain_management.common.Utility.saveCompInfo
+import com.crowncement.crowncement_complain_management.data.Adapter.ComplainSolve_Adapter
 import com.crowncement.crowncement_complain_management.data.Adapter.EmpInfoAdapter
 import com.crowncement.crowncement_complain_management.data.Adapter.NotificationAdapter
+import com.crowncement.crowncement_complain_management.data.Adapter.NotificationComplainSolve_Adapter
 import com.crowncement.crowncement_complain_management.data.Model.*
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainSolverViewModel
 import com.crowncement.crowncement_complain_management.ui.viewmodel.ComplainViewModel
@@ -142,7 +144,6 @@ class Frag_notification : Fragment() {
         extension= " "
         solution_det = " "
         id = Utility.getValueByKey(requireActivity(),"username").toString()
-        //  compdata = Utility.getsaveCompInfo(requireActivity())!!
 
         //
         if (id != null) {
@@ -150,22 +151,16 @@ class Frag_notification : Fragment() {
          //   getComplainSolverDataList("E00-005445")
           //  getComplainSolverDataList("E11-001795")
         }
-/*
-        var nback = rootView.findViewById<ImageView>(R.id.nback)
-        nback.setOnClickListener {
-            val navController =
-                requireActivity().findNavController(R.id.nav_host_fragment)
-            navController.navigate(R.id.frag_dashboard)
 
-        }
-
- */
 
 
         return rootView
 
 
     }
+
+
+
 
     fun setImg(){
         var img = Utility.getValueByKey(requireActivity(), "user_img").toString()
@@ -303,6 +298,8 @@ class Frag_notification : Fragment() {
                 Objects.requireNonNull(dialog.window)
                     ?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
+                hide(v)
+                show(v)
 
                 setImg(v)
                 setvalue(v, userData)
@@ -323,6 +320,33 @@ class Frag_notification : Fragment() {
 
         })
     }
+
+    }
+
+
+    fun hide(view: View){
+        view.nt_details.setVisibility(View.GONE)
+        view.nt_details_goback.setVisibility(View.GONE)
+        // rootView.action_taken.setVisibility(View.GONE)
+        //   rootView.action_RecyclerView.setVisibility(View.GONE)
+        view.nt_details_more.setOnClickListener {
+            view.nt_details.setVisibility(View.VISIBLE)
+            view.nt_details_goback.setVisibility(View.VISIBLE)
+            view.nt_details_more.setVisibility(View.GONE)
+
+        }
+    }
+
+
+
+    fun show(view: View){
+        // view.hide_details.setVisibility(View.GONE)
+        view.nt_details_goback.setOnClickListener {
+            view.nt_details_goback.setVisibility(View.GONE)
+            view.nt_details.setVisibility(View.GONE)
+            view.nt_details_more.setVisibility(View.VISIBLE)
+
+        }
 
     }
 
@@ -402,6 +426,33 @@ class Frag_notification : Fragment() {
             //  rootView.d_oc_vf_img.setVisibility(View.GONE)
             v.nd_oc_img.setVisibility(View.GONE)
         }
+
+
+        //todo action taken
+        var title = data.reqCat + " Details"
+        val Status = data.trnStatus
+        v.nd_toolbar_dtitle.text = title.toString()
+        var actionTakenList = data.follwAct
+        var position = data.follwAct.size-1
+        var actStatus = actionTakenList.get(position).actStatus
+
+        val action_taken: TextView = v.findViewById(R.id.action_taken)
+
+        val recyclerView: RecyclerView = v.findViewById(R.id.RVsolution)
+
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        if(!Status.equals("Open")){
+            val adapter = NotificationComplainSolve_Adapter(actionTakenList)
+            recyclerView.adapter = adapter
+
+
+        }else{
+            action_taken.visibility= View.GONE
+            recyclerView.visibility = View.GONE
+        }
+
+
 
     }
 
@@ -561,8 +612,9 @@ class Frag_notification : Fragment() {
 
                         dialog.hide()
 
-
                     }
+
+
                     /*
                     else if((actionTaken=="done")&&saveUIValidation(v).equals(true)){
                         var act = actionTaken.toString()

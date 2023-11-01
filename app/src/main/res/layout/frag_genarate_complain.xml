@@ -85,56 +85,6 @@
             android:orientation="vertical">
 
 
-<!--        Department-->
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutComDep"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:hint="Department"
-                app:boxStrokeErrorColor="@color/orange"
-                app:errorIconTint="@color/orange"
-                app:errorTextColor="@color/orange"
-                app:startIconDrawable="@drawable/baseline_backup_table_24">
-
-                <AutoCompleteTextView
-                    android:id="@+id/txtDep"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <!--    Category-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutComtype"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:hint="Category"
-                app:boxStrokeErrorColor="@color/orange"
-                app:errorIconTint="@color/orange"
-                app:errorTextColor="@color/orange"
-                app:startIconDrawable="@drawable/baseline_follow_the_signs_24">
-
-                <AutoCompleteTextView
-                    android:id="@+id/txtcat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -180,12 +130,61 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.9"
                         android:padding="8dp"
-                        android:text="Complain Summery"
+                        android:text="Complain Summary"
                         android:textColor="#000000"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
+
+
+                <!--   Department-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutComDep"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Department"
+                    app:boxStrokeErrorColor="@color/orange"
+                    app:errorIconTint="@color/orange"
+                    app:errorTextColor="@color/orange"
+                    app:startIconDrawable="@drawable/baseline_backup_table_24">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/txtDep"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!--    Category-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutComtype"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Category"
+                    app:boxStrokeErrorColor="@color/orange"
+                    app:errorIconTint="@color/orange"
+                    app:errorTextColor="@color/orange"
+                    app:startIconDrawable="@drawable/baseline_follow_the_signs_24">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/txtcat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!--incident/Inquiry Category-->
                 <com.google.android.material.textfield.TextInputLayout

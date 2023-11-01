@@ -24,5 +24,5 @@ data class RequestDetails(
     @SerializedName("trn_flag"             ) var trnFlag            : String?             = null,
     @SerializedName("curr_emp"             ) var currEmp            : String?             = null,
     @SerializedName("comp_image"           ) var compImage          : String?             = null,
-    @SerializedName("follw_act"            ) var follwAct           : ArrayList<FollwAct> = arrayListOf()
+    @SerializedName("follw_act"            ) var follwAct           : ArrayList<FollwAct4GetActivity> = arrayListOf()
 )
