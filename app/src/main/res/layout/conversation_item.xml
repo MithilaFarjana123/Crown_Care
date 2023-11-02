@@ -277,7 +277,9 @@
 
                         </androidx.cardview.widget.CardView>
 
+
                         <ImageView
+                            android:id="@+id/hf_send"
                             android:layout_weight="0.15"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"

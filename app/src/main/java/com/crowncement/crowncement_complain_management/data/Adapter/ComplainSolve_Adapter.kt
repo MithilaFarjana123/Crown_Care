@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -27,7 +28,7 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
 //    private lateinit var onClickListener: OnAdapterItemClickListener
 //    interface OnAdapterItemClickListener {
 //
-//        fun Onhide(v: View?, position: Int)
+//        fun OnSendComment(v: View?, position: Int)
 //
 //    }
 
@@ -155,12 +156,17 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
         var seen_date = itemView.findViewById<TextView>(R.id.seen_date)
         var hf_reprtingBaction =itemView.findViewById<TextView>(R.id.hf_reprtingBaction)
         var conversation_item = itemView.findViewById<LinearLayout>(R.id.conversation_item)
-        //var users_reply = itemView.findViewById<LinearLayout>(R.id.users_reply)
+        var users_reply = itemView.findViewById<LinearLayout>(R.id.users_reply)
+        var hf_send = itemView.findViewById<ImageView>(R.id.hf_send)
+        var hf_Comment = itemView.findViewById<EditText>(R.id.hf_Comment)
+
+
+
 
         /*
         init {
             itemView.setOnClickListener {
-                listener.Onhide(itemView, adapterPosition)
+                listener.OnSendComment(itemView, adapterPosition)
 
                 itemView.users_reply.setVisibility(View.GONE);
             }

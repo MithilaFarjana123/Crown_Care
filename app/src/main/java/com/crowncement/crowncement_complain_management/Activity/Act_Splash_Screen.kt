@@ -161,10 +161,8 @@ class Act_Splash_Screen : AppCompatActivity() {
             val intent = Intent(this, Act_Login::class.java)
             startActivity(intent)
             finish()
-        }, 2000)
+        }, 3000)
     }
-
-
 
 
 
