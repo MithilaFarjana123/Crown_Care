@@ -51,7 +51,6 @@ class ComplainSolve_Adapter(val complainList: ArrayList<FollwAct>) : RecyclerVie
     }
 
 
-
     override fun onBindViewHolder(holder: ComplainSolve_Adapter.MyViewHolder, position: Int) {
         mContext = holder.itemView.context
         var visitorposition = complainList[position]

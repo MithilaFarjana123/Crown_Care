@@ -1,6 +1,5 @@
 package com.crowncement.crowncement_complain_management.common.API
 
-import com.crowncement.crowncement_complain_management.data.Escalationresponce
 import com.crowncement.crowncement_complain_management.data.Model.*
 import io.reactivex.rxjava3.core.Flowable
 import okhttp3.MultipartBody

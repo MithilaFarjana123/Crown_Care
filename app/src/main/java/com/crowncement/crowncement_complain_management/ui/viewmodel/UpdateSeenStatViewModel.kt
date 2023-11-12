@@ -3,7 +3,7 @@ package com.crowncement.crowncement_complain_management.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crowncement.crowncement_complain_management.common.Resource
-import com.crowncement.crowncement_complain_management.data.Escalationresponce
+import com.crowncement.crowncement_complain_management.data.Model.Escalationresponce
 import com.crowncement.crowncement_complain_management.data.Model.UpdateActionResponce
 import com.crowncement.crowncement_complain_management.data.Model.UpdateSeenStatResponce
 import com.crowncement.crowncement_complain_management.data.Repository.UpdateSeenStatRepository

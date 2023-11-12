@@ -152,6 +152,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/hf_feedback"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#d6eaf8"
@@ -175,12 +176,26 @@
                                 />
 
 
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="5:45 PM"
+                                android:textSize="11sp"
+                                android:padding="2dp"
+                                android:layout_marginRight="10dp"
+                                android:gravity="end"
+                                />
+
+
                         </LinearLayout>
 
 
                     </androidx.cardview.widget.CardView>
 
+
+
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/hf_action"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#d6eaf8"
@@ -203,28 +218,33 @@
                                 android:text="We are considering your issue . Make a schduale as soon as possible "
                                 />
 
+                            <TextView
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="5:45 PM"
+                                android:textSize="11sp"
+                                android:padding="2dp"
+                                android:layout_marginRight="10dp"
+                                android:gravity="end"
+                                />
+
 
                         </LinearLayout>
 
 
                     </androidx.cardview.widget.CardView>
-                    <TextView
-                        android:id="@+id/seen_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="5:45 PM"
-                        android:textSize="11sp"
-                        android:layout_marginRight="10dp"
-                        android:gravity="end"
-                        />
+
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/hf_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#e9ffef "
                         app:cardCornerRadius="20dp"
                         android:layout_gravity="right"
                         android:layout_margin="10dp">
+
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -240,6 +260,18 @@
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginRight="5dp"
                                 android:text=" solve as soon as possible "
+                                />
+
+
+                            <TextView
+                                android:id="@+id/seen_time"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="5:45 PM"
+                                android:textSize="11sp"
+                                android:padding="2dp"
+                                android:layout_marginRight="10dp"
+                                android:gravity="end"
                                 />
 
 

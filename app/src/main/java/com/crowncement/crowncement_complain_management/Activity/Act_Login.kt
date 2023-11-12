@@ -181,6 +181,11 @@ class Act_Login : AppCompatActivity() {
                             Utility.storeKeyValue(this,"user_location",user_location)
                             var user_dept= res.data?.userDept.toString()
                             Utility.storeKeyValue(this,"user_dept",user_dept)
+                            var user_number = res.data?.userMobile.toString()
+                            Utility.storeKeyValue(this,"user_number",user_number)
+                            var user_email = res.data?.userEmail.toString()
+                            Utility.storeKeyValue(this,"user_email",user_email)
+
 
                             var img = res.data?.userProfileImagePath.toString()
                             Utility.storeKeyValue(this,"user_img",img)

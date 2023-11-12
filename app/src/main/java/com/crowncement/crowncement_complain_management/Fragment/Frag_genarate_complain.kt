@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
@@ -49,6 +50,9 @@ import kotlinx.android.synthetic.main.frag_genarate_complain.view.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -63,8 +67,7 @@ class Frag_genarate_complain : Fragment() {
     lateinit var imgDocument : ImageView
 
     var result = false
-
-    lateinit var txtcomtilte : AutoCompleteTextView
+    lateinit var txtcomtilte : TextInputEditText
     lateinit var txtpriority : AutoCompleteTextView
     lateinit var txtDepartment: AutoCompleteTextView
     lateinit var txtcat : AutoCompleteTextView
@@ -99,7 +102,11 @@ class Frag_genarate_complain : Fragment() {
     val REQUEST_CODE = 200
     var firstTime = 0
 
-
+    var currentInquiryDate = ""
+   // var user_number = ""
+ //   var user_name = ""
+   // var user_email = ""
+    var inputfor = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -116,16 +123,23 @@ class Frag_genarate_complain : Fragment() {
             "P l e a s e    w a i t"
         )
       //  loadingAnim.show()
+        var user_number = Utility.getValueByKey(requireActivity(),"user_number").toString()
+        var user_name = Utility.getValueByKey(requireActivity(),"user_name").toString()
+        var user_email = Utility.getValueByKey(requireActivity(),"user_email").toString()
+        radioSelect(user_number,user_name,user_email)
 
         ComplainViewModelFactory()
         ComplainSaveViewModelfactory()
         setupViewModel()
         initiate()
 
+        var UserDepartment = Utility.getValueByKey(requireActivity(),"user_dept").toString()
+        var gc_userdepartment = rootView.findViewById<AutoCompleteTextView>(R.id.gc_userdepartment)
+        gc_userdepartment.setText(UserDepartment)
         purposeCategory(txtpriority)
        // clickimage()
-       // getSavedDepartmentList()
-        loadDepartment1(txtDepartment)
+        getSavedDepartmentList()
+       //  loadDepartment1(txtDepartment)
         onClickEventListener()
         date()
 
@@ -133,6 +147,21 @@ class Frag_genarate_complain : Fragment() {
         return rootView
     }
 
+    fun radioSelect(user_number:String,user_name:String,user_email:String){
+        var self = rootView.findViewById<RadioButton>(R.id.self)
+        var other = rootView.findViewById<RadioButton>(R.id.Other)
+        self.setOnClickListener {
+            inputfor = "Self"
+            rootView.txtcomplainername.setText(user_name)
+            rootView.txtnum.setText(user_number)
+            rootView.txtEmail.setText(user_email)
+        }
+        other.setOnClickListener {
+            inputfor = "Other"
+        }
+
+
+    }
 
 
 
@@ -211,10 +240,10 @@ class Frag_genarate_complain : Fragment() {
 }
 
     //Todo initiate
-    public fun initiate(){
+     fun initiate(){
         datetext = rootView.findViewById<TextInputEditText>(R.id.txtComdate)
         Expdatetext = rootView.findViewById<TextInputEditText>(R.id.txtExpdate)
-        txtcomtilte=rootView.findViewById<AutoCompleteTextView>(R.id.txtcomtilte)
+        txtcomtilte=rootView.findViewById<TextInputEditText>(R.id.txtcomtilte)
         txtDepartment = rootView.findViewById<AutoCompleteTextView>(R.id.txtDep)
         txtpriority = rootView.findViewById<AutoCompleteTextView>(R.id.txtpriority)
         txtcat = rootView.findViewById<AutoCompleteTextView>(R.id.txtcat)
@@ -645,7 +674,7 @@ class Frag_genarate_complain : Fragment() {
                     it.responseData?.let { res ->
                         departmentList = ArrayList()
                         departmentList = res.data
-                     //   loadDepartment1(txtDepartment, res.data)
+                        loadDepartment1(txtDepartment, res.data)
                         loadingAnim.dismiss()
                     }
 
@@ -662,20 +691,20 @@ class Frag_genarate_complain : Fragment() {
     }
 
 
-  //  private fun loadDepartment1(ac: AutoCompleteTextView, lists: ArrayList<DepartmentData>) {
-        private fun loadDepartment1(ac: AutoCompleteTextView) {
+    private fun loadDepartment1(ac: AutoCompleteTextView, lists: ArrayList<DepartmentData>) {
+      //  private fun loadDepartment1(ac: AutoCompleteTextView) {
 
         val items: ArrayList<String> = ArrayList()
-       // items.add("Select Department")
-        var UserDepartment = Utility.getValueByKey(requireActivity(),"user_dept").toString()
-        items.add(UserDepartment)
-        selectedDepartment = UserDepartment
-        /*
+        items.add("Select Department")
+      //  var UserDepartment = Utility.getValueByKey(requireActivity(),"user_dept").toString()
+     //   items.add(UserDepartment)
+      //  selectedDepartment = UserDepartment
+
         for (item in lists) {
             items.add(item.Department.toString())
         }
 
-         */
+
 
         ac.setText(items[0])
         val adapter = ArrayAdapter(
@@ -690,36 +719,43 @@ class Frag_genarate_complain : Fragment() {
 
 
     private fun onClickEventListener() {
+       // layoutComdate.visibility = View.GONE
         category(txtcat)
        // selectedDepartment = rootView.txtde.text.toString()
 
-        /*
-        rootView.txtDep.setOnItemClickListener { parent, arg1, position, arg3 ->
-            if (position == 0) {
-
-                selectedDepartment = parent.getItemAtPosition(position).toString()
-                category(txtcat)
-               // result=true
-
-               // getSavedInCategorytList(selectedCategory, selectedDivision)
-            } else {
-                selectedDepartment = ""
-            }
-
-        }
-
-         */
 
         rootView.txtcat.setOnItemClickListener { parent, arg1, position, arg3 ->
             if (position > 0) {
 
                 selectedCategory = parent.getItemAtPosition(position).toString()
-                if(selectedDepartment.isNotEmpty()&&selectedCategory.isNotEmpty()){
-                        getSavedInCategorytList(selectedCategory, selectedDepartment)
-                    }
+                if(selectedCategory.equals("Inquiry")){
+                    layoutComdate.visibility = View.GONE
+                }else if(selectedCategory.equals("Incident")){
+                    layoutComdate.visibility = View.VISIBLE
+                }
+//                if(selectedDepartment.isNotEmpty()&&selectedCategory.isNotEmpty()){
+//                        getSavedInCategorytList(selectedCategory, selectedDepartment)
+//                    }
             } else {
                 selectedCategory = ""
             }
+        }
+
+        rootView.txtDep.setOnItemClickListener { parent, arg1, position, arg3 ->
+            if (position > 0) {
+
+                selectedDepartment = parent.getItemAtPosition(position).toString()
+               // category(txtcat)
+               // result=true
+                if(selectedDepartment.isNotEmpty()&&selectedCategory.isNotEmpty()){
+                    getSavedInCategorytList(selectedCategory, selectedDepartment)
+                }
+
+             //   getSavedInCategorytList(selectedCategory, selectedDepartment)
+            } else {
+                selectedDepartment = ""
+            }
+
         }
 
 
@@ -729,7 +765,7 @@ class Frag_genarate_complain : Fragment() {
                 selectedTitle = parent.getItemAtPosition(position).toString()
                 if(selectedDepartment.isNotEmpty()&&selectedCategory.isNotEmpty()
                     &&selectedTitle.isNotEmpty()){
-                    getSavedTitleList(selectedCategory, selectedDepartment,selectedTitle)
+                  //  getSavedTitleList(selectedCategory, selectedDepartment,selectedTitle)
                 }
             } else {
                 selectedTitle = ""
@@ -748,10 +784,6 @@ class Frag_genarate_complain : Fragment() {
             openGalleryForImages()
         }
 
-//        rootView.btnAddNew.setOnClickListener {
-//            saveUIValidation()
-//        }
-
         //save
         rootView.btnAddNew.setOnClickListener {
           //  val user_id="E00-005445"
@@ -762,13 +794,7 @@ class Frag_genarate_complain : Fragment() {
             val req_type=txtComCat.text.toString()
             val req_title=txtcomtilte.text.toString()
             val req_det=txtcomsum.text.toString()
-//            val dt = Utility.changeDateFormat(
-//                txtComdate.text.toString(),
-//                "dd-MMM-yyyy",
-//                "yyyy-MM-dd"
-//
-//            )
-//
+
             var occ_date = rootView.txtComdate.text.toString()
             var comp_mob=rootView.txtnum.text.toString()
             var comp_email=rootView.txtEmail.text.toString()
@@ -814,16 +840,48 @@ class Frag_genarate_complain : Fragment() {
 
 
                 if(cardFile.size > 0){
-                    saveNewComplainImg(
+                    if(selectedCategory.equals("Inquiry")){
+                        //need to add currentdate
+                        val cldr = Calendar.getInstance()
+                        val day = cldr[Calendar.DAY_OF_MONTH]
+                        val month = cldr[Calendar.MONTH]
+                        val year = cldr[Calendar.YEAR]
+                        val inquirydate = "$year-$month-$day"
+
+                        saveNewComplainImg(
+                            user_id.toString(), dept_code, req_cat, req_type,
+                            req_title, req_det, inquirydate, comp_mob, comp_email, req_prior,"png"
+                            ,finalFile,comp_name,exp_solve_date,dialog)
+
+                    }else if(selectedCategory.equals("Incident")){
+
+                        saveNewComplainImg(
                         user_id.toString(), dept_code, req_cat, req_type,
                         req_title, req_det, occ_date, comp_mob, comp_email, req_prior,"png"
-                                ,finalFile,comp_name,exp_solve_date,dialog)
-                }else{
+                                ,finalFile,comp_name,exp_solve_date,dialog)}
+                }else {
+
+                    if(selectedCategory.equals("Inquiry")){
+                        //need to add currentdate
+                        val cldr = Calendar.getInstance()
+                        val day = cldr[Calendar.DAY_OF_MONTH]
+                        val month = cldr[Calendar.MONTH]
+                        val year = cldr[Calendar.YEAR]
+                        val inquirydate = "$year-$month-$day"
+                        saveNewComplain(
+                            user_id.toString(), dept_code, req_cat, req_type,
+                            req_title, req_det, inquirydate, comp_mob, comp_email, req_prior, comp_name,
+                            exp_solve_date, dialog
+                        )
+
+
+                }else if(selectedCategory.equals("Incident")){
                     saveNewComplain(
                         user_id.toString(), dept_code, req_cat, req_type,
                         req_title, req_det, occ_date, comp_mob, comp_email, req_prior, comp_name,
-                        exp_solve_date,dialog
+                        exp_solve_date, dialog
                     )
+                }
 
                 }
 
@@ -910,7 +968,7 @@ class Frag_genarate_complain : Fragment() {
                     it.responseData?.let { res ->
                         TitleList = ArrayList()
                         TitleList = res.data
-                        loadtitle(txtcomtilte, res.data)
+                      //  loadtitle(txtcomtilte, res.data)
                         loadingAnim.dismiss()
                         //  successSavedList(res)
                     }

@@ -88,6 +88,7 @@ class Frag_history : Fragment() {
         val currentDateTime = LocalDateTime.now()
         val currentYear = currentDateTime.year.toString()
         val currentMonth = currentDateTime.monthValue.toString()
+        val currentdate = currentDateTime.toLocalDate()
         var user_id: String? = Utility.getValueByKey(requireActivity(),"username")
 
         if (user_id != null) {

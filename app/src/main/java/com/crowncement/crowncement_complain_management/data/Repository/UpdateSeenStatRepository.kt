@@ -5,15 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import com.crowncement.crowncement_complain_management.common.API.GetDataService
 import com.crowncement.crowncement_complain_management.common.API.RetrofitClientInstance
 import com.crowncement.crowncement_complain_management.common.Resource
-import com.crowncement.crowncement_complain_management.data.Escalationresponce
+import com.crowncement.crowncement_complain_management.data.Model.Escalationresponce
 import com.crowncement.crowncement_complain_management.data.Model.UpdateActionResponce
 import com.crowncement.crowncement_complain_management.data.Model.UpdateSeenStatResponce
-import com.google.gson.Gson
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 
 object UpdateSeenStatRepository {
 

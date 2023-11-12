@@ -14,7 +14,8 @@ data class Data(
     @SerializedName("user_join"               ) var userJoin             : String? = null,
     @SerializedName("user_bid"                ) var userBid              : String? = null,
     @SerializedName("user_profile_image_path" ) var userProfileImagePath : String? = null,
-    @SerializedName("user_access"             ) var userAccess           : String? = null
+    @SerializedName("user_access"             ) var userAccess           : String? = null,
+    @SerializedName("user_email"              ) var userEmail            : String? = null
 
 
 

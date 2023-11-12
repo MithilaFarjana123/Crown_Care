@@ -155,7 +155,6 @@ class Act_Splash_Screen : AppCompatActivity() {
         lottie.startAnimation(leftAnimation)
 
 
-
         // Delay for a few seconds and then launch the main activity
         Handler().postDelayed({
             val intent = Intent(this, Act_Login::class.java)
@@ -200,9 +199,9 @@ class Act_Splash_Screen : AppCompatActivity() {
             }
         } catch (e: Exception) {
             val error = e.message
-
         }
     }
+
 
     private fun hasPermissions(context: Context, vararg permissions: String): Boolean =
         permissions.all {
@@ -281,6 +280,7 @@ class Act_Splash_Screen : AppCompatActivity() {
                 }
             }
     }
+
 
     private fun getAppVersionInfo(res: AppVersionResponse) {
 

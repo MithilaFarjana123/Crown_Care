@@ -33,11 +33,11 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="25dp"
                     android:layout_weight="0.7"
-                    android:fontFamily="@font/roboto_light"
+                    android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
-                    android:text="Give us your Headache and we will we'll handel it"
+                    android:text="Give us your Headache and we'll handle it"
                     android:textColor="@color/white"
-                    android:textSize="17sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"/>
 
 
@@ -61,41 +61,38 @@
         android:orientation="vertical"
         android:layout_weight="0.8">
 
-
-            <TextView
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/roboto_bold"
-                android:gravity="center"
-                android:text="Please enter the following information"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/half_curved"
-            android:orientation="vertical">
+            android:layout_marginBottom="5dp"
+            android:background="#CCCCCC"
+            android:orientation="horizontal">
+
+
 
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:padding="8dp"
+                android:text="Raise your concern"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:paddingLeft="7dp"
-                android:text=""
-                android:textSize="12sp" />
-
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
+
+
+
+
+
+
+
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,58 +109,68 @@
                 android:background="@drawable/half_curved"
                 android:orientation="vertical">
 
-                <LinearLayout
+
+                <TextView
+                    android:layout_marginRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:background="#CCCCCC"
+                    android:padding="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:textStyle="bold"
+                    android:text="For whom you are going to submit?"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    />
+
+
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
                     android:orientation="horizontal">
 
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.1"
-                        android:padding="5dp"
-                        android:src="@drawable/baseline_playlist_add_24" />
-
-                    <TextView
+                    <RadioButton android:id="@+id/self"
+                        android:layout_weight="0.3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
-                        android:padding="8dp"
-                        android:text="Complain Summary"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                        android:text="Self"
+                        android:onClick="onRadioButtonClicked"/>
 
 
-                <!--   Department-->
+
+                    <RadioButton android:id="@+id/Other"
+                        android:layout_weight="0.3"
+                        android:layout_width="0dp"                    android:layout_height="wrap_content"
+                        android:text="Other"
+                        android:onClick="onRadioButtonClicked"/>
+                </RadioGroup>
+
+
+                <!--  complainers Department-->
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layoutComDep"
+                    android:id="@+id/layoutComplainersDep"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:hint="Department"
+                    android:hint="Your Department"
                     app:boxStrokeErrorColor="@color/orange"
                     app:errorIconTint="@color/orange"
                     app:errorTextColor="@color/orange"
-                    app:startIconDrawable="@drawable/baseline_backup_table_24">
+                    app:startIconDrawable="@drawable/baseline_sensor_occupied_24">
 
                     <AutoCompleteTextView
-                        android:id="@+id/txtDep"
+                        android:id="@+id/gc_userdepartment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
 
                 <!--    Category-->
                 <com.google.android.material.textfield.TextInputLayout
@@ -187,6 +194,33 @@
                         android:focusable="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <!--   Department-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutComDep"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Subject related to which Department"
+                    app:boxStrokeErrorColor="@color/orange"
+                    app:errorIconTint="@color/orange"
+                    app:errorTextColor="@color/orange"
+                    app:startIconDrawable="@drawable/baseline_backup_table_24">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/txtDep"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
                 <!--incident/Inquiry Category-->
                 <com.google.android.material.textfield.TextInputLayout
@@ -212,28 +246,52 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Title-->
+<!--                &lt;!&ndash; Title dropdown&ndash;&gt;-->
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/layoutComtitle"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:layout_marginRight="10dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:hint="Title"-->
+<!--                    app:boxStrokeErrorColor="@color/orange"-->
+<!--                    app:errorIconTint="@color/orange"-->
+<!--                    app:errorTextColor="@color/orange"-->
+<!--                    app:startIconDrawable="@drawable/baseline_title_24">-->
+
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/txtcomtilte"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:focusable="false" />-->
+
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+                <!-- Title edittext-->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutComtitle"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="Title"
                     app:boxStrokeErrorColor="@color/orange"
+                    app:endIconMode="clear_text"
                     app:errorIconTint="@color/orange"
                     app:errorTextColor="@color/orange"
                     app:startIconDrawable="@drawable/baseline_title_24">
 
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txtcomtilte"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusable="false" />
-
+                        android:background="@color/transparent"
+                        android:hint="Title"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
+
 
                 <!-- Details-->
                 <com.google.android.material.textfield.TextInputLayout
